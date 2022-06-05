@@ -1,6 +1,7 @@
 
 
 
+import 'package:final_pro/modules/login_screen/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexagon/hexagon.dart';
@@ -71,7 +72,9 @@ class _Sign_UpState extends State<Sign_Up> {
                 ),
                 Container(
                     width: MediaQuery.of(context).size.width,
-                    child: defaulttff(text: '',
+                    child: defaulttff(
+                        context: context,
+                        text: '',
                       validatortext: 'username must not be empty',
                         controller: usernameController,
                         onsubmit: (){
@@ -89,7 +92,9 @@ class _Sign_UpState extends State<Sign_Up> {
                 ),
                 Container(
                     width: MediaQuery.of(context).size.width,
-                    child: defaulttff(text: '',
+                    child: defaulttff(
+                        context: context,
+                        text: '',
                       validatortext: 'Email address must not be empty',
                         controller: emailController,
                         onsubmit: (){
@@ -108,6 +113,7 @@ class _Sign_UpState extends State<Sign_Up> {
                 Container(
                   width: MediaQuery.of(context).size.width,
                   child: defaulttff(
+                    context: context,
                     controller: passwordController,
                     onsubmit: (){},
                     onchanged: (){},
@@ -139,6 +145,7 @@ class _Sign_UpState extends State<Sign_Up> {
                 Container(
                   width: MediaQuery.of(context).size.width,
                   child: defaulttff(
+                    context: context,
                     controller: cpasswordController,
                     onsubmit: (){},
                     onchanged: (){},
@@ -187,7 +194,9 @@ class _Sign_UpState extends State<Sign_Up> {
 
                     Container(
                       width: MediaQuery.of(context).size.width/8,
-                      child: TextButton(onPressed: (){},child: const Text('login'),
+                      child: TextButton(onPressed: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>Login()));
+                      },child: const Text('login'),
                       ),
                     ),
                   ],

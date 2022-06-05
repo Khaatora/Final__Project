@@ -12,9 +12,10 @@ import 'package:flutter/material.dart';
   required TextInputType type,
   required Function onsubmit,
   required Function onchanged,
-
+  required BuildContext context,
 })=> TextFormField(
 
+style:Theme.of(context).textTheme.bodyText1,
 
 controller:controller,
 keyboardType:type,

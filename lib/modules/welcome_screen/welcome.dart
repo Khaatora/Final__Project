@@ -14,11 +14,6 @@ class Welcome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 0.0,
-        backgroundColor: Colors.white,
-      ),
 
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -27,24 +22,28 @@ class Welcome extends StatelessWidget {
           child:Column(
             crossAxisAlignment:CrossAxisAlignment.start ,
             children: [
-              Row(
-                crossAxisAlignment:CrossAxisAlignment.center,
-                mainAxisAlignment:MainAxisAlignment.center ,
-                children: const [
-                  Image(image:AssetImage('assets/images/logo.png'),
-                    height: 150,
-                    width: 150,
-                  ),
-                ],
-              ),
 
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 40),
-                child: Image(image:AssetImage('assets/images/Group.png'),
-                  height: 250,
-                  width: 250,
-                ),
-              ),
+
+
+                  Center(
+                    child: Image(image:AssetImage('assets/images/logo.png'),
+                      height: 150,
+                      width: 150,
+                    ),
+                  ),
+
+
+
+             Padding(
+               padding: const EdgeInsets.only(right: 30),
+               child: Center(
+                 child: Image(image:AssetImage('assets/images/Group.png'),
+                      height: 250,
+                      width: 250,
+                    ),
+               ),
+             ),
+
 
 
               Column(
@@ -52,6 +51,7 @@ class Welcome extends StatelessWidget {
                   Row(
                     children: [
                       Image(image:AssetImage('assets/images/hexagon-shape-by-Vexels copy 2.png'),),
+                     SizedBox(width: 10,),
                       Text('make a board to organize anything',
 
                         style: TextStyle(
@@ -63,7 +63,7 @@ class Welcome extends StatelessWidget {
                   ),
 
                   Padding(
-                    padding: const EdgeInsets.only(right: 185),
+                    padding: const EdgeInsets.only(right: 160),
                     child: Text('with any one',
                       style: TextStyle(
                         fontSize: 21,
@@ -84,6 +84,7 @@ class Welcome extends StatelessWidget {
                   Row(
                     children: [
                       Image(image:AssetImage('assets/images/hexagon-shape-by-Vexels copy 2.png'),),
+                      SizedBox(width: 10,),
                       Text('add task to list in the board and',
 
                         style: TextStyle(
@@ -95,7 +96,7 @@ class Welcome extends StatelessWidget {
                   ),
 
                   Padding(
-                    padding: const EdgeInsets.only(right: 110),
+                    padding: const EdgeInsets.only(right: 90),
                     child: Text('add detail to the task',
                       style: TextStyle(
                         fontSize: 21,
@@ -107,7 +108,9 @@ class Welcome extends StatelessWidget {
               ),
               const SizedBox(height: 10,),
               Row(children: [
+
                 Image(image:AssetImage('assets/images/hexagon-shape-by-Vexels copy 2.png'),),
+                SizedBox(width: 10,),
                 Column(
                   crossAxisAlignment:CrossAxisAlignment.start ,
                   children: [
@@ -121,28 +124,17 @@ class Welcome extends StatelessWidget {
 
                   ],
                 ),
-
-
               ],
               ),
-
               const SizedBox(height: 20,),
-
-
-
-
-
-
-
-
-
               Center(
                 child: Container(
+                 width: MediaQuery.of(context).size.width/2,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     color: Colors.blue.withRed(46).withGreen(132).withBlue(245),
                   ),
-                  width: 200,
+
 
 
                   child: MaterialButton(onPressed: (){
@@ -164,11 +156,11 @@ class Welcome extends StatelessWidget {
               Center(
                 child: Container(
 
-                  height: 60,
+                  height: MediaQuery.of(context).size.height/15,
 
                   child: Image(image:AssetImage('assets/images/bold-Vexels.png'),
-                    height: 90,
-                    width: 90,
+                    height: 120,
+                    width: 120,
                   ),
                 ),
               ),

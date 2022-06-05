@@ -9,20 +9,15 @@ class SucessListCubit extends Cubit<SuccessListStates>{
 
 
   static SucessListCubit get(context)=>BlocProvider.of(context);
-  bool ispassword=true;
-  bool ispassword2=true;
 
-  bool checkfirst(){
-    ispassword=!ispassword;
-  emit(SuccessListChangePasswordFirstState());
-  print('ispassword: '+ispassword.toString());
-  return ispassword;
-  }
+bool isDark=false;
 
-  void checksecond(){
-    ispassword2=!ispassword2;
-  emit(SuccessListChangePasswordSecondState());
-    print('ispassword2: '+ispassword2.toString());
-  }
+void changeappmode(){
+  isDark=!isDark;
+emit(SuccessListAppModeChangeState());
+}
+
+
+
 
 }

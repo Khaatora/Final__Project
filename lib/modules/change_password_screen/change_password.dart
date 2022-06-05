@@ -7,6 +7,7 @@
 
 import 'dart:io';
 
+import 'package:final_pro/modules/successlistcubit/cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:hexagon/hexagon.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -64,8 +65,12 @@ class _ChangePasswordState extends State<ChangePassword> {
                     SizedBox(height: 20,),
                     Padding(
                       padding: const EdgeInsets.only(left: 350),
-                      child: Icon(Icons.brightness_4_outlined,
+                      child: IconButton(icon: Icon(Icons.brightness_4_outlined,
                           color: Colors.black),
+                      onPressed: (){
+                        SucessListCubit.get(context).changeappmode();
+                      },
+                      ),
                     ),
 
                     HexagonWidget.flat(
@@ -91,6 +96,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                     Container(
                       width: MediaQuery.of(context).size.width,
                       child: defaulttff(
+                        context: context,
                         controller: usernameController,
                         onsubmit: () {},
                         onchanged: () {},
@@ -108,7 +114,9 @@ class _ChangePasswordState extends State<ChangePassword> {
                       ),),
                     Container(
                       width: MediaQuery.of(context).size.width,
-                      child: defaulttff(controller: emailController,
+                      child: defaulttff(
+                        context: context,
+                        controller: emailController,
                         onsubmit: () {},
                         onchanged: () {},
                         type: TextInputType.text,
@@ -127,6 +135,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                     Container(
                       width: MediaQuery.of(context).size.width,
                       child: defaulttff(
+                        context: context,
                         controller: cpasswordController,
                         onsubmit: (){},
                         onchanged: (){},
@@ -145,15 +154,10 @@ class _ChangePasswordState extends State<ChangePassword> {
                                 ispassword=!ispassword;
                               });}),
 
-
                       ),
                     ),
 
-
-
-
                     SizedBox(height: 10,),
-
 
                     Container(
                       height: 2,
@@ -174,8 +178,8 @@ class _ChangePasswordState extends State<ChangePassword> {
                         color: Colors.blue,
                       ),
 
-
-                    ),),
+                    ),
+                    ),
                     Container(
                       height: 2,
                       width: double.infinity,
@@ -188,14 +192,12 @@ class _ChangePasswordState extends State<ChangePassword> {
                         color: HexColor('#7c828d'),
                       ),
 
-
                     ),
                     TextButton(onPressed: () {}, child: Text('Contact Us',
                       style: TextStyle(
                         fontSize: 16,
                         color: Colors.blue,
                       ),
-
 
                     ),),
                     TextButton(onPressed: () {}, child: Text('Privacy Policy',
@@ -204,7 +206,6 @@ class _ChangePasswordState extends State<ChangePassword> {
                         color: Colors.blue,
                       ),
 
-
                     ),),
                     TextButton(onPressed: () {}, child: Text('Terms of service',
                       style: TextStyle(
@@ -212,18 +213,14 @@ class _ChangePasswordState extends State<ChangePassword> {
                         color: Colors.blue,
                       ),
 
-
                     ),),
                     Center(
-
                       child: Container(
                       width: MediaQuery.of(context).size.width/2,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: Colors.red,
                         ),
-
-
 
                         child: MaterialButton(onPressed: () {
                           Navigator.push(context, MaterialPageRoute(
@@ -247,6 +244,4 @@ class _ChangePasswordState extends State<ChangePassword> {
       ),
     );
   }
-
-
 }

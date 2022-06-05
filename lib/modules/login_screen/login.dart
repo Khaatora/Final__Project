@@ -1,8 +1,10 @@
 
+import 'package:final_pro/modules/change_password_screen/change_password.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '../../shared/components/default_tff.dart';
+import '../sign_up_screen/sign_up.dart';
 
 
 
@@ -57,6 +59,7 @@ class _LoginState extends State<Login> {
                 Container(
                   width: MediaQuery.of(context).size.width,
                   child: defaulttff(
+                    context: context,
                     controller: emailController,
                     onsubmit: (){},
                     onchanged: (){},
@@ -77,6 +80,7 @@ class _LoginState extends State<Login> {
                 Container(
                   width: MediaQuery.of(context).size.width,
                   child: defaulttff(
+                    context: context,
                     controller: passwordController,
                     onsubmit: (){},
                     onchanged: (){},
@@ -98,7 +102,9 @@ class _LoginState extends State<Login> {
                 Row(
                   mainAxisAlignment:MainAxisAlignment.end,
                   children: [TextButton(
-                    onPressed: (){},
+                    onPressed: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>ChangePassword()));
+                    },
                     child: Text('Forgot password?',
                       style: TextStyle(color: Colors.grey,),),),],
                 ),
@@ -128,7 +134,10 @@ class _LoginState extends State<Login> {
                   mainAxisAlignment:MainAxisAlignment.start ,
                   children: [
                     const  Text('need an account?'),
-                    TextButton(onPressed: (){},
+                    TextButton(onPressed: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>Sign_Up()));
+
+                    },
                       child: Text('register'),
                     ),
                   ],
