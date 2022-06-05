@@ -1,5 +1,3 @@
-
-
 import 'package:final_pro/modules/change_password_screen/change_password.dart';
 import 'package:final_pro/modules/login_screen/login.dart';
 import 'package:final_pro/modules/password_recovery_screen/password_recovery.dart';
@@ -12,84 +10,85 @@ import 'modules/sign_up_screen/sign_up.dart';
 import 'modules/successlistcubit/cubit.dart';
 import 'modules/welcome_screen/welcome.dart';
 
-
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-void main() async{
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(new MyApp());
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
 }
 
 class MyApp extends StatelessWidget {
-
+  final _initializaiton = Firebase.initializeApp();
 
   @override
   Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: _initializaiton,
+      builder: (context, snapshot) {
 
-    return BlocProvider(
-      create: (context)=>SucessListCubit(),
-      child:BlocConsumer<SucessListCubit,SuccessListStates>(
-        listener:(context,state)=>{} ,
-        builder:(context,state){
-          return  MaterialApp(
+        if (snapshot.connectionState != ConnectionState.done){
+          return Center(child : CircularProgressIndicator());
+        }
 
-
-            home:Welcome(),
-            theme:ThemeData(
-              textTheme: TextTheme(
-                bodyText1: TextStyle(
-                  color: Colors.black,
-                  fontSize: 17,
-
+        return BlocProvider(
+          create: (context) => SucessListCubit(),
+          child: BlocConsumer<SucessListCubit, SuccessListStates>(
+            listener: (context, state) => {},
+            builder: (context, state) {
+              return MaterialApp(
+                home: Welcome(),
+                theme: ThemeData(
+                  textTheme: TextTheme(
+                    bodyText1: TextStyle(
+                      color: Colors.black,
+                      fontSize: 17,
+                    ),
+                  ),
+                  primarySwatch: Colors.deepOrange,
+                  scaffoldBackgroundColor: Colors.white,
+                  appBarTheme: AppBarTheme(
+                    backwardsCompatibility: false,
+                    systemOverlayStyle: SystemUiOverlayStyle(
+                      statusBarColor: Colors.black,
+                      statusBarIconBrightness: Brightness.light,
+                    ),
+                    backgroundColor: Colors.white,
+                    elevation: 0.0,
+                  ),
                 ),
-              ),
-              primarySwatch: Colors.deepOrange,
-              scaffoldBackgroundColor: Colors.white,
-              appBarTheme: AppBarTheme(
-                backwardsCompatibility: false,
-                systemOverlayStyle: SystemUiOverlayStyle(
-                  statusBarColor: Colors.black,
-                  statusBarIconBrightness: Brightness.light,
+                darkTheme: ThemeData(
+                  textTheme: TextTheme(
+                    bodyText1: TextStyle(
+                      color: Colors.white,
+                      fontSize: 17,
+                    ),
+                  ),
+                  scaffoldBackgroundColor: HexColor('#333739'),
+                  primarySwatch: Colors.deepOrange,
+                  appBarTheme: AppBarTheme(
+                    backwardsCompatibility: false,
+                    systemOverlayStyle: SystemUiOverlayStyle(
+                      statusBarColor: HexColor('#333739'),
+                      statusBarIconBrightness: Brightness.light,
+                    ),
+                    backgroundColor: HexColor('#333739'),
+                    elevation: 0.0,
+                  ),
                 ),
-                backgroundColor:Colors.white,
-                elevation: 0.0,
-              ),
-            ),
-            darkTheme: ThemeData(
-              textTheme: TextTheme(
-                bodyText1: TextStyle(
-                  color: Colors.white,
-                  fontSize: 17,
-                ),
-              ),
-              scaffoldBackgroundColor:HexColor('#333739'),
-
-              primarySwatch: Colors.deepOrange,
-              appBarTheme: AppBarTheme(
-                backwardsCompatibility: false,
-                systemOverlayStyle: SystemUiOverlayStyle(
-                  statusBarColor: HexColor('#333739'),
-                  statusBarIconBrightness: Brightness.light,
-                ),
-                backgroundColor:HexColor('#333739'),
-                elevation: 0.0,
-              ),
-
-            ),
-            themeMode: SucessListCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light ,
-            debugShowCheckedModeBanner: false,
-
-
-
-          );
-        },
-      ),
-
-
+                themeMode: SucessListCubit.get(context).isDark
+                    ? ThemeMode.dark
+                    : ThemeMode.light,
+                debugShowCheckedModeBanner: false,
+              );
+            },
+          ),
+        );
+      }
     );
   }
 }
