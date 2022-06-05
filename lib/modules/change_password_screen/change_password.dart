@@ -33,15 +33,13 @@ class _ChangePasswordState extends State<ChangePassword> {
   var emailController = TextEditingController();
   var cpasswordController = TextEditingController();
   var formkey=GlobalKey<FormState>();
-  late PickedFile _imageFile;
-  final ImagePicker _picker = ImagePicker();
+
 
 
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
-
 
       body: SingleChildScrollView(
         child: Container(
@@ -64,8 +62,23 @@ class _ChangePasswordState extends State<ChangePassword> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 20,),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 350),
+                      child: Icon(Icons.brightness_4_outlined,
+                          color: Colors.black),
+                    ),
 
-                  imageProfile(),
+                    HexagonWidget.flat(
+                      width: 100,
+                      color: HexColor('#889EB4'),
+                      padding: 4.0,
+                      child: Image(
+                        height: 300,
+                        width: 300,
+                        image: NetworkImage('https://bin.yhdistysavain.fi/1575260/MbR2E7GAwCNq2SYSbQez0StVh6/HabdaSq.png'),),
+                    ),
+                    Center(child: TextButton(onPressed: (){}, child: Text('Change Profile Picture'))),
+
 
                     Text('username',
                       style: TextStyle(
@@ -136,13 +149,9 @@ class _ChangePasswordState extends State<ChangePassword> {
                       ),
                     ),
 
-                    SizedBox(height: 20,),
 
-                    Container(
-                      height: 2,
-                      width: double.infinity,
-                      color: HexColor('#7c828d'),
-                    ),
+
+
                     SizedBox(height: 10,),
 
 
@@ -206,12 +215,14 @@ class _ChangePasswordState extends State<ChangePassword> {
 
                     ),),
                     Center(
+
                       child: Container(
+                      width: MediaQuery.of(context).size.width/2,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: Colors.red,
                         ),
-                        width: 200,
+
 
 
                         child: MaterialButton(onPressed: () {
@@ -237,84 +248,5 @@ class _ChangePasswordState extends State<ChangePassword> {
     );
   }
 
-
-
-
-  Widget bottomSheet() {
-    return Container(
-      height: 100.0,
-      width: MediaQuery.of(context).size.width,
-      margin: EdgeInsets.symmetric(
-        horizontal: 20,
-        vertical: 20,
-      ),
-      child: Column(
-        children: <Widget>[
-          Text(
-            "Choose Profile photo",
-            style: TextStyle(
-              fontSize: 20.0,
-            ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-            FlatButton.icon(
-              icon: Icon(Icons.camera),
-              onPressed: () {
-                takePhoto(ImageSource.camera);
-              },
-              label: Text("Camera"),
-            ),
-            FlatButton.icon(
-              icon: Icon(Icons.image),
-              onPressed: () {
-                takePhoto(ImageSource.gallery);
-              },
-              label: Text("Gallery"),
-            ),
-          ])
-        ],
-      ),
-    );
-  }
-  void takePhoto(ImageSource source) async {
-    final pickedFile = await _picker.getImage(
-      source: source,
-    );
-    setState(() {
-      _imageFile = pickedFile!;
-    });
-  }
-  Widget imageProfile() {
-    return Center(
-      child: Stack(children: <Widget>[
-        CircleAvatar(
-          radius: 80.0,
-          backgroundImage: _imageFile == null
-              ? null
-              : FileImage(File(_imageFile.path)),
-        ),
-        Positioned(
-          bottom: 20.0,
-          right: 20.0,
-          child: InkWell(
-            onTap: () {
-              showModalBottomSheet(
-                context: context,
-                builder: ((builder) => bottomSheet()),
-              );
-            },
-            child: Icon(
-              Icons.camera_alt,
-              color: Colors.teal,
-              size: 28.0,
-            ),
-          ),
-        ),
-      ]),
-    );
-  }
 
 }

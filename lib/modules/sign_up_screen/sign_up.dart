@@ -3,6 +3,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hexagon/hexagon.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '../../shared/components/default_tff.dart';
@@ -56,6 +57,12 @@ class _Sign_UpState extends State<Sign_Up> {
                     width: 150,
                   ),
                 ),
+
+
+
+
+
+
                 Text('Username',
                   style: TextStyle(
                     fontSize: 30,
