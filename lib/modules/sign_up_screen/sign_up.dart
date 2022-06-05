@@ -19,7 +19,7 @@ class Sign_Up extends StatefulWidget {
 class _Sign_UpState extends State<Sign_Up> {
   bool ispassword=true;
   bool ispassword2=true;
-
+  bool ismatch=true;
   var usernameController=TextEditingController();
   var emailController=TextEditingController();
   var passwordController=TextEditingController();
@@ -151,6 +151,7 @@ class _Sign_UpState extends State<Sign_Up> {
                     onchanged: (){},
                     type: TextInputType.visiblePassword,
                     text: '',
+                    validatortext:ismatch? '':'password mush match',
                     obstext: ispassword2,
                     suffixicon: ispassword2? IconButton(icon:const Icon(Icons.visibility),
                         onPressed:(){
@@ -171,11 +172,21 @@ class _Sign_UpState extends State<Sign_Up> {
                   ),
 
                   child: MaterialButton(onPressed: (){
+
+                    setState(() {
+                      if(cpasswordController.text==passwordController.text){
+                        ismatch=true;
+                        print(ismatch);
+                      }
+                      else if(cpasswordController.text!=passwordController.text) {
+                        ismatch=false;
+                        print(ismatch);
+                      }
+                    });
+
+
                     if(formkey.currentState!.validate()){
-                     print(usernameController.text);
-                     print(emailController.text);
-                     print(passwordController.text);
-                     print(cpasswordController.text);
+
 
                     }
                   },

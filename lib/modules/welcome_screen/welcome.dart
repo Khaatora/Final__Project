@@ -46,85 +46,96 @@ class Welcome extends StatelessWidget {
 
 
 
-              Column(
-                children: [
-                  Row(
-                    children: [
-                      Image(image:AssetImage('assets/images/hexagon-shape-by-Vexels copy 2.png'),),
-                     SizedBox(width: 10,),
-                      Text('make a board to organize anything',
+              Container(
+                width: MediaQuery.of(context).size.width,
 
-                        style: TextStyle(
-                          fontSize: 21,
-                          color: Colors.blue.withRed(46).withGreen(132).withBlue(245),
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  Padding(
-                    padding: const EdgeInsets.only(right: 160),
-                    child: Text('with any one',
-                      style: TextStyle(
-                        fontSize: 21,
-                        color: Colors.blue.withRed(46).withGreen(132).withBlue(245),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-
-
-
-
-
-              const SizedBox(height: 10,),
-              Column(
-                children: [
-                  Row(
-                    children: [
-                      Image(image:AssetImage('assets/images/hexagon-shape-by-Vexels copy 2.png'),),
-                      SizedBox(width: 10,),
-                      Text('add task to list in the board and',
-
-                        style: TextStyle(
-                          fontSize: 21,
-                          color: Colors.blue.withRed(46).withGreen(132).withBlue(245),
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  Padding(
-                    padding: const EdgeInsets.only(right: 90),
-                    child: Text('add detail to the task',
-                      style: TextStyle(
-                        fontSize: 21,
-                        color: Colors.blue.withRed(46).withGreen(132).withBlue(245),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10,),
-              Row(children: [
-
-                Image(image:AssetImage('assets/images/hexagon-shape-by-Vexels copy 2.png'),),
-                SizedBox(width: 10,),
-                Column(
-                  crossAxisAlignment:CrossAxisAlignment.start ,
+                child: Column(
                   children: [
-                    Text('invite your team to join your board',
+                    Row(
+                      children: [
+                        Image(image:AssetImage('assets/images/hexagon-shape-by-Vexels copy 2.png'),),
+                       SizedBox(width: 10,),
 
-                      style: TextStyle(
-                        fontSize: 21,
-                        color: Colors.blue.withRed(46).withGreen(132).withBlue(245),
-                      ),
+                        Text('make a board to organize anything',
+
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.blue.withRed(46).withGreen(132).withBlue(245),
+                          ),
+                        ),
+                      ],
                     ),
 
+                    Padding(
+                      padding: const EdgeInsets.only(right: 160),
+                      child: Text('with any one',
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.blue.withRed(46).withGreen(132).withBlue(245),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
-              ],
+              ),
+
+
+
+
+
+              const SizedBox(height: 10,),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Image(image:AssetImage('assets/images/hexagon-shape-by-Vexels copy 2.png'),),
+                        SizedBox(width: 10,),
+                        Text('add task to list in the board and',
+
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.blue.withRed(46).withGreen(132).withBlue(245),
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    Padding(
+                      padding: const EdgeInsets.only(right: 90),
+                      child: Text('add detail to the task',
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.blue.withRed(46).withGreen(132).withBlue(245),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 10,),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                child: Row(children: [
+
+                  Image(image:AssetImage('assets/images/hexagon-shape-by-Vexels copy 2.png'),),
+                  SizedBox(width: 10,),
+                  Column(
+                    crossAxisAlignment:CrossAxisAlignment.start ,
+                    children: [
+                      Text('invite your team to join your board',
+
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.blue.withRed(46).withGreen(132).withBlue(245),
+                        ),
+                      ),
+
+                    ],
+                  ),
+                ],
+                ),
               ),
               const SizedBox(height: 20,),
               Center(

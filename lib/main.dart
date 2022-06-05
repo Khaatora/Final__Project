@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
           return  MaterialApp(
 
 
-            home:ChangePassword(),
+            home:Welcome(),
             theme:ThemeData(
               textTheme: TextTheme(
                 bodyText1: TextStyle(
