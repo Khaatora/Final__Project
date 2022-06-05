@@ -13,8 +13,16 @@ import 'modules/successlistcubit/cubit.dart';
 import 'modules/welcome_screen/welcome.dart';
 
 
-void main() {
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+
+void main() async{
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(new MyApp());
+
+
 }
 
 class MyApp extends StatelessWidget {
