@@ -6,8 +6,8 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:polygon_clipper/polygon_clipper.dart';
-import 'package:task/MyData.dart';
 import 'Boardcontroller.dart';
+import 'Mydata.dart';
 
 class funn extends StatefulWidget {
   const funn({Key? key}) : super(key: key);
@@ -62,10 +62,11 @@ String? selectedValue;
          stream:controll.ReadBoard(),
           builder: (context, snapshot) {
          if(snapshot.hasData){
-               List<QueryDocumentSnapshot<Map<String, dynamic>>> ds = snapshot.data!.docs;
+
+           List<QueryDocumentSnapshot<Map<String, dynamic>>> ds = snapshot.data!.docs;
 
             return DropdownButton2(
-              customItemsHeight: 18,
+            customItemsHeight: 18,
             icon: Icon(
               Icons.keyboard_arrow_down_rounded,
               color: Colors.grey[400],
@@ -114,7 +115,9 @@ String? selectedValue;
           }
         ),
       ),
-      
+
+
+       
   
                  
          Container(
@@ -440,15 +443,20 @@ class board extends StatefulWidget {
 }
 
 class _boardState extends State<board> {
+  
+
   final TextEditingController nameofboard = TextEditingController();
  final boardcontroll  controll = Get.put(boardcontroll());
   FirebaseFirestore firebase = FirebaseFirestore.instance;
   bool isVisible = false;
   int selectcolor=2;
-     int currentpage=0;
-     PageController cont =PageController(initialPage: 0);
+  int num =0;  
+   int currentpage=0;
+   PageController cont =PageController(initialPage: 0);
+   
   @override
   Widget build(BuildContext context) {
+    
     return Material(
       color: Colors.transparent,
        child: Column(
@@ -548,9 +556,10 @@ class _boardState extends State<board> {
                   
                   InkWell(
                       onTap:   (){
-
-                         Navigator.of(context).pop();
-                         ADD();
+                     DateTime starttime =DateTime.now();
+                     ADD(starttime);
+                     Get.back();
+                                         
                       }  ,
                       
  
@@ -562,7 +571,7 @@ class _boardState extends State<board> {
                           height: MediaQuery.of(context).size.height*0.053,
                           child: Center(
                             child: Text(
-                                          'OK',
+                                          ' Ok',
                                           style: TextStyle(
                                           fontSize: 21,
                                           color: Colors.white,
@@ -588,12 +597,16 @@ class _boardState extends State<board> {
        ],),
        
     );
+
   }
-  ADD()async{
+  
+  ADD(DateTime Time)async{
    await controll.addtask(
      board: Board(
+     
      name: nameofboard.text,
      Visibility: selectcolor,
+     priority:Time
    ),);
   }
 }
