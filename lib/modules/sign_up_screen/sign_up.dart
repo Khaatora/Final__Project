@@ -237,8 +237,9 @@ class _Sign_UpState extends State<Sign_Up> {
     setState(() {loading = true;});
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(email: emailController.text, password: passwordController.text);
-      
-      await FirebaseFirestore.instance.collection('user').add({
+      User? user =FirebaseAuth.instance.currentUser;
+      await FirebaseFirestore.instance.collection('user').doc(user?.uid).set({
+        'username' : usernameController.text,
         'email' : emailController.text,
         'imageUrl' : imageUrl,
       });

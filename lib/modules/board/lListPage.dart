@@ -13,24 +13,16 @@ class _MyListState extends State<MyList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-   appBar: AppBar(actions: [
-   Container(
-    decoration: BoxDecoration(
-         color: Color.fromARGB(255, 184, 182, 182),
-         borderRadius: BorderRadius.circular(20)
-    ), 
-    
-      
-   )
-
-   ]),
-    body:Column(children: [
-      
-    ],) ,
-
-
-
-
+      appBar: AppBar(actions: [
+        Container(
+          decoration: BoxDecoration(
+              color: Color.fromARGB(255, 184, 182, 182),
+              borderRadius: BorderRadius.circular(20)),
+        )
+      ]),
+      body: Column(
+        children: [],
+      ),
     );
   }
 }
