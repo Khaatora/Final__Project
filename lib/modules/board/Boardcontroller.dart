@@ -13,11 +13,11 @@ class boardcontroll extends GetxController {
 
   boardcontroll() {
     this.user = FirebaseAuth.instance.currentUser;
-    print(user);
     this.Pboards = FirebaseFirestore.instance
         .collection("user")
         .doc(user?.uid)
         .collection("Private Boards");
+    print(Pboards);
     this.Tboards = FirebaseFirestore.instance
         .collection("user")
         .doc(user?.uid)
@@ -32,10 +32,11 @@ class boardcontroll extends GetxController {
   //add board
   addBoard({Board? board}) async {
     if (board!.Visibility == 1) {
-      Pboards?.add(board.tomap());
+      print(this.Pboards);
+      this.Pboards?.add(board.tomap());
     }
     if (board.Visibility == 0) {
-      Tboards?.add(board.tomap());
+      this.Tboards?.add(board.tomap());
     }
   }
 
