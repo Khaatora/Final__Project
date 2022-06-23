@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../board/borads.dart';
 import '../login_screen/login.dart';
 
 
@@ -149,7 +150,7 @@ class Welcome extends StatelessWidget {
 
 
                   child: MaterialButton(onPressed: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Login()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>fun()));
 
                   },
                     child: const Text('start',

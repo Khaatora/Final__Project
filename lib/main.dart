@@ -1,18 +1,16 @@
-import 'package:final_pro/modules/change_password_screen/change_password.dart';
-import 'package:final_pro/modules/login_screen/login.dart';
-import 'package:final_pro/modules/password_recovery_screen/password_recovery.dart';
+// ignore_for_file: prefer_const_constructors
+
 import 'package:final_pro/modules/successlistcubit/states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'modules/sign_up_screen/sign_up.dart';
 import 'modules/successlistcubit/cubit.dart';
 import 'modules/welcome_screen/welcome.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,7 +38,7 @@ class MyApp extends StatelessWidget {
           child: BlocConsumer<SucessListCubit, SuccessListStates>(
             listener: (context, state) => {},
             builder: (context, state) {
-              return MaterialApp(
+              return GetMaterialApp(
                 home: Welcome(),
                 theme: ThemeData(
                   textTheme: TextTheme(

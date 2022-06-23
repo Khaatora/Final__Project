@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '../../shared/components/default_tff.dart';
+import '../board/borads.dart';
 import '../sign_up_screen/sign_up.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -26,7 +27,7 @@ class _LoginState extends State<Login> {
       try {
         await FirebaseAuth.instance.signInWithEmailAndPassword(
             email: emailController.text, password: passwordController.text);
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>Sign_Up()));
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>fun()));
       }
       on FirebaseAuthException catch (e) {
         String message="";
