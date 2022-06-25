@@ -1,4 +1,5 @@
 import 'package:final_pro/modules/change_password_screen/change_password.dart';
+import 'package:final_pro/modules/password_recovery_screen/password_recovery.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -154,7 +155,7 @@ class _LoginState extends State<Login> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ChangePassword()));
+                                builder: (context) => Password_Recovary()));
                       },
                       child: Text(
                         'Forgot password?',
