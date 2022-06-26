@@ -40,7 +40,4 @@ obscureText: obstext,
       hintStyle: TextStyle(color: Colors.grey[800]),
   ),
 
-
-
-
 );
