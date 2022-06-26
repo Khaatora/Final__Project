@@ -92,7 +92,7 @@ class _LoginState extends State<Login> {
                   'Email',
                   maxLines: 1,
                   style: TextStyle(
-                    fontSize: 30,
+                    fontSize: 20,
                     color: HexColor('#2e84f5'),
                   ),
                 ),
@@ -115,7 +115,7 @@ class _LoginState extends State<Login> {
                   'Password',
                   maxLines: 1,
                   style: TextStyle(
-                    fontSize: 30,
+                    fontSize: 20,
                     color: HexColor('#2e84f5'),
                   ),
                 ),
