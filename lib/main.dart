@@ -2,6 +2,7 @@
 
 
 import 'package:final_pro/modules/password_recovery_screen/password_recovery.dart';
+import 'package:final_pro/modules/profile_setting_screen/ProfileSetting.dart';
 import 'package:final_pro/modules/successlistcubit/states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -41,7 +42,7 @@ class MyApp extends StatelessWidget {
             listener: (context, state) => {},
             builder: (context, state) {
               return GetMaterialApp(
-                home:Welcome(),
+                home:ProfileSetting(),
                 theme: ThemeData(
                   textTheme: TextTheme(
                     bodyText1: TextStyle(

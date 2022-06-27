@@ -18,16 +18,15 @@ import '../../shared/components/default_tff.dart';
 import '../welcome_screen/welcome.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
-class ChangePassword extends StatefulWidget {
-  const ChangePassword({Key? key}) : super(key: key);
+
+
+class ProfileSetting extends StatefulWidget {
 
   @override
-  State<ChangePassword> createState() => _ChangePasswordState();
+  State<ProfileSetting> createState() => _ProfileSettingState();
 }
 
-class _ChangePasswordState extends State<ChangePassword> {
-
-
+class _ProfileSettingState extends State<ProfileSetting> {
   var isOn;
   bool ispassword=true;
   var usernameController = TextEditingController();
@@ -35,22 +34,19 @@ class _ChangePasswordState extends State<ChangePassword> {
   var cpasswordController = TextEditingController();
   var formkey=GlobalKey<FormState>();
 
-
-
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
 
       body: SingleChildScrollView(
         child: Container(
           decoration: BoxDecoration(
-          image: DecorationImage(
+            image: DecorationImage(
 
-          image: AssetImage("assets/images/hexagon10.png",
-          ),
-    fit: BoxFit.values[0],
-    ),
+              image: AssetImage("assets/images/hexagon10.png",
+              ),
+              fit: BoxFit.values[0],
+            ),
           ),
 
 
@@ -64,12 +60,12 @@ class _ChangePasswordState extends State<ChangePassword> {
                   children: [
                     SizedBox(height: 20,),
                     Padding(
-                      padding: const EdgeInsets.only(left: 350),
+                      padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/1.2),
                       child: IconButton(icon: Icon(Icons.brightness_4_outlined,
                           color: Colors.black),
-                      onPressed: (){
-                        SucessListCubit.get(context).changeappmode();
-                      },
+                        onPressed: (){
+                          SucessListCubit.get(context).changeappmode();
+                        },
                       ),
                     ),
 
@@ -216,7 +212,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                     ),),
                     Center(
                       child: Container(
-                      width: MediaQuery.of(context).size.width/2,
+                        width: MediaQuery.of(context).size.width/2,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: Colors.red,
@@ -245,3 +241,4 @@ class _ChangePasswordState extends State<ChangePassword> {
     );
   }
 }
+
