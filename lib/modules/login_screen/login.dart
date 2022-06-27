@@ -204,9 +204,6 @@ class _LoginState extends State<Login> {
                       },
                       child: Text(
                         'register',
-                        style: TextStyle(
-                          color: Colors.grey,
-                        ),
                       ),
                     ),
                   ],
