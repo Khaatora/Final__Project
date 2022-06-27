@@ -1,4 +1,3 @@
-import 'package:final_pro/modules/change_password_screen/change_password.dart';
 import 'package:final_pro/modules/password_recovery_screen/password_recovery.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -23,44 +22,47 @@ class _LoginState extends State<Login> {
   void initState() {
     super.initState();
   }
+
 //function to verify user sign in info and change screen into home screen
-    _logIn() async {
-      try {
-        await FirebaseAuth.instance.signInWithEmailAndPassword(
-            email: emailController.text, password: passwordController.text);
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>fun()));
+  _logIn() async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: emailController.text, password: passwordController.text);
+      Navigator.push(context, MaterialPageRoute(builder: (context) => fun()));
+    } on FirebaseAuthException catch (e) {
+      String message = "";
+      switch (e.code) {
+        case 'invalid-email':
+          message = "The Email you entered is invalid";
+          break;
+        case 'user-disabled':
+          message = "The User you tried to log into is disabled";
+          break;
+        case 'user-not-found':
+          message = "The User you tried to log into was not found";
+          break;
+        case 'wrong-password':
+          message = "Incorrect password";
+          break;
       }
-      on FirebaseAuthException catch (e) {
-        String message="";
-        switch (e.code) {
-          case 'invalid-email':
-            message = "The Email you entered is invalid";
-            break;
-          case 'user-disabled':
-            message = "The User you tried to log into is disabled";
-            break;
-          case 'user-not-found':
-            message ="The User you tried to log into was not found";
-            break;
-          case 'wrong-password':
-            message ="Incorrect password";
-            break;
-        }
 
-        showDialog(context: context, builder: (context){
-          return AlertDialog(
-            title: Text('log in failed'),
-            content: Text(message),
-            actions: [
-              TextButton(onPressed: (){
-                Navigator.of(context).pop();
-              }, child: Text('ok')),
-            ],
-          );
-        });
-      }
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text('log in failed'),
+              content: Text(message),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text('ok')),
+              ],
+            );
+          });
     }
-
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -177,7 +179,6 @@ class _LoginState extends State<Login> {
                   width: double.infinity,
                   child: MaterialButton(
                     onPressed: () {
-
                       if (formkey.currentState!.validate()) {
                         _logIn();
                         print('clicked');
@@ -198,9 +199,15 @@ class _LoginState extends State<Login> {
                     const Text('need an account?'),
                     TextButton(
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>Sign_Up()));
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => Sign_Up()));
                       },
-                      child: Text('register'),
+                      child: Text(
+                        'register',
+                        style: TextStyle(
+                          color: Colors.grey,
+                        ),
+                      ),
                     ),
                   ],
                 ),
