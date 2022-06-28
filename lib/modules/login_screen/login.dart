@@ -68,7 +68,7 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(30.0),
         child: SingleChildScrollView(
           child: Form(
             key: formkey,
@@ -82,8 +82,8 @@ class _LoginState extends State<Login> {
                   child: Center(
                     child: const Image(
                       image: AssetImage('assets/images/logo.png'),
-                      height: 200,
-                      width: 200,
+                      height: 250,
+                      width: 250,
                     ),
                   ),
                 ),
@@ -99,14 +99,15 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 Container(
-                  width: MediaQuery.of(context).size.width,
+                  width: MediaQuery.of(context).size.width/1.2,
+                  height:  MediaQuery.of(context).size.height/20,
                   child: defaulttff(
                     context: context,
                     controller: emailController,
                     onsubmit: () {},
                     onchanged: () {},
                     type: TextInputType.text,
-                    text: '',
+                    text: 'omar@gm.com',
                     validatortext: 'email address must not be empty',
                   ),
                 ),
@@ -122,7 +123,8 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 Container(
-                  width: MediaQuery.of(context).size.width,
+                  width: MediaQuery.of(context).size.width/1.2,
+                  height:  MediaQuery.of(context).size.height/20,
                   child: defaulttff(
                     context: context,
                     controller: passwordController,

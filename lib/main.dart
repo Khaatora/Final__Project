@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
                       fontSize: 17,
                     ),
                   ),
-                  primarySwatch: Colors.grey,
+                  primarySwatch: Colors.blue,
                   scaffoldBackgroundColor: Colors.white,
                   appBarTheme: AppBarTheme(
                     backwardsCompatibility: false,

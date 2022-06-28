@@ -35,7 +35,7 @@ obscureText: obstext,
     hintText: text,
     suffixIcon:suffixicon,
     border:
-    OutlineInputBorder(borderRadius: BorderRadius.circular(20.0),
+    OutlineInputBorder(borderRadius: BorderRadius.circular(15.0),
 
     ),
       filled: true,
