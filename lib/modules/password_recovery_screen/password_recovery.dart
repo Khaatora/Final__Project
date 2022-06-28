@@ -68,9 +68,10 @@ class Password_Recovary extends StatelessWidget {
                 SizedBox(height: 30,),
 
                 Container(
-                  width: MediaQuery.of(context).size.width,
+                  width: MediaQuery.of(context).size.width/1.2,
+                  height:  MediaQuery.of(context).size.height/20,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(15),
                     color: Colors.blue,
                   ),
 
