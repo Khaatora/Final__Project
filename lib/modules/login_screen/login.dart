@@ -82,8 +82,8 @@ class _LoginState extends State<Login> {
                   child: Center(
                     child: const Image(
                       image: AssetImage('assets/images/logo.png'),
-                      height: 150,
-                      width: 150,
+                      height: 200,
+                      width: 200,
                     ),
                   ),
                 ),
