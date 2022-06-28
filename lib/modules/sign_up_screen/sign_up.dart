@@ -41,7 +41,7 @@ class _Sign_UpState extends State<Sign_Up> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(30.0),
         child: SingleChildScrollView(
           child: Form(
             key: formkey,
