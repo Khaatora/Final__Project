@@ -44,7 +44,7 @@ class _Sign_UpState extends State<Sign_Up> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(30.0),
         child: SingleChildScrollView(
           child: Form(
             key: formkey,
@@ -57,19 +57,20 @@ class _Sign_UpState extends State<Sign_Up> {
                 Center(
                   child: Image(
                     image: AssetImage('assets/images/logo.png'),
-                    height: 150,
-                    width: 150,
+                    height: 250,
+                    width: 250,
                   ),
                 ),
                 Text(
                   'Username',
                   style: TextStyle(
-                    fontSize: 30,
+                    fontSize: 20,
                     color: HexColor('#2e84f5'),
                   ),
                 ),
                 Container(
-                    width: MediaQuery.of(context).size.width,
+                    width: MediaQuery.of(context).size.width/1.2,
+                    height:  MediaQuery.of(context).size.height/20,
                     child: defaulttff(
                         context: context,
                         text: '',
@@ -86,12 +87,13 @@ class _Sign_UpState extends State<Sign_Up> {
                 Text(
                   'Email',
                   style: TextStyle(
-                    fontSize: 30,
+                    fontSize: 20,
                     color: Colors.blue.withRed(46).withGreen(132).withBlue(245),
                   ),
                 ),
                 Container(
-                    width: MediaQuery.of(context).size.width,
+                    width: MediaQuery.of(context).size.width/1.2,
+                    height:  MediaQuery.of(context).size.height/20,
                     child: defaulttff(
                         context: context,
                         text: '',
@@ -106,12 +108,13 @@ class _Sign_UpState extends State<Sign_Up> {
                 Text(
                   'Password',
                   style: TextStyle(
-                    fontSize: 30,
+                    fontSize: 20,
                     color: HexColor('#2e84f5'),
                   ),
                 ),
                 Container(
-                  width: MediaQuery.of(context).size.width,
+                  width: MediaQuery.of(context).size.width/1.2,
+                  height:  MediaQuery.of(context).size.height/20,
                   child: defaulttff(
                     context: context,
                     controller: passwordController,
@@ -144,12 +147,13 @@ class _Sign_UpState extends State<Sign_Up> {
                 Text(
                   'Confirm password',
                   style: TextStyle(
-                    fontSize: 30,
+                    fontSize: 20,
                     color: HexColor('#2e84f5'),
                   ),
                 ),
                 Container(
-                  width: MediaQuery.of(context).size.width,
+                  width: MediaQuery.of(context).size.width/1.2,
+                  height:  MediaQuery.of(context).size.height/20,
                   child: defaulttff(
                     context: context,
                     controller: cpasswordController,
