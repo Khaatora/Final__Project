@@ -1,13 +1,17 @@
+import 'package:final_pro/modules/board/task.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/src/foundation/key.dart';
 import 'package:get/get.dart';
 import 'Mydata.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class boardcontroll extends GetxController {
+class boardcontroll  {
   //current user
   User? user;
+
   //private boards
-  CollectionReference<Map<String, dynamic>>? Pboards;
+  CollectionReference<Map<String, dynamic>>? Pboards ;
   //team boards
   CollectionReference<Map<String, dynamic>>? Tboards;
 
@@ -22,16 +26,16 @@ class boardcontroll extends GetxController {
         .collection("user")
         .doc(user?.uid)
         .collection("Teams Boards");
+        
   }
-  var list1 = <QueryDocumentSnapshot<Map<String, dynamic>>>[].obs;
-  @override
-  void onReady() {
-    super.onReady();
-  }
+  static var list1 = <QueryDocumentSnapshot<Map<String, dynamic>>>[];
+
 
   //add board
   addBoard({Board? board}) async {
+
     if (board!.Visibility == 1) {
+      
       Pboards?.add(board.tomap());
     }
     if (board.Visibility == 0) {
@@ -57,7 +61,9 @@ class boardcontroll extends GetxController {
         .snapshots();
   }
 
+
   void getBoardmenu() async {
+
     QuerySnapshot<Map<String, dynamic>> response1 = await FirebaseFirestore
         .instance
         .collection("user")
@@ -72,9 +78,12 @@ class boardcontroll extends GetxController {
         .collection("Teams Boards")
         .orderBy("Priority")
         .get();
+        
     list1.assignAll(response1.docs);
 
     list1.addAll(response2.docs);
+
     print(list1);
   }
+
 }

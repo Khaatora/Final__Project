@@ -16,7 +16,6 @@ class fun extends StatefulWidget {
 }
 
 class _funState extends State<fun> with TickerProviderStateMixin {
-  final boardcontroll controll = Get.put(boardcontroll());
   FirebaseFirestore firebase = FirebaseFirestore.instance;
 
   bool isVisible = false;
@@ -53,7 +52,7 @@ class _funState extends State<fun> with TickerProviderStateMixin {
                 ),
                 child: MaterialButton(
                   onPressed: () {
-                    controll.getBoardmenu();
+                    boardcontroll().getBoardmenu();
                     showDialog(
                       context: context,
                       barrierColor: Colors.black.withOpacity(0.5),
@@ -163,13 +162,16 @@ class _funState extends State<fun> with TickerProviderStateMixin {
                                 ),
                               ),
                             ),
-                            IconButton(
-                              icon: Icon(
-                                Icons.search,
-                                color: Colors.blue[400],
+                            MaterialButton(
+                              
+                              onPressed: () {},
+                              child: Container(
+                                   child: Image.asset("assets/images/free-search-icon-3076-thumb.png",
+                                   width: MediaQuery.of(context).size.width*0.09,),
+                                   height:  MediaQuery.of(context).size.width*0.07,
+
                               ),
-                              onPressed: () => {},
-                            ),
+                            )
                           ],
                         )),
                   ),
@@ -308,7 +310,7 @@ class _funState extends State<fun> with TickerProviderStateMixin {
         Visibility(
           visible: showPboard,
           child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-            stream: controll.PReadBoard(),
+            stream: boardcontroll().PReadBoard(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return ListView.builder(
@@ -381,7 +383,7 @@ class _funState extends State<fun> with TickerProviderStateMixin {
         Visibility(
           visible: showTboard,
           child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-            stream: controll.TReadBoard(),
+            stream: boardcontroll().TReadBoard(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return ListView.builder(
