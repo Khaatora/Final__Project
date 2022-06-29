@@ -17,11 +17,9 @@ class fun extends StatefulWidget {
 }
 
 class _funState extends State<fun> with TickerProviderStateMixin {
-<<<<<<< HEAD:lib/modules/board/borads.dart
-=======
 
 
->>>>>>> 9a539798c364151807e3124b8aeb54947e9ff12b:lib/modules/board/Boards_Screen.dart
+
   FirebaseFirestore firebase = FirebaseFirestore.instance;
 
   bool isVisible = false;
@@ -169,7 +167,6 @@ class _funState extends State<fun> with TickerProviderStateMixin {
                                 ),
                               ),
                             ),
-<<<<<<< HEAD:lib/modules/board/borads.dart
                             InkWell(
                               
                               onTap: () {},
@@ -179,16 +176,7 @@ class _funState extends State<fun> with TickerProviderStateMixin {
                                    width: MediaQuery.of(context).size.width*0.09,),
                                    height:  MediaQuery.of(context).size.width*0.07,
         
-=======
-                            MaterialButton(
-                              
-                              onPressed: () {},
-                              child: Container(
-                                   child: Image.asset("assets/images/free-search-icon-3076-thumb.png",
-                                   width: MediaQuery.of(context).size.width*0.09,),
-                                   height:  MediaQuery.of(context).size.width*0.07,
-
->>>>>>> 9a539798c364151807e3124b8aeb54947e9ff12b:lib/modules/board/Boards_Screen.dart
+                            
                               ),
                             )
                           ],
@@ -279,13 +267,7 @@ class _funState extends State<fun> with TickerProviderStateMixin {
       padding: EdgeInsets.symmetric( vertical: MediaQuery.of(context).size.height * 0.03),
       children: [
         Container(
-<<<<<<< HEAD:lib/modules/board/borads.dart
-   
-=======
-          margin: EdgeInsets.only(
-              left: MediaQuery.of(context).size.width * 0.02,
-              right: MediaQuery.of(context).size.width * 0.04),
->>>>>>> 9a539798c364151807e3124b8aeb54947e9ff12b:lib/modules/board/Boards_Screen.dart
+
           child: Row(
             children: [
               Container(
@@ -357,7 +339,7 @@ class _funState extends State<fun> with TickerProviderStateMixin {
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.018,
         ),
-<<<<<<< HEAD:lib/modules/board/borads.dart
+
         Row(
           children: [
             Container(
@@ -384,17 +366,7 @@ class _funState extends State<fun> with TickerProviderStateMixin {
             ),
             Expanded(
               child: Container(
-=======
-        Container(
-          margin: EdgeInsets.only(
-              left: MediaQuery.of(context).size.width * 0.02,
-              right: MediaQuery.of(context).size.width * 0.04),
-          child: Row(
-            children: [
-              Container(
-                height: MediaQuery.of(context).size.height * 0.03,
-                width: MediaQuery.of(context).size.width * 0.055,
->>>>>>> 9a539798c364151807e3124b8aeb54947e9ff12b:lib/modules/board/Boards_Screen.dart
+
                 margin: EdgeInsets.only(
                     left: MediaQuery.of(context).size.width * 0.01),
                 decoration: BoxDecoration(
@@ -411,18 +383,28 @@ class _funState extends State<fun> with TickerProviderStateMixin {
         ),
         Visibility(
           visible: showTboard,
-          child: ListView.builder(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              padding: EdgeInsets.symmetric(vertical: 0),
-              itemCount: list2.,
-              itemBuilder: (context, index) {
-                DocumentSnapshot ds =boardcontroll.list2?[index];
-                if (ds["visibilty"] == 0) {
-                  return theboard(ds, index);
-                } else
-                  return Container();
-              });
+          child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+            stream: boardcontroll().TReadBoard(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return ListView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    padding: EdgeInsets.symmetric(vertical: 0),
+                    itemCount: snapshot.data!.docs.length,
+                    itemBuilder: (context, index) {
+                      DocumentSnapshot ds = snapshot.data!.docs[index];
+
+                      if (ds["visibilty"] == 0) {
+                        return theboard(ds, index);
+                      } else
+                        return Container();
+                    });
+              } else {
+                return Container();
+              }
+            },
+          ),
         )
       ],
     );

@@ -16,12 +16,10 @@ class funn extends StatefulWidget {
 }
 
 class _funnState extends State<funn> {
-<<<<<<< HEAD:lib/modules/board/task.dart
-=======
 
 
 
->>>>>>> 9a539798c364151807e3124b8aeb54947e9ff12b:lib/modules/board/Task_Screen.dart
+
 
   String endtime = "Due date...";
   String starttime = "start date...";
@@ -72,10 +70,8 @@ boardcontroll bb= boardcontroll();
                       )),
               DropdownButtonHideUnderline(
                     child:DropdownButton2(
-<<<<<<< HEAD:lib/modules/board/task.dart
-=======
+
                
->>>>>>> 9a539798c364151807e3124b8aeb54947e9ff12b:lib/modules/board/Task_Screen.dart
                       customItemsHeight: 18,
                       icon: Icon(
                         Icons.keyboard_arrow_down_rounded,
@@ -94,11 +90,9 @@ boardcontroll bb= boardcontroll();
                       items:
                          boardcontroll.list1.map((doc) => DropdownMenuItem<String>(
                                 value:doc["Name"],
-<<<<<<< HEAD:lib/modules/board/task.dart
-=======
+
 
                      
->>>>>>> 9a539798c364151807e3124b8aeb54947e9ff12b:lib/modules/board/Task_Screen.dart
                                 child: Text(
                                 doc["Name"],
                                   style: const TextStyle(
