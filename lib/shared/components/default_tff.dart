@@ -34,7 +34,9 @@ obscureText: obstext,
     decoration: InputDecoration(
     hintText: text,
     suffixIcon:suffixicon,
-    border: OutlineInputBorder(borderRadius: BorderRadius.circular(20.0),
+    border:
+    OutlineInputBorder(borderRadius: BorderRadius.circular(15.0),
+
     ),
       filled: true,
       hintStyle: TextStyle(color: Colors.grey[800]),

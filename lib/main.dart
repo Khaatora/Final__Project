@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
 
-import 'package:final_pro/modules/board/borads.dart';
+import 'package:final_pro/modules/board/Task_Screen.dart';
+import 'package:final_pro/modules/chat_screen/chatscreen.dart';
+import 'package:final_pro/modules/login_screen/login.dart';
 import 'package:final_pro/modules/password_recovery_screen/password_recovery.dart';
 import 'package:final_pro/modules/profile_setting_screen/ProfileSetting.dart';
 import 'package:final_pro/modules/successlistcubit/states.dart';
@@ -44,7 +46,7 @@ class MyApp extends StatelessWidget {
             listener: (context, state) => {},
             builder: (context, state) {
               return GetMaterialApp(
-                home:MyList(),
+                home:Welcome(),
                 theme: ThemeData(
                   textTheme: TextTheme(
                     bodyText1: TextStyle(
@@ -52,7 +54,7 @@ class MyApp extends StatelessWidget {
                       fontSize: 17,
                     ),
                   ),
-                  primarySwatch: Colors.deepOrange,
+                  primarySwatch: Colors.blue,
                   scaffoldBackgroundColor: Colors.white,
                   appBarTheme: AppBarTheme(
                     backwardsCompatibility: false,

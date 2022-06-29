@@ -7,6 +7,7 @@ import 'package:hexagon/hexagon.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '../../shared/components/default_tff.dart';
+import '../board/Boards_Screen.dart';
 
 class Sign_Up extends StatefulWidget {
   const Sign_Up({Key? key}) : super(key: key);
@@ -31,6 +32,8 @@ class _Sign_UpState extends State<Sign_Up> {
 
   var formkey = GlobalKey<FormState>();
 
+
+
   @override
   void initState() {
     // TODO: implement initState
@@ -41,7 +44,7 @@ class _Sign_UpState extends State<Sign_Up> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(30.0),
         child: SingleChildScrollView(
           child: Form(
             key: formkey,
@@ -54,19 +57,20 @@ class _Sign_UpState extends State<Sign_Up> {
                 Center(
                   child: Image(
                     image: AssetImage('assets/images/logo.png'),
-                    height: 150,
-                    width: 150,
+                    height: 250,
+                    width: 250,
                   ),
                 ),
                 Text(
                   'Username',
                   style: TextStyle(
-                    fontSize: 30,
+                    fontSize: 20,
                     color: HexColor('#2e84f5'),
                   ),
                 ),
                 Container(
-                    width: MediaQuery.of(context).size.width,
+                    width: MediaQuery.of(context).size.width/1.2,
+                    height:  MediaQuery.of(context).size.height/20,
                     child: defaulttff(
                         context: context,
                         text: '',
@@ -83,12 +87,13 @@ class _Sign_UpState extends State<Sign_Up> {
                 Text(
                   'Email',
                   style: TextStyle(
-                    fontSize: 30,
+                    fontSize: 20,
                     color: Colors.blue.withRed(46).withGreen(132).withBlue(245),
                   ),
                 ),
                 Container(
-                    width: MediaQuery.of(context).size.width,
+                    width: MediaQuery.of(context).size.width/1.2,
+                    height:  MediaQuery.of(context).size.height/20,
                     child: defaulttff(
                         context: context,
                         text: '',
@@ -103,12 +108,13 @@ class _Sign_UpState extends State<Sign_Up> {
                 Text(
                   'Password',
                   style: TextStyle(
-                    fontSize: 30,
+                    fontSize: 20,
                     color: HexColor('#2e84f5'),
                   ),
                 ),
                 Container(
-                  width: MediaQuery.of(context).size.width,
+                  width: MediaQuery.of(context).size.width/1.2,
+                  height:  MediaQuery.of(context).size.height/20,
                   child: defaulttff(
                     context: context,
                     controller: passwordController,
@@ -141,12 +147,13 @@ class _Sign_UpState extends State<Sign_Up> {
                 Text(
                   'Confirm password',
                   style: TextStyle(
-                    fontSize: 30,
+                    fontSize: 20,
                     color: HexColor('#2e84f5'),
                   ),
                 ),
                 Container(
-                  width: MediaQuery.of(context).size.width,
+                  width: MediaQuery.of(context).size.width/1.2,
+                  height:  MediaQuery.of(context).size.height/20,
                   child: defaulttff(
                     context: context,
                     controller: cpasswordController,
@@ -197,6 +204,8 @@ class _Sign_UpState extends State<Sign_Up> {
                       });
                       if(formkey.currentState!=null && formkey.currentState!.validate()){
                         _signUp();
+                        Login login = new Login();
+
                       }
 
                       if (formkey.currentState!.validate()) {}
@@ -243,17 +252,57 @@ class _Sign_UpState extends State<Sign_Up> {
         'email' : emailController.text,
         'imageUrl' : imageUrl,
       });
-
       await showDialog(context: context, builder: (context) => AlertDialog(
         title: Text('Sign up succeeded'),
         content: Text('Your account was created, you can now log in'),
         actions: [TextButton(onPressed: (){
           Navigator.of(context).pop();
+          _logIn();
         }, child: Text('Ok'))],
       ));
+
     }on FirebaseAuthException catch(e){
       _handleSignUpError(e);
       setState((){loading = false;});
+    }
+  }
+
+  _logIn() async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: emailController.text, password: passwordController.text);
+      Navigator.push(context, MaterialPageRoute(builder: (context) => fun()));
+    } on FirebaseAuthException catch (e) {
+      String message = "";
+      switch (e.code) {
+        case 'invalid-email':
+          message = "The Email you entered is invalid";
+          break;
+        case 'user-disabled':
+          message = "The User you tried to log into is disabled";
+          break;
+        case 'user-not-found':
+          message = "The User you tried to log into was not found";
+          break;
+        case 'wrong-password':
+          message = "Incorrect password";
+          break;
+      }
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text('log in failed'),
+              content: Text(message),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text('ok')),
+              ],
+            );
+          });
     }
   }
 
