@@ -264,13 +264,13 @@ class _funState extends State<fun> with TickerProviderStateMixin {
       children: [
         Container(
           margin: EdgeInsets.only(
-              left: MediaQuery.of(context).size.width * 0.01,
+              left: MediaQuery.of(context).size.width * 0.02,
               right: MediaQuery.of(context).size.width * 0.04),
           child: Row(
             children: [
               Container(
                 height: MediaQuery.of(context).size.height * 0.03,
-                width: MediaQuery.of(context).size.width * 0.045,
+                width: MediaQuery.of(context).size.width * 0.055,
                 margin: EdgeInsets.only(
                     right: MediaQuery.of(context).size.width * 0.01),
                 decoration: BoxDecoration(
@@ -345,7 +345,7 @@ class _funState extends State<fun> with TickerProviderStateMixin {
             children: [
               Container(
                 height: MediaQuery.of(context).size.height * 0.03,
-                width: MediaQuery.of(context).size.width * 0.045,
+                width: MediaQuery.of(context).size.width * 0.055,
                 margin: EdgeInsets.only(
                     right: MediaQuery.of(context).size.width * 0.01),
                 decoration: BoxDecoration(
