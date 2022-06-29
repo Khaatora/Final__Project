@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 
+import 'package:final_pro/modules/board/Boards_Screen.dart';
 import 'package:final_pro/modules/board/Task_Screen.dart';
 import 'package:final_pro/modules/chat_screen/chatscreen.dart';
 import 'package:final_pro/modules/login_screen/login.dart';
@@ -46,7 +47,7 @@ class MyApp extends StatelessWidget {
             listener: (context, state) => {},
             builder: (context, state) {
               return GetMaterialApp(
-                home:Welcome(),
+                home:fun(),
                 theme: ThemeData(
                   textTheme: TextTheme(
                     bodyText1: TextStyle(
