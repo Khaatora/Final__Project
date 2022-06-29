@@ -16,7 +16,6 @@ class fun extends StatefulWidget {
 }
 
 class _funState extends State<fun> with TickerProviderStateMixin {
-  final boardcontroll controll = Get.put(boardcontroll());
   FirebaseFirestore firebase = FirebaseFirestore.instance;
 
   bool isVisible = false;
@@ -53,7 +52,7 @@ class _funState extends State<fun> with TickerProviderStateMixin {
                 ),
                 child: MaterialButton(
                   onPressed: () {
-                    controll.getBoardmenu();
+                    boardcontroll().getBoardmenu();
                     showDialog(
                       context: context,
                       barrierColor: Colors.black.withOpacity(0.5),
@@ -116,28 +115,30 @@ class _funState extends State<fun> with TickerProviderStateMixin {
                 )),
           ],
         ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              margin: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.02),
-              child: Row(
+        body: Container(
+       margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.036, left: MediaQuery.of(context).size.width * 0.02,right: MediaQuery.of(context).size.width * 0.02 ),
+            
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
                 children: [
                   Container(
-                    height: MediaQuery.of(context).size.height * 0.09,
-                    width: MediaQuery.of(context).size.width * 0.14,
+                  
+                    margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.01,),
+                    width: MediaQuery.of(context).size.width * 0.176,
                     child: ClipPolygon(
                       sides: 6,
-                      borderRadius: 8.0, // Default 0.0 degrees
+                      borderRadius: 16.0, // Default 0.0 degrees
                       rotate: 180.0, // Default 0.0 degrees
-
-                      child: Container(color: Colors.red),
+        
+                      child: Container(
+                        color: Colors.red),
                     ),
                   ),
                   Expanded(
                     child: Container(
-                        height: MediaQuery.of(context).size.height * 0.07,
+                        height: MediaQuery.of(context).size.height * 0.065,
                         margin: EdgeInsets.only(top: 10),
                         padding: EdgeInsets.only(left: 10),
                         decoration: BoxDecoration(
@@ -163,49 +164,53 @@ class _funState extends State<fun> with TickerProviderStateMixin {
                                 ),
                               ),
                             ),
-                            IconButton(
-                              icon: Icon(
-                                Icons.search,
-                                color: Colors.blue[400],
+                            InkWell(
+                              
+                              onTap: () {},
+                              child: Container(
+                                margin: EdgeInsets.only(right: MediaQuery.of(context).size.width*0.03 ),
+                                   child: Image.asset("assets/images/free-search-icon-3076-thumb.png",
+                                   width: MediaQuery.of(context).size.width*0.09,),
+                                   height:  MediaQuery.of(context).size.width*0.07,
+        
                               ),
-                              onPressed: () => {},
-                            ),
+                            )
                           ],
                         )),
                   ),
                 ],
               ),
-            ),
-            Container(
-              margin: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.02),
-              height: MediaQuery.of(context).size.height * 0.06,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: Color.fromARGB(255, 233, 229, 229)),
-              child: TabBar(
-                padding:
-                    EdgeInsets.all(MediaQuery.of(context).size.width * 0.01),
-                labelColor: Colors.blue,
-                unselectedLabelColor: Colors.grey,
-                controller: tabController,
-                indicator: BoxDecoration(
+              Container(
+                margin: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * 0.01),
+                height: MediaQuery.of(context).size.height * 0.06,
+                decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
-                    color: Colors.white),
-                tabs: [
-                  Text('boards'),
-                  Text('My Tasks'),
-                ],
+                    color: Color.fromARGB(255, 233, 229, 229)),
+                child: TabBar(
+                  padding:
+                      EdgeInsets.all(MediaQuery.of(context).size.width * 0.01),
+                  labelColor: Colors.blue,
+                  unselectedLabelColor: Colors.grey,
+                  controller: tabController,
+                  indicator: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: Colors.white),
+                  tabs: [
+                    Text('boards'),
+                    Text('My Tasks'),
+                  ],
+                ),
               ),
-            ),
-            Expanded(
-              child: DefaultTabController(
-                length: 2,
-                child: TabBarView(
-                    controller: tabController, children: [myboard(), mytask()]),
+              Expanded(
+                child: DefaultTabController(
+                  length: 2,
+                  child: TabBarView(
+                      controller: tabController, children: [myboard(), mytask()]),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ));
   }
 
@@ -255,13 +260,10 @@ class _funState extends State<fun> with TickerProviderStateMixin {
 
   myboard() {
     return ListView(
-      padding: EdgeInsets.symmetric(
-          vertical: MediaQuery.of(context).size.height * 0.03),
+      padding: EdgeInsets.symmetric( vertical: MediaQuery.of(context).size.height * 0.03),
       children: [
         Container(
-          margin: EdgeInsets.only(
-              left: MediaQuery.of(context).size.width * 0.01,
-              right: MediaQuery.of(context).size.width * 0.04),
+   
           child: Row(
             children: [
               Container(
@@ -308,7 +310,7 @@ class _funState extends State<fun> with TickerProviderStateMixin {
         Visibility(
           visible: showPboard,
           child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-            stream: controll.PReadBoard(),
+            stream: boardcontroll().PReadBoard(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return ListView.builder(
@@ -333,47 +335,42 @@ class _funState extends State<fun> with TickerProviderStateMixin {
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.018,
         ),
-        Container(
-          margin: EdgeInsets.only(
-              left: MediaQuery.of(context).size.width * 0.02,
-              right: MediaQuery.of(context).size.width * 0.04),
-          child: Row(
-            children: [
-              Container(
-                height: MediaQuery.of(context).size.height * 0.03,
-                width: MediaQuery.of(context).size.width * 0.045,
+        Row(
+          children: [
+            Container(
+              height: MediaQuery.of(context).size.height * 0.03,
+              width: MediaQuery.of(context).size.width * 0.045,
+              margin: EdgeInsets.only(
+                  right: MediaQuery.of(context).size.width * 0.01),
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      fit: BoxFit.fill,
+                      image: AssetImage("assets/images/bold-Vexels.jpg"))),
+            ),
+            InkWell(
+              onTap: () => setState(() {
+                showTboard = !showTboard;
+              }),
+              child: Text(
+                "Teams Board",
+                style: TextStyle(
+                    color: Colors.grey[500],
+                    fontStyle: FontStyle.italic,
+                    fontSize: 17),
+              ),
+            ),
+            Expanded(
+              child: Container(
                 margin: EdgeInsets.only(
-                    right: MediaQuery.of(context).size.width * 0.01),
+                    left: MediaQuery.of(context).size.width * 0.01),
                 decoration: BoxDecoration(
-                    image: DecorationImage(
-                        fit: BoxFit.fill,
-                        image: AssetImage("assets/images/bold-Vexels.jpg"))),
+                    border: Border.all(
+                  color: Color.fromARGB(255, 207, 197, 197),
+                  width: 1,
+                )),
               ),
-              InkWell(
-                onTap: () => setState(() {
-                  showTboard = !showTboard;
-                }),
-                child: Text(
-                  "Teams Board",
-                  style: TextStyle(
-                      color: Colors.grey[500],
-                      fontStyle: FontStyle.italic,
-                      fontSize: 17),
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  margin: EdgeInsets.only(
-                      left: MediaQuery.of(context).size.width * 0.01),
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                    color: Color.fromARGB(255, 207, 197, 197),
-                    width: 1,
-                  )),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.018,
@@ -381,7 +378,7 @@ class _funState extends State<fun> with TickerProviderStateMixin {
         Visibility(
           visible: showTboard,
           child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-            stream: controll.TReadBoard(),
+            stream: boardcontroll().TReadBoard(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return ListView.builder(

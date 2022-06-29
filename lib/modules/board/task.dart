@@ -16,7 +16,6 @@ class funn extends StatefulWidget {
 }
 
 class _funnState extends State<funn> {
-  final boardcontroll controll = Get.put(boardcontroll());
 
   String endtime = "Due date...";
   String starttime = "start date...";
@@ -28,6 +27,8 @@ class _funnState extends State<funn> {
     'Item4',
   ];
   String? selectedValue;
+
+boardcontroll bb= boardcontroll();
 
   Widget build(BuildContext context) {
     return Material(
@@ -63,8 +64,8 @@ class _funnState extends State<funn> {
                       style: TextStyle(
                         color: Colors.grey[500],
                       )),
-                  DropdownButtonHideUnderline(child: Obx(() {
-                    return DropdownButton2(
+              DropdownButtonHideUnderline(
+                    child:DropdownButton2(
                       customItemsHeight: 18,
                       icon: Icon(
                         Icons.keyboard_arrow_down_rounded,
@@ -80,11 +81,11 @@ class _funnState extends State<funn> {
                           color: Color.fromARGB(255, 156, 151, 151),
                         ),
                       ),
-                      items: controll.list1
-                          .map((doc) => DropdownMenuItem<String>(
-                                value: doc["Name"],
+                      items:
+                         boardcontroll.list1.map((doc) => DropdownMenuItem<String>(
+                                value:doc["Name"],
                                 child: Text(
-                                  doc["Name"],
+                                doc["Name"],
                                   style: const TextStyle(
                                       fontSize: 20,
                                       color:
@@ -101,8 +102,9 @@ class _funnState extends State<funn> {
                       buttonHeight: MediaQuery.of(context).size.height * 0.05,
                       buttonWidth: MediaQuery.of(context).size.width,
                       itemHeight: MediaQuery.of(context).size.width * 0.1,
-                    );
-                  })),
+                  
+                    ),
+                  ),
                   Container(
                     decoration: BoxDecoration(
                         border: Border.all(
@@ -118,7 +120,7 @@ class _funnState extends State<funn> {
                       )),
                   DropdownButtonHideUnderline(
                     child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-                        stream: controll.PReadBoard(),
+                        stream: boardcontroll().PReadBoard(),
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
                             var ds = snapshot.data!.docs;
@@ -396,7 +398,6 @@ class board extends StatefulWidget {
 
 class _boardState extends State<board> {
   final TextEditingController nameofboard = TextEditingController();
-  final boardcontroll controll = Get.put(boardcontroll());
   FirebaseFirestore firebase = FirebaseFirestore.instance;
   bool isVisible = false;
   int selectcolor = 2;
@@ -561,7 +562,7 @@ class _boardState extends State<board> {
   //TODO task add backend
 
   ADD(DateTime Time) async {
-    await controll.addBoard(
+    await boardcontroll().addBoard(
       board: Board(
           name: nameofboard.text, Visibility: selectcolor, priority: Time),
     );
