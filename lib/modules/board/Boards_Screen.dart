@@ -411,28 +411,18 @@ class _funState extends State<fun> with TickerProviderStateMixin {
         ),
         Visibility(
           visible: showTboard,
-          child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-            stream: boardcontroll().TReadBoard(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return ListView.builder(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    padding: EdgeInsets.symmetric(vertical: 0),
-                    itemCount: snapshot.data!.docs.length,
-                    itemBuilder: (context, index) {
-                      DocumentSnapshot ds = snapshot.data!.docs[index];
-
-                      if (ds["visibilty"] == 0) {
-                        return theboard(ds, index);
-                      } else
-                        return Container();
-                    });
-              } else {
-                return Container();
-              }
-            },
-          ),
+          child: ListView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              padding: EdgeInsets.symmetric(vertical: 0),
+              itemCount: list2.,
+              itemBuilder: (context, index) {
+                DocumentSnapshot ds =boardcontroll.list2?[index];
+                if (ds["visibilty"] == 0) {
+                  return theboard(ds, index);
+                } else
+                  return Container();
+              });
         )
       ],
     );
