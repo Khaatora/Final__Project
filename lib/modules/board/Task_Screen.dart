@@ -5,7 +5,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:polygon_clipper/polygon_clipper.dart';
-import 'Boardcontroller.dart';
+import 'Back_End/Boardcontroller.dart';
 import 'Mydata.dart';
 
 class funn extends StatefulWidget {
@@ -16,6 +16,12 @@ class funn extends StatefulWidget {
 }
 
 class _funnState extends State<funn> {
+<<<<<<< HEAD:lib/modules/board/task.dart
+=======
+
+
+
+>>>>>>> 9a539798c364151807e3124b8aeb54947e9ff12b:lib/modules/board/Task_Screen.dart
 
   String endtime = "Due date...";
   String starttime = "start date...";
@@ -66,6 +72,10 @@ boardcontroll bb= boardcontroll();
                       )),
               DropdownButtonHideUnderline(
                     child:DropdownButton2(
+<<<<<<< HEAD:lib/modules/board/task.dart
+=======
+               
+>>>>>>> 9a539798c364151807e3124b8aeb54947e9ff12b:lib/modules/board/Task_Screen.dart
                       customItemsHeight: 18,
                       icon: Icon(
                         Icons.keyboard_arrow_down_rounded,
@@ -84,6 +94,11 @@ boardcontroll bb= boardcontroll();
                       items:
                          boardcontroll.list1.map((doc) => DropdownMenuItem<String>(
                                 value:doc["Name"],
+<<<<<<< HEAD:lib/modules/board/task.dart
+=======
+
+                     
+>>>>>>> 9a539798c364151807e3124b8aeb54947e9ff12b:lib/modules/board/Task_Screen.dart
                                 child: Text(
                                 doc["Name"],
                                   style: const TextStyle(

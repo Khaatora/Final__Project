@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
+<<<<<<< HEAD
 import 'package:polygon_clipper/polygon_clipper.dart';
+=======
+>>>>>>> 9a539798c364151807e3124b8aeb54947e9ff12b
 
 class MyList extends StatefulWidget {
   const MyList({Key? key}) : super(key: key);
@@ -116,6 +119,7 @@ children: [
                )           
           ],
         ),
+<<<<<<< HEAD
       ),
     );
   }
@@ -276,7 +280,99 @@ children: [
               ),
             )
         ],
+=======
+>>>>>>> 9a539798c364151807e3124b8aeb54947e9ff12b
       ),
+    );
+
+  }
+
+  // streaming lists of the board
+  mylistStream(){
+   return Container(
+        width: MediaQuery.of(context).size.width*0.75,
+
+     margin: EdgeInsets.only(right: MediaQuery.of(context).size.width*0.12),
+   
+   
+   
+   decoration:BoxDecoration(
+   
+     color: Color.fromARGB(255, 225, 242, 255),
+   
+     borderRadius: BorderRadius.circular(15)
+   
+   ),
+   
+   child: Container(
+    margin: EdgeInsets.symmetric(vertical:  MediaQuery.of(context).size.height*0.02,horizontal:  MediaQuery.of(context).size.width*0.04),
+
+     child: Column(
+     
+     
+     
+     
+       children: [
+     
+     
+     
+       Container(
+     
+     
+         child: Row(
+     
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+     
+           children: [
+     
+           Text(
+     
+                "List 1",
+     
+                               style: TextStyle(
+     
+                                   color: Color.fromARGB(255, 18, 131, 223),
+     
+                                   fontSize: 20,
+     
+                                  ),
+     
+                             ),
+     
+           Image.asset("assets/images/list-interface-symbol -horizental.png",
+     
+           width: MediaQuery.of(context).size.width*0.06,
+     
+           
+     
+           )
+     
+         ],),
+     
+       ),
+     Expanded(
+      
+       child: ListView(
+                   padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.015),
+          
+     children: [  
+           streamtasks(),
+     ],     ),
+     )
+     ]),
+   ),
+   
+   );
+
+  }
+  streamtasks(){
+    return Container(
+      
+      height: MediaQuery.of(context).size.height*0.26,
+    decoration:BoxDecoration(
+      
+      borderRadius: BorderRadius.circular(15),
+      color: Colors.white),
     );
 
   }

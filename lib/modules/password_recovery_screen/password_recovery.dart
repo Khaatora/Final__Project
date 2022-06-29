@@ -16,7 +16,7 @@ class Password_Recovary extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(30.0),
         child: SingleChildScrollView(
           child: Form(
             key: formkey,
@@ -26,8 +26,8 @@ class Password_Recovary extends StatelessWidget {
 
                     Center(
                       child: Image(image:AssetImage('assets/images/logo.png'),
-                        height: 150,
-                        width: 150,
+                        height: 250,
+                        width: 250,
                       ),
                     ),
 
@@ -36,7 +36,7 @@ class Password_Recovary extends StatelessWidget {
                   child: Text('Enter the email address associated with your acconunt and we will send you a new password',
                     style: TextStyle(
                       color: Colors.grey.withRed(124).withGreen(130).withBlue(141),
-                      fontSize: 21,
+                      fontSize: 20,
                     ),
                   ),
                 ),
@@ -48,12 +48,13 @@ class Password_Recovary extends StatelessWidget {
 
                 Text('Email',
                   style: TextStyle(
-                    fontSize: 30,
+                    fontSize: 20,
                     color: Colors.blue.withRed(46).withGreen(132).withBlue(245),
                   ),
                 ),
                 Container(
-                  width: MediaQuery.of(context).size.width,
+                  width: MediaQuery.of(context).size.width/1.2,
+                  height:  MediaQuery.of(context).size.height/20,
                   child: defaulttff(context: context,
                     controller:emailController,
                     onsubmit: (){},
@@ -67,9 +68,10 @@ class Password_Recovary extends StatelessWidget {
                 SizedBox(height: 30,),
 
                 Container(
-                  width: MediaQuery.of(context).size.width,
+                  width: MediaQuery.of(context).size.width/1.2,
+                  height:  MediaQuery.of(context).size.height/20,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(15),
                     color: Colors.blue,
                   ),
 

@@ -6,22 +6,27 @@ import 'package:get/get.dart';
 import 'package:polygon_clipper/polygon_clipper.dart'; // Import package for ClipPolygon
 import 'package:animated_button_bar/animated_button_bar.dart';
 import 'package:flutter/material.dart';
-import 'Boardcontroller.dart';
-import 'task.dart';
+import 'Back_End/Boardcontroller.dart';
+import 'Task_Screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 class fun extends StatefulWidget {
   @override
   State<fun> createState() => _funState();
+
 }
 
 class _funState extends State<fun> with TickerProviderStateMixin {
+<<<<<<< HEAD:lib/modules/board/borads.dart
+=======
+
+
+>>>>>>> 9a539798c364151807e3124b8aeb54947e9ff12b:lib/modules/board/Boards_Screen.dart
   FirebaseFirestore firebase = FirebaseFirestore.instance;
 
   bool isVisible = false;
   bool showTboard = true;
   bool showPboard = true;
-
   late TabController tabController;
   @override
   void initState() {
@@ -164,6 +169,7 @@ class _funState extends State<fun> with TickerProviderStateMixin {
                                 ),
                               ),
                             ),
+<<<<<<< HEAD:lib/modules/board/borads.dart
                             InkWell(
                               
                               onTap: () {},
@@ -173,6 +179,16 @@ class _funState extends State<fun> with TickerProviderStateMixin {
                                    width: MediaQuery.of(context).size.width*0.09,),
                                    height:  MediaQuery.of(context).size.width*0.07,
         
+=======
+                            MaterialButton(
+                              
+                              onPressed: () {},
+                              child: Container(
+                                   child: Image.asset("assets/images/free-search-icon-3076-thumb.png",
+                                   width: MediaQuery.of(context).size.width*0.09,),
+                                   height:  MediaQuery.of(context).size.width*0.07,
+
+>>>>>>> 9a539798c364151807e3124b8aeb54947e9ff12b:lib/modules/board/Boards_Screen.dart
                               ),
                             )
                           ],
@@ -263,12 +279,18 @@ class _funState extends State<fun> with TickerProviderStateMixin {
       padding: EdgeInsets.symmetric( vertical: MediaQuery.of(context).size.height * 0.03),
       children: [
         Container(
+<<<<<<< HEAD:lib/modules/board/borads.dart
    
+=======
+          margin: EdgeInsets.only(
+              left: MediaQuery.of(context).size.width * 0.02,
+              right: MediaQuery.of(context).size.width * 0.04),
+>>>>>>> 9a539798c364151807e3124b8aeb54947e9ff12b:lib/modules/board/Boards_Screen.dart
           child: Row(
             children: [
               Container(
                 height: MediaQuery.of(context).size.height * 0.03,
-                width: MediaQuery.of(context).size.width * 0.045,
+                width: MediaQuery.of(context).size.width * 0.055,
                 margin: EdgeInsets.only(
                     right: MediaQuery.of(context).size.width * 0.01),
                 decoration: BoxDecoration(
@@ -335,6 +357,7 @@ class _funState extends State<fun> with TickerProviderStateMixin {
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.018,
         ),
+<<<<<<< HEAD:lib/modules/board/borads.dart
         Row(
           children: [
             Container(
@@ -361,6 +384,17 @@ class _funState extends State<fun> with TickerProviderStateMixin {
             ),
             Expanded(
               child: Container(
+=======
+        Container(
+          margin: EdgeInsets.only(
+              left: MediaQuery.of(context).size.width * 0.02,
+              right: MediaQuery.of(context).size.width * 0.04),
+          child: Row(
+            children: [
+              Container(
+                height: MediaQuery.of(context).size.height * 0.03,
+                width: MediaQuery.of(context).size.width * 0.055,
+>>>>>>> 9a539798c364151807e3124b8aeb54947e9ff12b:lib/modules/board/Boards_Screen.dart
                 margin: EdgeInsets.only(
                     left: MediaQuery.of(context).size.width * 0.01),
                 decoration: BoxDecoration(

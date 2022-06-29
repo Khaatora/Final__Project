@@ -1,7 +1,16 @@
 // ignore_for_file: prefer_const_constructors
 
 
+<<<<<<< HEAD
 import 'package:final_pro/modules/board/borads.dart';
+=======
+import 'package:final_pro/modules/board/Boards_Screen.dart';
+import 'package:final_pro/modules/board/Task_Screen.dart';
+import 'package:final_pro/modules/chat_screen/chatscreen.dart';
+import 'package:final_pro/modules/login_screen/login.dart';
+import 'package:final_pro/modules/password_recovery_screen/password_recovery.dart';
+import 'package:final_pro/modules/profile_setting_screen/ProfileSetting.dart';
+>>>>>>> 9a539798c364151807e3124b8aeb54947e9ff12b
 import 'package:final_pro/modules/successlistcubit/states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -50,7 +59,7 @@ class MyApp extends StatelessWidget {
                       fontSize: 17,
                     ),
                   ),
-                  primarySwatch: Colors.deepOrange,
+                  primarySwatch: Colors.blue,
                   scaffoldBackgroundColor: Colors.white,
                   appBarTheme: AppBarTheme(
                     backwardsCompatibility: false,
