@@ -1,9 +1,10 @@
+import 'package:final_pro/modules/board/Back_End/Boardcontroller.dart';
 import 'package:final_pro/modules/password_recovery_screen/password_recovery.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '../../shared/components/default_tff.dart';
-import '../board/borads.dart';
+import '../board/Boards_Screen.dart';
 import '../sign_up_screen/sign_up.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -23,11 +24,12 @@ class _LoginState extends State<Login> {
     super.initState();
   }
 
-//function to verify user sign in info and change screen into home screen
+//function to verify user sign in info and change screen into "Boards" screen
   _logIn() async {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: emailController.text, password: passwordController.text);
+      boardcontroll.getPublicUserBoards();
       Navigator.push(context, MaterialPageRoute(builder: (context) => fun()));
     } on FirebaseAuthException catch (e) {
       String message = "";
@@ -45,7 +47,6 @@ class _LoginState extends State<Login> {
           message = "Incorrect password";
           break;
       }
-
       showDialog(
           context: context,
           builder: (context) {

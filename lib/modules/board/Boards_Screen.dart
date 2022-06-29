@@ -6,8 +6,8 @@ import 'package:get/get.dart';
 import 'package:polygon_clipper/polygon_clipper.dart'; // Import package for ClipPolygon
 import 'package:animated_button_bar/animated_button_bar.dart';
 import 'package:flutter/material.dart';
-import 'Boardcontroller.dart';
-import 'task.dart';
+import 'Back_End/Boardcontroller.dart';
+import 'Task_Screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 class fun extends StatefulWidget {

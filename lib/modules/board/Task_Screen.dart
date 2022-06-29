@@ -5,7 +5,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:polygon_clipper/polygon_clipper.dart';
-import 'Boardcontroller.dart';
+import 'Back_End/Boardcontroller.dart';
 import 'Mydata.dart';
 
 class funn extends StatefulWidget {
@@ -16,7 +16,7 @@ class funn extends StatefulWidget {
 }
 
 class _funnState extends State<funn> {
-  final boardcontroll controll = Get.put(boardcontroll());
+  boardcontroll controll = Get.put(boardcontroll());
 
   String endtime = "Due date...";
   String starttime = "start date...";
@@ -64,6 +64,7 @@ class _funnState extends State<funn> {
                         color: Colors.grey[500],
                       )),
                   DropdownButtonHideUnderline(child: Obx(() {
+
                     return DropdownButton2(
                       customItemsHeight: 18,
                       icon: Icon(
@@ -80,7 +81,7 @@ class _funnState extends State<funn> {
                           color: Color.fromARGB(255, 156, 151, 151),
                         ),
                       ),
-                      items: controll.list1
+                      items: boardcontroll.list1
                           .map((doc) => DropdownMenuItem<String>(
                                 value: doc["Name"],
                                 child: Text(
