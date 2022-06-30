@@ -1,7 +1,5 @@
 // ignore_for_file: prefer_const_constructors
 
-
-
 import 'package:final_pro/modules/board/Boards_Screen.dart';
 import 'package:final_pro/modules/board/Task_Screen.dart';
 import 'package:final_pro/modules/chat_screen/chatscreen.dart';
@@ -36,67 +34,65 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: _initializaiton,
-      builder: (context, snapshot) {
+        future: _initializaiton,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState != ConnectionState.done) {
+            return Center(child: CircularProgressIndicator());
+          }
 
-        if (snapshot.connectionState != ConnectionState.done){
-          return Center(child : CircularProgressIndicator());
-        }
-
-        return BlocProvider(
-          create: (context) => SucessListCubit(),
-          child: BlocConsumer<SucessListCubit, SuccessListStates>(
-            listener: (context, state) => {},
-            builder: (context, state) {
-              return GetMaterialApp(
-                home:Welcome(),
-                theme: ThemeData(
-                  textTheme: TextTheme(
-                    bodyText1: TextStyle(
-                      color: Colors.black,
-                      fontSize: 17,
+          return BlocProvider(
+            create: (context) => SucessListCubit(),
+            child: BlocConsumer<SucessListCubit, SuccessListStates>(
+              listener: (context, state) => {},
+              builder: (context, state) {
+                return GetMaterialApp(
+                  home: Welcome(),
+                  theme: ThemeData(
+                    textTheme: TextTheme(
+                      bodyText1: TextStyle(
+                        color: Colors.black,
+                        fontSize: 17,
+                      ),
+                    ),
+                    primarySwatch: Colors.blue,
+                    scaffoldBackgroundColor: Colors.white,
+                    appBarTheme: AppBarTheme(
+                      backwardsCompatibility: false,
+                      systemOverlayStyle: SystemUiOverlayStyle(
+                        statusBarColor: Colors.black,
+                        statusBarIconBrightness: Brightness.light,
+                      ),
+                      backgroundColor: Colors.white,
+                      elevation: 0.0,
                     ),
                   ),
-                  primarySwatch: Colors.blue,
-                  scaffoldBackgroundColor: Colors.white,
-                  appBarTheme: AppBarTheme(
-                    backwardsCompatibility: false,
-                    systemOverlayStyle: SystemUiOverlayStyle(
-                      statusBarColor: Colors.black,
-                      statusBarIconBrightness: Brightness.light,
+                  darkTheme: ThemeData(
+                    textTheme: TextTheme(
+                      bodyText1: TextStyle(
+                        color: Colors.white,
+                        fontSize: 17,
+                      ),
                     ),
-                    backgroundColor: Colors.white,
-                    elevation: 0.0,
-                  ),
-                ),
-                darkTheme: ThemeData(
-                  textTheme: TextTheme(
-                    bodyText1: TextStyle(
-                      color: Colors.white,
-                      fontSize: 17,
+                    scaffoldBackgroundColor: HexColor('#333739'),
+                    primarySwatch: Colors.deepOrange,
+                    appBarTheme: AppBarTheme(
+                      backwardsCompatibility: false,
+                      systemOverlayStyle: SystemUiOverlayStyle(
+                        statusBarColor: HexColor('#333739'),
+                        statusBarIconBrightness: Brightness.light,
+                      ),
+                      backgroundColor: HexColor('#333739'),
+                      elevation: 0.0,
                     ),
                   ),
-                  scaffoldBackgroundColor: HexColor('#333739'),
-                  primarySwatch: Colors.deepOrange,
-                  appBarTheme: AppBarTheme(
-                    backwardsCompatibility: false,
-                    systemOverlayStyle: SystemUiOverlayStyle(
-                      statusBarColor: HexColor('#333739'),
-                      statusBarIconBrightness: Brightness.light,
-                    ),
-                    backgroundColor: HexColor('#333739'),
-                    elevation: 0.0,
-                  ),
-                ),
-                themeMode: SucessListCubit.get(context).isDark
-                    ? ThemeMode.dark
-                    : ThemeMode.light,
-                debugShowCheckedModeBanner: false,
-              );
-            },
-          ),
-        );
-      }
-    );
+                  themeMode: SucessListCubit.get(context).isDark
+                      ? ThemeMode.dark
+                      : ThemeMode.light,
+                  debugShowCheckedModeBanner: false,
+                );
+              },
+            ),
+          );
+        });
   }
 }

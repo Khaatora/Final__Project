@@ -102,18 +102,15 @@ class _MyListState extends State<MyList> {
                 )
               ],
             ),
-
-               Container(
-               height: MediaQuery.of(context).size.height*0.7,
-               margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.068),
-
-                 child: ListView(
-               scrollDirection: Axis.horizontal,
-children: [
-  mylistStream(),
-  mylistStream()
-],                 ),
-               )           
+            Container(
+              height: MediaQuery.of(context).size.height * 0.7,
+              margin: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height * 0.068),
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [mylistStream(), mylistStream()],
+              ),
+            )
           ],
         ),
       ),
@@ -121,167 +118,139 @@ children: [
   }
 
   // streaming lists of the board
-  mylistStream(){
-   return Container(
-        width: MediaQuery.of(context).size.width*0.75,
-
-     margin: EdgeInsets.only(right: MediaQuery.of(context).size.width*0.12),
-   
-   
-   
-   decoration:BoxDecoration(
-   
-     color: Color.fromARGB(255, 225, 242, 255),
-   
-     borderRadius: BorderRadius.circular(15)
-   
-   ),
-   
-   child: Container(
-    margin: EdgeInsets.symmetric(vertical:  MediaQuery.of(context).size.height*0.02,horizontal:  MediaQuery.of(context).size.width*0.04),
-
-     child: Column(
-     
-     
-     
-     
-       children: [
-     
-     
-     
-       Container(
-     
-     
-         child: Row(
-     
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-     
-           children: [
-     
-           Text(
-     
-                "List 1",
-     
-                               style: TextStyle(
-     
-                                   color: Color.fromARGB(255, 18, 131, 223),
-     
-                                   fontSize: 20,
-     
-                                  ),
-     
-                             ),
-     
-           InkWell(
-            onTap: (){},
-             child: Image.asset("assets/images/list-interface-symbol -horizental.png",
-                
-             width: MediaQuery.of(context).size.width*0.06,
-                
-             
-                
-             ),
-           )
-     
-         ],),
-     
-       ),
-     Expanded(
-      
-       child: ListView(
-                   padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.015),
-          
-     children: [  
-           streamtasks(),
-     ],     ),
-     )
-     ]),
-   ),
-   
-   );
-
-  }
-  streamtasks(){
+  mylistStream() {
     return Container(
-      
-      height: MediaQuery.of(context).size.height*0.26,
-    decoration:BoxDecoration(
-      
-      borderRadius: BorderRadius.circular(15),
-      color: Colors.white),
+      width: MediaQuery.of(context).size.width * 0.75,
+      margin: EdgeInsets.only(right: MediaQuery.of(context).size.width * 0.12),
+      decoration: BoxDecoration(
+          color: Color.fromARGB(255, 225, 242, 255),
+          borderRadius: BorderRadius.circular(15)),
+      child: Container(
+        margin: EdgeInsets.symmetric(
+            vertical: MediaQuery.of(context).size.height * 0.02,
+            horizontal: MediaQuery.of(context).size.width * 0.04),
+        child: Column(children: [
+          Container(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "List 1",
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 18, 131, 223),
+                    fontSize: 20,
+                  ),
+                ),
+                InkWell(
+                  onTap: () {},
+                  child: Image.asset(
+                    "assets/images/list-interface-symbol -horizental.png",
+                    width: MediaQuery.of(context).size.width * 0.06,
+                  ),
+                )
+              ],
+            ),
+          ),
+          Expanded(
+            child: ListView(
+              padding: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height * 0.015),
+              children: [
+                streamtasks(),
+              ],
+            ),
+          )
+        ]),
+      ),
+    );
+  }
+
+  streamtasks() {
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.26,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15), color: Colors.white),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-        Container(
-         margin: EdgeInsets.symmetric(horizontal:MediaQuery.of(context).size.width*0.027 , vertical:  MediaQuery.of(context).size.height*0.023),
-            width: MediaQuery.of(context).size.width*0.5,
-
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-             
-             
-               
-               Text("Find Your Dream",style: TextStyle(color: Color.fromARGB(255, 18, 131, 223),fontSize: 22,fontWeight: FontWeight.bold),),
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.05,
-                  margin: EdgeInsets.only( top: MediaQuery.of(context).size.width*0.03),
-                  child:ListView(
-                    padding: EdgeInsets.all(0),
-                    children: [ Text("Find Your Dream fkfkmfm krmkmekfmvklmldmv dkflmvld",style: TextStyle(color: Colors.grey,fontSize: 16,),)],)),
-                Container(
-                   margin: EdgeInsets.only( top: MediaQuery.of(context).size.width*0.01),
-
-                  child: Row(
-                    
-                    children: [
-                    Icon(Icons.flag,
-                    color: Colors.grey,
-                    ),
-                    Text("date")
-                  ],),
+          Container(
+            margin: EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.width * 0.027,
+                vertical: MediaQuery.of(context).size.height * 0.023),
+            width: MediaQuery.of(context).size.width * 0.5,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Find Your Dream",
+                  style: TextStyle(
+                      color: Color.fromARGB(255, 18, 131, 223),
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold),
                 ),
-                Row(children: [
-                  Container(
-                    width:MediaQuery.of(context).size.width * 0.0999,
-                  child: ClipPolygon(
-                    
-                    sides: 6,
-                     borderRadius: 10.0, // Default 0.0 degrees
-                      rotate: 180.0, 
-                    child:Container(color: Colors.red), 
-                 
+                Container(
+                    height: MediaQuery.of(context).size.height * 0.05,
+                    margin: EdgeInsets.only(
+                        top: MediaQuery.of(context).size.width * 0.03),
+                    child: ListView(
+                      padding: EdgeInsets.all(0),
+                      children: [
+                        Text(
+                          "Find Your Dream fkfkmfm krmkmekfmvklmldmv dkflmvld",
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 16,
+                          ),
+                        )
+                      ],
+                    )),
+                Container(
+                  margin: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.width * 0.01),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.flag,
+                        color: Colors.grey,
+                      ),
+                      Text("date")
+                    ],
+                  ),
+                ),
+                Row(
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.0999,
+                      child: ClipPolygon(
+                        sides: 6,
+                        borderRadius: 10.0, // Default 0.0 degrees
+                        rotate: 180.0,
+                        child: Container(color: Colors.red),
+                      ),
                     ),
-                ), 
-
-                ],)
-          
-          ],),
-        )
-          ,
-            Container(
-               margin: EdgeInsets.symmetric(horizontal:MediaQuery.of(context).size.width*0.009 , vertical:  MediaQuery.of(context).size.height*0.01),
-              child: Column(
-                children: [
-                  InkWell(
-                  onTap: (){
-                  },
-                    child: Image.asset("assets/images/list-interface-symbol copy.png",
-                    
-                    width:  MediaQuery.of(context).size.width*0.055,
-                    height:  MediaQuery.of(context).size.width*0.05),
-                           ),
-                           
-                ],
-              ),
-            )
+                  ],
+                )
+              ],
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.width * 0.009,
+                vertical: MediaQuery.of(context).size.height * 0.01),
+            child: Column(
+              children: [
+                InkWell(
+                  onTap: () {},
+                  child: Image.asset(
+                      "assets/images/list-interface-symbol copy.png",
+                      width: MediaQuery.of(context).size.width * 0.055,
+                      height: MediaQuery.of(context).size.width * 0.05),
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );
-
   }
-
-  
- 
-  
 }

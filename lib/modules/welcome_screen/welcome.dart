@@ -173,7 +173,7 @@ class Welcome extends StatelessWidget {
                   ),
                   child: MaterialButton(
                     onPressed: () {
-                         boardcontroll().getPublicUserBoards();
+                      boardcontroll().getPublicUserBoards();
 
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => Login()));

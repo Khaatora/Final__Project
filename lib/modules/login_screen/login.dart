@@ -27,7 +27,10 @@ class _LoginState extends State<Login> {
 //function to verify user sign in info and change screen into "Boards" screen
   _logIn() async {
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(   email: emailController.text, password: passwordController.text).then((value) => boardcontroll().getPublicUserBoards());
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(
+              email: emailController.text, password: passwordController.text)
+          .then((value) => boardcontroll().getPublicUserBoards());
       Navigator.push(context, MaterialPageRoute(builder: (context) => fun()));
     } on FirebaseAuthException catch (e) {
       String message = "";
@@ -74,9 +77,9 @@ class _LoginState extends State<Login> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-               // SizedBox(
-              //   height: 20,
-               // ),
+                // SizedBox(
+                //   height: 20,
+                // ),
                 Container(
                   child: Center(
                     child: const Image(
@@ -98,8 +101,8 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 Container(
-                  width: MediaQuery.of(context).size.width/1.2,
-                  height:  MediaQuery.of(context).size.height/20,
+                  width: MediaQuery.of(context).size.width / 1.2,
+                  height: MediaQuery.of(context).size.height / 20,
                   child: defaulttff(
                     context: context,
                     controller: emailController,
@@ -122,8 +125,8 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 Container(
-                  width: MediaQuery.of(context).size.width/1.2,
-                  height:  MediaQuery.of(context).size.height/20,
+                  width: MediaQuery.of(context).size.width / 1.2,
+                  height: MediaQuery.of(context).size.height / 20,
                   child: defaulttff(
                     context: context,
                     controller: passwordController,
@@ -181,11 +184,7 @@ class _LoginState extends State<Login> {
                   child: MaterialButton(
                     onPressed: () {
                       if (formkey.currentState!.validate()) {
-                      
-                      
                         _logIn();
-
-
                       }
                     },
                     child: Text(
