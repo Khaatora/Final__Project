@@ -106,11 +106,7 @@ class _LoginState extends State<Login> {
                     onsubmit: () {},
                     onchanged: () {},
                     type: TextInputType.text,
-<<<<<<< HEAD
-                    text: 'omar@gmail.com',
-=======
                     text: '',
->>>>>>> 0cf7ce487fb108dce0d6fa60a2da24fbc2228ee7
                     validatortext: 'email address must not be empty',
                   ),
                 ),
