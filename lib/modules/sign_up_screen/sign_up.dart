@@ -51,14 +51,14 @@ class _Sign_UpState extends State<Sign_Up> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
-                  height: 20,
-                ),
+             //   SizedBox(
+              //    height: 20,
+               // ),
                 Center(
                   child: Image(
                     image: AssetImage('assets/images/logo.png'),
-                    height: 250,
-                    width: 250,
+                    height: 200,
+                    width: 200,
                   ),
                 ),
                 Text(

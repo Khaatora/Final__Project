@@ -75,15 +75,15 @@ class _LoginState extends State<Login> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
-                  height: 30,
-                ),
+               // SizedBox(
+              //   height: 20,
+               // ),
                 Container(
                   child: Center(
                     child: const Image(
                       image: AssetImage('assets/images/logo.png'),
-                      height: 250,
-                      width: 250,
+                      height: 200,
+                      width: 200,
                     ),
                   ),
                 ),
@@ -107,7 +107,7 @@ class _LoginState extends State<Login> {
                     onsubmit: () {},
                     onchanged: () {},
                     type: TextInputType.text,
-                    text: 'omar@gm.com',
+                    text: '',
                     validatortext: 'email address must not be empty',
                   ),
                 ),
