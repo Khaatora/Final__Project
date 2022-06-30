@@ -16,7 +16,7 @@ class fun extends StatefulWidget {
 }
 
 class _funState extends State<fun> with TickerProviderStateMixin {
-
+  FirebaseFirestore firebase = FirebaseFirestore.instance;
   bool isVisible = false;
   bool showTboard = true;
   bool showPboard = true;
@@ -75,8 +75,7 @@ class _funState extends State<fun> with TickerProviderStateMixin {
                   color: Colors.blue,
                 ),
                 child: MaterialButton(
-                  onPressed: ()  {
-
+                  onPressed: () {
                      showDialog(
                       context: context,
                       barrierColor: Colors.black.withOpacity(0.5),
@@ -84,6 +83,7 @@ class _funState extends State<fun> with TickerProviderStateMixin {
                         return board();
                       },
                     );
+                      
                   },
                   child: Text('Board',
                       style: TextStyle(color: Colors.white, fontSize: 17)),
@@ -317,7 +317,6 @@ class _funState extends State<fun> with TickerProviderStateMixin {
                     itemCount: boardcontroll.list2.length,
                     itemBuilder: (context, index) {
                        Map<String,dynamic> ds = boardcontroll.list2[index];
-
                       if (ds["visibilty"] == 1) {
                         return theboard(ds, index);
                       } else

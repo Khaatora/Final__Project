@@ -27,9 +27,7 @@ class boardcontroll extends GetxController {
         FirebaseFirestore.instance.collection("Public_Board_Members");
   }
   static List list1 = <QueryDocumentSnapshot<Map<String, dynamic>>>[].obs;
-
-    static List <Map<String, dynamic>>  list2 =<Map<String, dynamic>>[];
-
+  static List <Map<String, dynamic>>  list2 =<Map<String, dynamic>>[];
   static QuerySnapshot<Map<String, dynamic>>? currentUserBoards;
   @override
   void onReady() {
@@ -82,7 +80,6 @@ class boardcontroll extends GetxController {
       tmplist1.add(element["Board_ID"]);
    
     });
-       print(tmplist1);
       y.forEach((element) {
       if(tmplist1. contains(element["Board_ID"])){
         tmplist2.add(element);

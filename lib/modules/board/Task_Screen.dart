@@ -524,10 +524,12 @@ class _boardState extends State<board> {
                   InkWell(
                     onTap: () async {
                       DateTime starttime = DateTime.now();
-                      await ADD(starttime);
-                    boardcontroll().getPublicUserBoards();
+                       
+                     await  ADD(starttime);
+                        await boardcontroll().getPublicUserBoards();
 
                       Get.back();
+                      
                     },
                     child: Center(
                       child: Container(
@@ -561,11 +563,10 @@ class _boardState extends State<board> {
 
   //TODO task add backend
 
-  ADD(DateTime Time) async {
+  ADD(DateTime Time)async  {
     await boardcontroll().addBoard(
       board: Board(
           name: nameofboard.text, Visibility: selectcolor, priority: Time),
     );
-    boardcontroll().getPublicUserBoards();
   }
 }
