@@ -185,6 +185,7 @@ class _LoginState extends State<Login> {
                         boardcontroll().getPublicUserBoards();
                         _logIn();
                         print('clicked');
+
                       }
                     },
                     child: Text(

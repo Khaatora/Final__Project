@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
+import 'package:polygon_clipper/polygon_clipper.dart';
 
 class MyList extends StatefulWidget {
   const MyList({Key? key}) : super(key: key);
@@ -171,12 +172,15 @@ children: [
      
                              ),
      
-           Image.asset("assets/images/list-interface-symbol -horizental.png",
-     
-           width: MediaQuery.of(context).size.width*0.06,
-     
-           
-     
+           InkWell(
+            onTap: (){},
+             child: Image.asset("assets/images/list-interface-symbol -horizental.png",
+                
+             width: MediaQuery.of(context).size.width*0.06,
+                
+             
+                
+             ),
            )
      
          ],),
@@ -205,7 +209,79 @@ children: [
       
       borderRadius: BorderRadius.circular(15),
       color: Colors.white),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+        Container(
+         margin: EdgeInsets.symmetric(horizontal:MediaQuery.of(context).size.width*0.027 , vertical:  MediaQuery.of(context).size.height*0.023),
+            width: MediaQuery.of(context).size.width*0.5,
+
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+             
+             
+               
+               Text("Find Your Dream",style: TextStyle(color: Color.fromARGB(255, 18, 131, 223),fontSize: 22,fontWeight: FontWeight.bold),),
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.05,
+                  margin: EdgeInsets.only( top: MediaQuery.of(context).size.width*0.03),
+                  child:ListView(
+                    padding: EdgeInsets.all(0),
+                    children: [ Text("Find Your Dream fkfkmfm krmkmekfmvklmldmv dkflmvld",style: TextStyle(color: Colors.grey,fontSize: 16,),)],)),
+                Container(
+                   margin: EdgeInsets.only( top: MediaQuery.of(context).size.width*0.01),
+
+                  child: Row(
+                    
+                    children: [
+                    Icon(Icons.flag,
+                    color: Colors.grey,
+                    ),
+                    Text("date")
+                  ],),
+                ),
+                Row(children: [
+                  Container(
+                    width:MediaQuery.of(context).size.width * 0.0999,
+                  child: ClipPolygon(
+                    
+                    sides: 6,
+                     borderRadius: 10.0, // Default 0.0 degrees
+                      rotate: 180.0, 
+                    child:Container(color: Colors.red), 
+                 
+                    ),
+                ), 
+
+                ],)
+          
+          ],),
+        )
+          ,
+            Container(
+               margin: EdgeInsets.symmetric(horizontal:MediaQuery.of(context).size.width*0.009 , vertical:  MediaQuery.of(context).size.height*0.01),
+              child: Column(
+                children: [
+                  InkWell(
+                  onTap: (){
+                  },
+                    child: Image.asset("assets/images/list-interface-symbol copy.png",
+                    
+                    width:  MediaQuery.of(context).size.width*0.055,
+                    height:  MediaQuery.of(context).size.width*0.05),
+                           ),
+                           
+                ],
+              ),
+            )
+        ],
+      ),
     );
 
   }
+
+  
+ 
+  
 }

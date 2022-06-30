@@ -16,6 +16,12 @@ class fun extends StatefulWidget {
 }
 
 class _funState extends State<fun> with TickerProviderStateMixin {
+<<<<<<< HEAD
+
+
+
+=======
+>>>>>>> 6fe460c07f4f1ad3d43f8d6b9eaaaf629f462fc6
   FirebaseFirestore firebase = FirebaseFirestore.instance;
 
   bool isVisible = false;
@@ -76,8 +82,9 @@ class _funState extends State<fun> with TickerProviderStateMixin {
                   color: Colors.blue,
                 ),
                 child: MaterialButton(
-                  onPressed: () async {
-                    await showDialog(
+                  onPressed: ()  {
+
+                     showDialog(
                       context: context,
                       barrierColor: Colors.black.withOpacity(0.5),
                       builder: (context) {
@@ -114,28 +121,30 @@ class _funState extends State<fun> with TickerProviderStateMixin {
                 )),
           ],
         ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              margin: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.02),
-              child: Row(
+        body: Container(
+       margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.036, left: MediaQuery.of(context).size.width * 0.02,right: MediaQuery.of(context).size.width * 0.02 ),
+            
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
                 children: [
                   Container(
-                    height: MediaQuery.of(context).size.height * 0.09,
-                    width: MediaQuery.of(context).size.width * 0.14,
+                  
+                    margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.01,),
+                    width: MediaQuery.of(context).size.width * 0.176,
                     child: ClipPolygon(
                       sides: 6,
-                      borderRadius: 8.0, // Default 0.0 degrees
+                      borderRadius: 16.0, // Default 0.0 degrees
                       rotate: 180.0, // Default 0.0 degrees
-
-                      child: Container(color: Colors.red),
+        
+                      child: Container(
+                        color: Colors.red),
                     ),
                   ),
                   Expanded(
                     child: Container(
-                        height: MediaQuery.of(context).size.height * 0.07,
+                        height: MediaQuery.of(context).size.height * 0.065,
                         margin: EdgeInsets.only(top: 10),
                         padding: EdgeInsets.only(left: 10),
                         decoration: BoxDecoration(
@@ -161,6 +170,18 @@ class _funState extends State<fun> with TickerProviderStateMixin {
                                 ),
                               ),
                             ),
+<<<<<<< HEAD
+                            InkWell(
+                              
+                              onTap: () {},
+                              child: Container(
+                                margin: EdgeInsets.only(right: MediaQuery.of(context).size.width*0.03 ),
+                                   child: Image.asset("assets/images/free-search-icon-3076-thumb.png",
+                                   width: MediaQuery.of(context).size.width*0.09,),
+                                   height:  MediaQuery.of(context).size.width*0.07,
+        
+                            
+=======
                             MaterialButton(
                               onPressed: () {},
                               child: Container(
@@ -171,6 +192,7 @@ class _funState extends State<fun> with TickerProviderStateMixin {
                                 ),
                                 height:
                                     MediaQuery.of(context).size.width * 0.07,
+>>>>>>> 6fe460c07f4f1ad3d43f8d6b9eaaaf629f462fc6
                               ),
                             )
                           ],
@@ -178,41 +200,41 @@ class _funState extends State<fun> with TickerProviderStateMixin {
                   ),
                 ],
               ),
-            ),
-            Container(
-              margin: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.02),
-              height: MediaQuery.of(context).size.height * 0.06,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: Color.fromARGB(255, 233, 229, 229)),
-              child: TabBar(
-                padding:
-                    EdgeInsets.all(MediaQuery.of(context).size.width * 0.01),
-                labelColor: Colors.blue,
-                unselectedLabelColor: Colors.grey,
-                controller: tabController,
-                indicator: BoxDecoration(
+              Container(
+                margin: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * 0.01),
+                height: MediaQuery.of(context).size.height * 0.06,
+                decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
-                    color: Colors.white),
-                tabs: [
-                  Text('boards'),
-                  Text('My Tasks'),
-                ],
+                    color: Color.fromARGB(255, 233, 229, 229)),
+                child: TabBar(
+                  padding:
+                      EdgeInsets.all(MediaQuery.of(context).size.width * 0.01),
+                  labelColor: Colors.blue,
+                  unselectedLabelColor: Colors.grey,
+                  controller: tabController,
+                  indicator: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: Colors.white),
+                  tabs: [
+                    Text('boards'),
+                    Text('My Tasks'),
+                  ],
+                ),
               ),
-            ),
-            Expanded(
-              child: DefaultTabController(
-                length: 2,
-                child: TabBarView(
-                    controller: tabController, children: [myboard(), mytask()]),
+              Expanded(
+                child: DefaultTabController(
+                  length: 2,
+                  child: TabBarView(
+                      controller: tabController, children: [myboard(), mytask()]),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ));
   }
 
-  theboard(DocumentSnapshot ds, int index) {
+  theboard(Map<String,dynamic> ds, int index) {
     return MaterialButton(
       padding: EdgeInsets.all(0),
       onPressed: () {
@@ -249,7 +271,6 @@ class _funState extends State<fun> with TickerProviderStateMixin {
               child: MaterialButton(
                   color: Colors.red,
                   onPressed: () {
-                    firebase.collection("Boards").doc(ds.id).delete();
                   })),
         ],
       ),
@@ -258,13 +279,10 @@ class _funState extends State<fun> with TickerProviderStateMixin {
 
    myboard() {
     return ListView(
-      padding: EdgeInsets.symmetric(
-          vertical: MediaQuery.of(context).size.height * 0.03),
+      padding: EdgeInsets.symmetric( vertical: MediaQuery.of(context).size.height * 0.03),
       children: [
         Container(
-          margin: EdgeInsets.only(
-              left: MediaQuery.of(context).size.width * 0.02,
-              right: MediaQuery.of(context).size.width * 0.04),
+
           child: Row(
             children: [
               Container(
@@ -318,9 +336,9 @@ class _funState extends State<fun> with TickerProviderStateMixin {
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
                     padding: EdgeInsets.symmetric(vertical: 0),
-                    itemCount: snapshot.data!.docs.length,
+                    itemCount: boardcontroll.list2.length,
                     itemBuilder: (context, index) {
-                      DocumentSnapshot ds = snapshot.data!.docs[index];
+                       Map<String,dynamic> ds = boardcontroll.list2[index];
 
                       if (ds["visibilty"] == 1) {
                         return theboard(ds, index);
@@ -336,47 +354,44 @@ class _funState extends State<fun> with TickerProviderStateMixin {
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.018,
         ),
-        Container(
-          margin: EdgeInsets.only(
-              left: MediaQuery.of(context).size.width * 0.02,
-              right: MediaQuery.of(context).size.width * 0.04),
-          child: Row(
-            children: [
-              Container(
-                height: MediaQuery.of(context).size.height * 0.03,
-                width: MediaQuery.of(context).size.width * 0.055,
+
+        Row(
+          children: [
+            Container(
+              height: MediaQuery.of(context).size.height * 0.03,
+              width: MediaQuery.of(context).size.width * 0.045,
+              margin: EdgeInsets.only(
+                  right: MediaQuery.of(context).size.width * 0.01),
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      fit: BoxFit.fill,
+                      image: AssetImage("assets/images/bold-Vexels.jpg"))),
+            ),
+            InkWell(
+              onTap: () => setState(() {
+                showTboard = !showTboard;
+              }),
+              child: Text(
+                "Teams Board",
+                style: TextStyle(
+                    color: Colors.grey[500],
+                    fontStyle: FontStyle.italic,
+                    fontSize: 17),
+              ),
+            ),
+            Expanded(
+              child: Container(
+
                 margin: EdgeInsets.only(
-                    right: MediaQuery.of(context).size.width * 0.01),
+                    left: MediaQuery.of(context).size.width * 0.01),
                 decoration: BoxDecoration(
-                    image: DecorationImage(
-                        fit: BoxFit.fill,
-                        image: AssetImage("assets/images/bold-Vexels.jpg"))),
+                    border: Border.all(
+                  color: Color.fromARGB(255, 207, 197, 197),
+                  width: 1,
+                )),
               ),
-              InkWell(
-                onTap: () => setState(() {
-                  showTboard = !showTboard;
-                }),
-                child: Text(
-                  "Teams Board",
-                  style: TextStyle(
-                      color: Colors.grey[500],
-                      fontStyle: FontStyle.italic,
-                      fontSize: 17),
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  margin: EdgeInsets.only(
-                      left: MediaQuery.of(context).size.width * 0.01),
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                    color: Color.fromARGB(255, 207, 197, 197),
-                    width: 1,
-                  )),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.018,
@@ -384,6 +399,21 @@ class _funState extends State<fun> with TickerProviderStateMixin {
         Visibility(
           visible: showTboard,
           child: ListView.builder(
+<<<<<<< HEAD
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    padding: EdgeInsets.symmetric(vertical: 0),
+                    itemCount: boardcontroll.list2.length,
+                     itemBuilder: (context, index) {
+                       Map<String,dynamic> ds = boardcontroll.list2[index];
+
+                      if (ds["visibilty"] == 0) {
+                        return theboard(ds, index);
+                      } else
+                        return Container();
+                    }),
+        )
+=======
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
               padding: EdgeInsets.symmetric(vertical: 0),
@@ -396,6 +426,7 @@ class _funState extends State<fun> with TickerProviderStateMixin {
                   return Container();
               }),
         ),
+>>>>>>> 6fe460c07f4f1ad3d43f8d6b9eaaaf629f462fc6
       ],
     );
   }
