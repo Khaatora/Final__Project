@@ -16,13 +16,6 @@ class fun extends StatefulWidget {
 }
 
 class _funState extends State<fun> with TickerProviderStateMixin {
-<<<<<<< HEAD
-
-
-
-=======
->>>>>>> 6fe460c07f4f1ad3d43f8d6b9eaaaf629f462fc6
-  FirebaseFirestore firebase = FirebaseFirestore.instance;
 
   bool isVisible = false;
   bool showTboard = true;
@@ -170,7 +163,6 @@ class _funState extends State<fun> with TickerProviderStateMixin {
                                 ),
                               ),
                             ),
-<<<<<<< HEAD
                             InkWell(
                               
                               onTap: () {},
@@ -179,20 +171,6 @@ class _funState extends State<fun> with TickerProviderStateMixin {
                                    child: Image.asset("assets/images/free-search-icon-3076-thumb.png",
                                    width: MediaQuery.of(context).size.width*0.09,),
                                    height:  MediaQuery.of(context).size.width*0.07,
-        
-                            
-=======
-                            MaterialButton(
-                              onPressed: () {},
-                              child: Container(
-                                child: Image.asset(
-                                  "assets/images/free-search-icon-3076-thumb.png",
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.09,
-                                ),
-                                height:
-                                    MediaQuery.of(context).size.width * 0.07,
->>>>>>> 6fe460c07f4f1ad3d43f8d6b9eaaaf629f462fc6
                               ),
                             )
                           ],
@@ -399,7 +377,6 @@ class _funState extends State<fun> with TickerProviderStateMixin {
         Visibility(
           visible: showTboard,
           child: ListView.builder(
-<<<<<<< HEAD
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
                     padding: EdgeInsets.symmetric(vertical: 0),
@@ -413,20 +390,6 @@ class _funState extends State<fun> with TickerProviderStateMixin {
                         return Container();
                     }),
         )
-=======
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              padding: EdgeInsets.symmetric(vertical: 0),
-              itemCount: boardcontroll.list2.length,
-              itemBuilder: (context, index) {
-                DocumentSnapshot ds = boardcontroll.list2[index];
-                if (ds["visibilty"] == 0) {
-                  return theboard(ds, index);
-                } else
-                  return Container();
-              }),
-        ),
->>>>>>> 6fe460c07f4f1ad3d43f8d6b9eaaaf629f462fc6
       ],
     );
   }

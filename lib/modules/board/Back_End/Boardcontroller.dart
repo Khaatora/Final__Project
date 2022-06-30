@@ -27,11 +27,9 @@ class boardcontroll extends GetxController {
         FirebaseFirestore.instance.collection("Public_Board_Members");
   }
   static List list1 = <QueryDocumentSnapshot<Map<String, dynamic>>>[].obs;
-<<<<<<< HEAD
+
     static List <Map<String, dynamic>>  list2 =<Map<String, dynamic>>[];
-=======
-  static List <DocumentSnapshot<Object>> list2 = <DocumentSnapshot<Map<String, dynamic>>>[].obs;
->>>>>>> 6fe460c07f4f1ad3d43f8d6b9eaaaf629f462fc6
+
   static QuerySnapshot<Map<String, dynamic>>? currentUserBoards;
   @override
   void onReady() {
@@ -71,15 +69,9 @@ class boardcontroll extends GetxController {
     return tmpSnp;
   }*/
 
-<<<<<<< HEAD
    getPublicUserBoards() async {
     List <String>tmplist1 =  <String>[];
     List <Map<String, dynamic>>  tmplist2 =<Map<String, dynamic>>[];
-=======
-  void getPublicUserBoards() async {
-    List tmplist1 = <String>[];
-    List <DocumentSnapshot<Map<String, dynamic>>> tmplist2 = <DocumentSnapshot<Map<String, dynamic>>>[].obs;
->>>>>>> 6fe460c07f4f1ad3d43f8d6b9eaaaf629f462fc6
     QuerySnapshot<Map<String, dynamic>> response1 = await Public_Boards_Members!.where("User_ID", isEqualTo: user?.uid).get();
     QuerySnapshot<Map<String, dynamic>> response2 = await Tboards!.orderBy("Priority").get();
    var x= response1.docs.map((e) => e.data()).toList();
