@@ -160,7 +160,7 @@ class Welcome extends StatelessWidget {
                   width: MediaQuery.of(context).size.width / 1.6,
                   height: MediaQuery.of(context).size.width / 10,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(15),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.grey.withOpacity(0.3),
