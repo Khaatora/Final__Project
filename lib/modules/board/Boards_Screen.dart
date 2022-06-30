@@ -13,12 +13,9 @@ import 'package:firebase_core/firebase_core.dart';
 class fun extends StatefulWidget {
   @override
   State<fun> createState() => _funState();
-
 }
 
 class _funState extends State<fun> with TickerProviderStateMixin {
-
-
   FirebaseFirestore firebase = FirebaseFirestore.instance;
 
   bool isVisible = false;
@@ -165,13 +162,15 @@ class _funState extends State<fun> with TickerProviderStateMixin {
                               ),
                             ),
                             MaterialButton(
-                              
                               onPressed: () {},
                               child: Container(
-                                   child: Image.asset("assets/images/free-search-icon-3076-thumb.png",
-                                   width: MediaQuery.of(context).size.width*0.09,),
-                                   height:  MediaQuery.of(context).size.width*0.07,
-
+                                child: Image.asset(
+                                  "assets/images/free-search-icon-3076-thumb.png",
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.09,
+                                ),
+                                height:
+                                    MediaQuery.of(context).size.width * 0.07,
                               ),
                             )
                           ],
@@ -257,7 +256,7 @@ class _funState extends State<fun> with TickerProviderStateMixin {
     );
   }
 
-  myboard() {
+   myboard() {
     return ListView(
       padding: EdgeInsets.symmetric(
           vertical: MediaQuery.of(context).size.height * 0.03),
@@ -388,15 +387,15 @@ class _funState extends State<fun> with TickerProviderStateMixin {
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
               padding: EdgeInsets.symmetric(vertical: 0),
-              itemCount: list2.,
+              itemCount: boardcontroll.list2.length,
               itemBuilder: (context, index) {
-                DocumentSnapshot ds =boardcontroll.list2?[index];
+                DocumentSnapshot ds = boardcontroll.list2[index];
                 if (ds["visibilty"] == 0) {
                   return theboard(ds, index);
                 } else
                   return Container();
-              });
-        )
+              }),
+        ),
       ],
     );
   }

@@ -16,10 +16,6 @@ class funn extends StatefulWidget {
 }
 
 class _funnState extends State<funn> {
-
-
-
-
   String endtime = "Due date...";
   String starttime = "start date...";
   PlatformFile? pickedfile;
@@ -31,7 +27,7 @@ class _funnState extends State<funn> {
   ];
   String? selectedValue;
 
-boardcontroll bb= boardcontroll();
+  boardcontroll bb = boardcontroll();
 
   Widget build(BuildContext context) {
     return Material(
@@ -67,9 +63,8 @@ boardcontroll bb= boardcontroll();
                       style: TextStyle(
                         color: Colors.grey[500],
                       )),
-              DropdownButtonHideUnderline(
-                    child:DropdownButton2(
-               
+                  DropdownButtonHideUnderline(
+                    child: DropdownButton2(
                       customItemsHeight: 18,
                       icon: Icon(
                         Icons.keyboard_arrow_down_rounded,
@@ -85,13 +80,11 @@ boardcontroll bb= boardcontroll();
                           color: Color.fromARGB(255, 156, 151, 151),
                         ),
                       ),
-                      items:
-                         boardcontroll.list1.map((doc) => DropdownMenuItem<String>(
-                                value:doc["Name"],
-
-                     
+                      items: boardcontroll.list1
+                          .map((doc) => DropdownMenuItem<String>(
+                                value: doc["Name"],
                                 child: Text(
-                                doc["Name"],
+                                  doc["Name"],
                                   style: const TextStyle(
                                       fontSize: 20,
                                       color:
@@ -108,7 +101,6 @@ boardcontroll bb= boardcontroll();
                       buttonHeight: MediaQuery.of(context).size.height * 0.05,
                       buttonWidth: MediaQuery.of(context).size.width,
                       itemHeight: MediaQuery.of(context).size.width * 0.1,
-                  
                     ),
                   ),
                   Container(
@@ -572,5 +564,6 @@ class _boardState extends State<board> {
       board: Board(
           name: nameofboard.text, Visibility: selectcolor, priority: Time),
     );
+    boardcontroll().getPublicUserBoards();
   }
 }
