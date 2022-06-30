@@ -27,8 +27,7 @@ class _LoginState extends State<Login> {
 //function to verify user sign in info and change screen into "Boards" screen
   _logIn() async {
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: emailController.text, password: passwordController.text);
+      await FirebaseAuth.instance.signInWithEmailAndPassword(   email: emailController.text, password: passwordController.text).then((value) => boardcontroll().getPublicUserBoards());
       Navigator.push(context, MaterialPageRoute(builder: (context) => fun()));
     } on FirebaseAuthException catch (e) {
       String message = "";
@@ -107,7 +106,7 @@ class _LoginState extends State<Login> {
                     onsubmit: () {},
                     onchanged: () {},
                     type: TextInputType.text,
-                    text: 'omar@gm.com',
+                    text: 'omar@gmail.com',
                     validatortext: 'email address must not be empty',
                   ),
                 ),
@@ -182,9 +181,10 @@ class _LoginState extends State<Login> {
                   child: MaterialButton(
                     onPressed: () {
                       if (formkey.currentState!.validate()) {
-                        boardcontroll().getPublicUserBoards();
+                      
+                      
                         _logIn();
-                        print('clicked');
+
 
                       }
                     },

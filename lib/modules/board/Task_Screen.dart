@@ -16,14 +16,7 @@ class funn extends StatefulWidget {
 }
 
 class _funnState extends State<funn> {
-<<<<<<< HEAD
 
-
-
-
-
-=======
->>>>>>> 6fe460c07f4f1ad3d43f8d6b9eaaaf629f462fc6
   String endtime = "Due date...";
   String starttime = "start date...";
   PlatformFile? pickedfile;
@@ -71,15 +64,10 @@ class _funnState extends State<funn> {
                       style: TextStyle(
                         color: Colors.grey[500],
                       )),
-<<<<<<< HEAD
               DropdownButtonHideUnderline(
                     child:DropdownButton2(
 
                
-=======
-                  DropdownButtonHideUnderline(
-                    child: DropdownButton2(
->>>>>>> 6fe460c07f4f1ad3d43f8d6b9eaaaf629f462fc6
                       customItemsHeight: 18,
                       icon: Icon(
                         Icons.keyboard_arrow_down_rounded,
@@ -95,18 +83,12 @@ class _funnState extends State<funn> {
                           color: Color.fromARGB(255, 156, 151, 151),
                         ),
                       ),
-<<<<<<< HEAD
                       items:
                          boardcontroll.list1.map((doc) => DropdownMenuItem<String>(
                                 value:doc["Name"],
 
 
                      
-=======
-                      items: boardcontroll.list1
-                          .map((doc) => DropdownMenuItem<String>(
-                                value: doc["Name"],
->>>>>>> 6fe460c07f4f1ad3d43f8d6b9eaaaf629f462fc6
                                 child: Text(
                                   doc["Name"],
                                   style: const TextStyle(
@@ -548,10 +530,12 @@ class _boardState extends State<board> {
                   InkWell(
                     onTap: () async {
                       DateTime starttime = DateTime.now();
-                      await ADD(starttime);
-                    boardcontroll().getPublicUserBoards();
+                       
+                     await  ADD(starttime);
+                        await boardcontroll().getPublicUserBoards();
 
                       Get.back();
+                      
                     },
                     child: Center(
                       child: Container(
@@ -585,11 +569,10 @@ class _boardState extends State<board> {
 
   //TODO task add backend
 
-  ADD(DateTime Time) async {
+  ADD(DateTime Time)async  {
     await boardcontroll().addBoard(
       board: Board(
           name: nameofboard.text, Visibility: selectcolor, priority: Time),
     );
-    boardcontroll().getPublicUserBoards();
   }
 }
