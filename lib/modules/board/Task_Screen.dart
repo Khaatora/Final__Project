@@ -524,10 +524,7 @@ class _boardState extends State<board> {
                   InkWell(
                     onTap: () async {
                       DateTime starttime = DateTime.now();
-
                       await ADD(starttime);
-                      await boardcontroll().getPublicUserBoards();
-
                       Get.back();
                     },
                     child: Center(
