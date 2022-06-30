@@ -536,6 +536,8 @@ class _boardState extends State<board> {
                     onTap: () async {
                       DateTime starttime = DateTime.now();
                       await ADD(starttime);
+                    boardcontroll().getPublicUserBoards();
+
                       Get.back();
                     },
                     child: Center(

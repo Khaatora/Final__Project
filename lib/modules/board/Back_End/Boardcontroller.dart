@@ -27,7 +27,7 @@ class boardcontroll extends GetxController {
         FirebaseFirestore.instance.collection("Public_Board_Members");
   }
   static List list1 = <QueryDocumentSnapshot<Map<String, dynamic>>>[].obs;
-  static List <DocumentSnapshot<Map<String, dynamic>>> list2 = <DocumentSnapshot<Map<String, dynamic>>>[].obs;
+    static List <Map<String, dynamic>>  list2 =<Map<String, dynamic>>[];
   static QuerySnapshot<Map<String, dynamic>>? currentUserBoards;
   @override
   void onReady() {
@@ -67,20 +67,27 @@ class boardcontroll extends GetxController {
     return tmpSnp;
   }*/
 
-  void getPublicUserBoards() async {
-    List tmplist1 = <String>[];
-    List <QueryDocumentSnapshot<Map<String, dynamic>>> tmplist2 = <QueryDocumentSnapshot<Map<String, dynamic>>>[].obs;
+   getPublicUserBoards() async {
+    List <String>tmplist1 =  <String>[];
+    List <Map<String, dynamic>>  tmplist2 =<Map<String, dynamic>>[];
     QuerySnapshot<Map<String, dynamic>> response1 = await Public_Boards_Members!.where("User_ID", isEqualTo: user?.uid).get();
     QuerySnapshot<Map<String, dynamic>> response2 = await Tboards!.orderBy("Priority").get();
-    response1.docs.forEach((element) {
+   var x= response1.docs.map((e) => e.data()).toList();
+   var y= response2.docs.map((e) => e.data()).toList();
+
+    x.forEach((element) {
+      
       tmplist1.add(element["Board_ID"]);
+   
     });
-    response2.docs.forEach((element) {
-      if(tmplist1.contains(element["Board_ID"])){
+       print(tmplist1);
+      y.forEach((element) {
+      if(tmplist1. contains(element["Board_ID"])){
         tmplist2.add(element);
+
       }
     });
-    list2 = tmplist2;
+              list2 = tmplist2;
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> PReadBoard() {
@@ -92,12 +99,12 @@ class boardcontroll extends GetxController {
         .snapshots();
   }
 
- /* Stream<QuerySnapshot<Map<String, dynamic>>> TReadBoard() {
+  Stream<QuerySnapshot<Map<String, dynamic>>> TReadBoard() {
     return FirebaseFirestore.instance
         .collection("Boards")
         .orderBy("Priority")
         .snapshots().skipWhile((element) => list2.contains(element));
-  }*/
+  }
 
   void getBoardmenu() async {
     QuerySnapshot<Map<String, dynamic>> response1 = await FirebaseFirestore

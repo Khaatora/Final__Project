@@ -80,8 +80,9 @@ class _funState extends State<fun> with TickerProviderStateMixin {
                   color: Colors.blue,
                 ),
                 child: MaterialButton(
-                  onPressed: () async {
-                    await showDialog(
+                  onPressed: ()  {
+
+                     showDialog(
                       context: context,
                       barrierColor: Colors.black.withOpacity(0.5),
                       builder: (context) {
@@ -218,7 +219,7 @@ class _funState extends State<fun> with TickerProviderStateMixin {
         ));
   }
 
-  theboard(DocumentSnapshot ds, int index) {
+  theboard(Map<String,dynamic> ds, int index) {
     return MaterialButton(
       padding: EdgeInsets.all(0),
       onPressed: () {
@@ -255,7 +256,6 @@ class _funState extends State<fun> with TickerProviderStateMixin {
               child: MaterialButton(
                   color: Colors.red,
                   onPressed: () {
-                    firebase.collection("Boards").doc(ds.id).delete();
                   })),
         ],
       ),
@@ -321,9 +321,9 @@ class _funState extends State<fun> with TickerProviderStateMixin {
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
                     padding: EdgeInsets.symmetric(vertical: 0),
-                    itemCount: snapshot.data!.docs.length,
+                    itemCount: boardcontroll.list2.length,
                     itemBuilder: (context, index) {
-                      DocumentSnapshot ds = snapshot.data!.docs[index];
+                       Map<String,dynamic> ds = boardcontroll.list2[index];
 
                       if (ds["visibilty"] == 1) {
                         return theboard(ds, index);
@@ -383,28 +383,19 @@ class _funState extends State<fun> with TickerProviderStateMixin {
         ),
         Visibility(
           visible: showTboard,
-          child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-            stream: boardcontroll().TReadBoard(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return ListView.builder(
+          child: ListView.builder(
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
                     padding: EdgeInsets.symmetric(vertical: 0),
-                    itemCount: snapshot.data!.docs.length,
-                    itemBuilder: (context, index) {
-                      DocumentSnapshot ds = snapshot.data!.docs[index];
+                    itemCount: boardcontroll.list2.length,
+                     itemBuilder: (context, index) {
+                       Map<String,dynamic> ds = boardcontroll.list2[index];
 
                       if (ds["visibilty"] == 0) {
                         return theboard(ds, index);
                       } else
                         return Container();
-                    });
-              } else {
-                return Container();
-              }
-            },
-          ),
+                    }),
         )
       ],
     );
