@@ -10,6 +10,7 @@ import 'Back_End/Boardcontroller.dart';
 import 'Task_Screen.dart';
 
 class MyList extends StatefulWidget {
+
   DocumentSnapshot ?ds;
   MyList(DocumentSnapshot ds){
     this.ds = ds;
@@ -127,10 +128,10 @@ class _MyListState extends State<MyList> {
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
+
                   StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
                     stream: List_Controller(ds :widget.ds).TReadLists(),
                     builder: (context, snapshot) {
-                      //TODO sort snpashot data for displaying
                       if (snapshot.hasData) {
                         return ListView.builder(
                             scrollDirection: Axis.horizontal,

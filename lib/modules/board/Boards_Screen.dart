@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:polygon_clipper/polygon_clipper.dart'; // Import package for ClipPolygon
 import 'package:animated_button_bar/animated_button_bar.dart';
 import 'package:flutter/material.dart';
+import '../profile_setting_screen/ProfileSetting.dart';
 import 'Back_End/Boardcontroller.dart';
 import 'Task_Screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -134,7 +135,12 @@ class _funState extends State<fun> with TickerProviderStateMixin {
                       borderRadius: 16.0, // Default 0.0 degrees
                       rotate: 180.0, // Default 0.0 degrees
 
-                      child: Container(color: Colors.red),
+                      child: Container(
+                        color: Colors.blue,
+                        child: MaterialButton(onPressed: (){
+                          Navigator.push(context,MaterialPageRoute(builder: (context) => ProfileSetting()));
+                        },),
+                      ),
                     ),
                   ),
                   Expanded(
@@ -246,6 +252,7 @@ class _funState extends State<fun> with TickerProviderStateMixin {
                       "${index + 1}",
                       style: TextStyle(color: Colors.white, fontSize: 25),
                     ),
+
                   ),
                 ),
               ),
@@ -316,7 +323,6 @@ class _funState extends State<fun> with TickerProviderStateMixin {
           child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
             stream: boardcontroll().PReadBoard(),
             builder: (context, snapshot) {
-              //TODO sort snpashot data for displaying
               if (snapshot.hasData) {
                 return ListView.builder(
                     shrinkWrap: true,
