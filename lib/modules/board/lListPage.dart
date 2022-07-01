@@ -129,26 +129,6 @@ class _MyListState extends State<MyList> {
                 scrollDirection: Axis.horizontal,
                 children: [
 
-                  StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-                    stream: List_Controller(ds :widget.ds).TReadLists(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        return ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            padding: EdgeInsets.symmetric(vertical: 0),
-                            itemCount: snapshot.data!.docs.length,
-                            itemBuilder: (context, index) {
-                              DocumentSnapshot listDoc =
-                                  snapshot.data!.docs[index];
-                              return mylistStream(listDoc);
-                            });
-                      } else {
-                        return Container();
-                      }
-                    },
-                  ),
                   if(widget.ds!['visibility']==0)
                     StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
                     stream: List_Controller(ds :widget.ds).TReadLists(),
