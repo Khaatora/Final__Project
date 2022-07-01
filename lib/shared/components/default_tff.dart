@@ -36,10 +36,10 @@ obscureText: obstext,
     suffixIcon:suffixicon,
     border:
     OutlineInputBorder(borderRadius: BorderRadius.circular(15.0),
-
     ),
       filled: true,
       hintStyle: TextStyle(color: Colors.grey[800]),
+      contentPadding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width*0.02)
   ),
 
 );

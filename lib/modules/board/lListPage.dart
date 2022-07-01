@@ -9,8 +9,7 @@ import 'Back_End/Boardcontroller.dart';
 
 class MyList extends StatefulWidget {
   
-  final String boardId;
-   MyList(this.boardId);
+;
   @override
   State<MyList> createState() => _MyListState();
 }
@@ -130,6 +129,8 @@ class _MyListState extends State<MyList> {
               //TODO sort snpashot data for displaying
               if (snapshot.hasData) {
                 return ListView.builder(
+                   scrollDirection: Axis.horizontal,
+
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
                     padding: EdgeInsets.symmetric(vertical: 0),
