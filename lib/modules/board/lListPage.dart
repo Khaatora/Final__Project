@@ -47,7 +47,7 @@ class _MyListState extends State<MyList> {
                             horizontal:
                                 MediaQuery.of(context).size.height * 0.041),
                         child: Text(
-                          "habda ",
+                         widget.ds!["name"],
                           style: TextStyle(
                               color: Color.fromARGB(255, 18, 131, 223),
                               fontSize: 20,
@@ -126,6 +126,7 @@ class _MyListState extends State<MyList> {
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
+                  if (widget.ds!['visibility'] == 0)
                   StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
                     stream: List_Controller(ds: widget.ds).TReadLists(),
                     builder: (context, snapshot) {
@@ -146,7 +147,7 @@ class _MyListState extends State<MyList> {
                       }
                     },
                   ),
-                  if (widget.ds!['visibility'] == 0)
+                  if (widget.ds!['visibility'] == 1)
                     StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
                       stream: List_Controller(ds: widget.ds).PReadLists(),
                       builder: (context, snapshot) {
@@ -158,9 +159,9 @@ class _MyListState extends State<MyList> {
                               padding: EdgeInsets.symmetric(vertical: 0),
                               itemCount: snapshot.data!.docs.length,
                               itemBuilder: (context, index) {
-                                DocumentSnapshot listDoc =
+                                DocumentSnapshot listD =
                                     snapshot.data!.docs[index];
-                                return mylistStream(listDoc);
+                                return mylistStream(listD);
                               });
                         } else {
                           return Container();
@@ -224,7 +225,7 @@ class _MyListState extends State<MyList> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                listDoc['title'],
+                listDoc.get("title"),
                 style: TextStyle(
                   color: Color.fromARGB(255, 18, 131, 223),
                   fontSize: 20,
