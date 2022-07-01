@@ -231,8 +231,7 @@ class _funState extends State<fun> with TickerProviderStateMixin {
       padding: EdgeInsets.all(0),
       onPressed: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) =>
-            MyList(ds)));
+            context, MaterialPageRoute(builder: (context) => MyList( ds.id)));
       },
       child: Row(
         children: [
@@ -320,7 +319,6 @@ class _funState extends State<fun> with TickerProviderStateMixin {
           child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
             stream: boardcontroll().PReadBoard(),
             builder: (context, snapshot) {
-              //TODO sort snpashot data for displaying
               if (snapshot.hasData) {
                 return ListView.builder(
                     shrinkWrap: true,
