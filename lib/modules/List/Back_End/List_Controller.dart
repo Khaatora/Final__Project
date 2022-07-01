@@ -31,20 +31,21 @@ class List_Controller extends GetxController {
         .collection("Private_Lists");
     this.ds = ds;
   }
+
   // add LIST to current accessed BOARD, where visibility 1 = PRIVATE , 2 = TEAM
   Future addList(String name) async {
     DocumentReference<Map<String, dynamic>>? docRef;
     if (ds?.get("visibility") == 1) {
       docRef = privateLists!.doc();
       privateLists?.doc(docRef.id).set({
-        "title": docRef,
-        "ID": name,
+        "ID": docRef.id,
+        "title": name
       });
     } else {
       docRef = teamLists!.doc();
       teamLists?.doc(docRef.id).set({
-       "title": name,
-        "ID": docRef,
+       "ID": docRef.id,
+       "title": name
       });
     }
     return Future(() => docRef);
