@@ -22,7 +22,7 @@ class Board {
       data["membersCount"]= counter;
     }
     data['name'] = this.name;
-    data['visibilty'] = this.Visibility;
+    data['visibility'] = this.Visibility;
     data['creationDate'] = this.priority;
     data['boardID'] = docRef.id;
     return data;

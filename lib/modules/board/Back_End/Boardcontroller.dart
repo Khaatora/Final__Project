@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
@@ -23,11 +25,12 @@ class boardcontroll extends GetxController {
         .doc(user?.uid)
         .collection("Private_Boards");
     this.Tboards = FirebaseFirestore.instance.collection("Board");
-    
+
     /*this.Public_Boards_Members =
         FirebaseFirestore.instance.collection("Public_Board_Members");*/
   }
-  static List listOfBoards = <QueryDocumentSnapshot<Map<String, dynamic>>>[].obs;
+  static List listOfBoards =
+      <QueryDocumentSnapshot<Map<String, dynamic>>>[].obs;
   /* static List<Map<String, dynamic>> list2 = <Map<String, dynamic>>[];
   static QuerySnapshot<Map<String, dynamic>>? currentUserBoards;*/
   @override
@@ -37,26 +40,37 @@ class boardcontroll extends GetxController {
 
   //add board, visibility = 1 then add to private board, visibility = 0 then add to teams boards
   addBoard({Board? board}) async {
-    if (board!.Visibility == 1) {
-      //generate documentID for custom document ID
-      DocumentReference<Map<String, dynamic>> docRef = Pboards!.doc();
-      //add document with ID docref and store it inside the created document
-      this.Pboards?.doc(docRef.id).set(board.tomap(docRef: docRef));
-    }
-    if (board.Visibility == 0) {
-      //generate documentID for custom document ID
-      DocumentReference<Map<String, dynamic>> docRef = Tboards!.doc();
-      //list to store the board ID
-      List l1 = <dynamic>[];
-      l1.add(docRef.id);
-      //add document with custom ID in the form "userID_docID" and store both IDs inside the doc
-      this.Tboards?.doc(docRef.id).set(
-          board.tomap(docRef: docRef, membership: "admin", userID: user?.uid));
-      //add created board to boards field in user's collection
-      FirebaseFirestore.instance.collection("user").doc(user?.uid).update({
-        "Boards": FieldValue.arrayUnion(l1),
-      });
-    }
+    //pDocName and tDocName are variables used to store a document that contains the passed BOARD title
+        if (board!.Visibility == 1) {
+          QueryDocumentSnapshot<Map<String, dynamic>> ?pDocName = null;
+          await Pboards?.where("name", isEqualTo: board.name).get().then((value) => pDocName= value.docs.firstWhereOrNull((element) => element["name"] == board.name));
+          if (pDocName?["name"] == board.name){
+            throw ArgumentError("You cannot add two boards with the same name", board.name);
+          }
+          //generate documentID for custom document ID
+          DocumentReference<Map<String, dynamic>> docRef = Pboards!.doc();
+          //add document with ID docref and store it inside the created document
+          this.Pboards?.doc(docRef.id).set(board.tomap(docRef: docRef));
+        }
+        else if (board.Visibility == 0) {
+          QueryDocumentSnapshot<Map<String, dynamic>> ?tDocName;
+          await Tboards?.where("name", isEqualTo: board.name).get().then((value) => tDocName= value.docs.firstWhereOrNull((element) => element["name"] == board.name));
+          if (tDocName?["name"] == board.name){
+            throw ArgumentError("You cannot add two boards with the same name", board.name);
+          }
+          //generate documentID for custom document ID
+          DocumentReference<Map<String, dynamic>> docRef = Tboards!.doc();
+          //list to store the board ID
+          List l1 = <dynamic>[];
+          l1.add(docRef.id);
+          //add document with custom ID in the form "userID_docID" and store both IDs inside the doc
+          this.Tboards?.doc(docRef.id).set(board.tomap(
+              docRef: docRef, membership: "admin", userID: user?.uid));
+          //add created board to boards field in user's collection
+          FirebaseFirestore.instance.collection("user").doc(user?.uid).update({
+            "Boards": FieldValue.arrayUnion(l1),
+          });
+        }
   }
 
   /*getPublicUserBoards() async{
@@ -101,40 +115,41 @@ class boardcontroll extends GetxController {
         .orderBy("creationDate")
         .snapshots();
   }
-  
+
   // stream to keep track of PUBLIC BOARDS and continuously update displayed BOARDS
   Stream<QuerySnapshot<Map<String, dynamic>>> TReadBoard() {
     return FirebaseFirestore.instance
         .collection("Board")
         .where("membersInBoard", arrayContainsAny: [
-      {"membership": "admin", "userID": "${user?.uid}"},
-      {"membership": "member", "userID": "${user?.uid}"}
-    ]).orderBy("creationDate").snapshots();
-  }
-  
-  Stream<QuerySnapshot<Map<String, dynamic>>> Lists(String boardId) {
-    return Tboards!
-        .doc("$boardId")
-        .collection("Lists").snapshots();
+          {"membership": "admin", "userID": "${user?.uid}"},
+          {"membership": "member", "userID": "${user?.uid}"}
+        ])
+        .orderBy("creationDate")
+        .snapshots();
   }
 
+  Stream<QuerySnapshot<Map<String, dynamic>>> Lists(String boardId) {
+    return Tboards!.doc("$boardId").collection("Lists").snapshots();
+  }
 
   //get current user's boards (public and private) from firebase
   getBoardMenu() async {
-    QuerySnapshot<Map<String, dynamic>> tmpprivateBoards = await FirebaseFirestore
-        .instance
-        .collection("user")
-        .doc(user?.uid)
-        .collection("Private_Boards")
-        .orderBy("creationDate")
-        .get();
-    QuerySnapshot<Map<String, dynamic>> tmppublicBoards = await FirebaseFirestore
-        .instance
-        .collection("Board")
-        .where("membersInBoard", arrayContainsAny: [
-      {"membership": "admin", "userID": "${user?.uid}"},
-      {"membership": "member", "userID": "${user?.uid}"}
-    ]).orderBy("creationDate").get();
+    QuerySnapshot<Map<String, dynamic>> tmpprivateBoards =
+        await FirebaseFirestore.instance
+            .collection("user")
+            .doc(user?.uid)
+            .collection("Private_Boards")
+            .orderBy("creationDate")
+            .get();
+    QuerySnapshot<Map<String, dynamic>> tmppublicBoards =
+        await FirebaseFirestore.instance
+            .collection("Board")
+            .where("membersInBoard", arrayContainsAny: [
+              {"membership": "admin", "userID": "${user?.uid}"},
+              {"membership": "member", "userID": "${user?.uid}"}
+            ])
+            .orderBy("creationDate")
+            .get();
     listOfBoards.assignAll(tmpprivateBoards.docs);
     listOfBoards.addAll(tmppublicBoards.docs);
   }

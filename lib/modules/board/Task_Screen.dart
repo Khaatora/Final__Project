@@ -93,6 +93,7 @@ class _funnState extends State<funn> {
                               ))
                           .toList(),
                       value: selectedValue,
+
                       onChanged: (String? value) {
                         setState(() {
                           selectedValue = value;
@@ -523,9 +524,9 @@ class _boardState extends State<board> {
                   ),
                   InkWell(
                     onTap: () async {
-                      DateTime starttime = DateTime.now();
-                      await ADD(starttime);
-                      Get.back();
+                        DateTime starttime = DateTime.now();
+                        await ADD(starttime);
+                        Get.back();
                     },
                     child: Center(
                       child: Container(

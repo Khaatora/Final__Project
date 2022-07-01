@@ -36,8 +36,12 @@ obscureText: obstext,
     hintText: text,
     suffixIcon:suffixicon,
     border:
+<<<<<<< HEAD
 
     OutlineInputBorder(borderRadius: BorderRadius.circular(30.0),
+=======
+    OutlineInputBorder(borderRadius: BorderRadius.circular(20.0),
+>>>>>>> ac56efad6652e3ed3930a74a13c519771d60aed5
 
     ),
       filled: true,
