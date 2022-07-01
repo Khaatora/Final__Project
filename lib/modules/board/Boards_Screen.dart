@@ -225,7 +225,7 @@ class _funState extends State<fun> with TickerProviderStateMixin {
       padding: EdgeInsets.all(0),
       onPressed: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => MyList( ds.id)));
+            context, MaterialPageRoute(builder: (context) => MyList(ds)));
       },
       child: Row(
         children: [
@@ -321,7 +321,7 @@ class _funState extends State<fun> with TickerProviderStateMixin {
                     itemCount: snapshot.data!.docs.length,
                     itemBuilder: (context, index) {
                       DocumentSnapshot ds = snapshot.data!.docs[index];
-                      if (ds["visibilty"] == 1) {
+                      if (ds["visibility"] == 1) {
                         return theboard(ds, index);
                       } else
                         return Container();
@@ -389,7 +389,7 @@ class _funState extends State<fun> with TickerProviderStateMixin {
                     itemCount: snapshot.data!.docs.length,
                     itemBuilder: (context, index) {
                       DocumentSnapshot ds = snapshot.data!.docs[index];
-                      if (ds["visibilty"] == 0) {
+                      if (ds["visibility"] == 0) {
                         return theboard(ds, index);
                       } else
                         return Container();
