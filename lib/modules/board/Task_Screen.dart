@@ -6,7 +6,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:polygon_clipper/polygon_clipper.dart';
 import 'Back_End/Boardcontroller.dart';
-import 'Mydata.dart';
+import 'Back_End/Mydata.dart';
 
 class funn extends StatefulWidget {
   const funn({Key? key}) : super(key: key);
@@ -16,7 +16,6 @@ class funn extends StatefulWidget {
 }
 
 class _funnState extends State<funn> {
-
   String endtime = "Due date...";
   String starttime = "start date...";
   PlatformFile? pickedfile;
@@ -64,10 +63,8 @@ class _funnState extends State<funn> {
                       style: TextStyle(
                         color: Colors.grey[500],
                       )),
-              DropdownButtonHideUnderline(
-                    child:DropdownButton2(
-
-               
+                  DropdownButtonHideUnderline(
+                    child: DropdownButton2(
                       customItemsHeight: 18,
                       icon: Icon(
                         Icons.keyboard_arrow_down_rounded,
@@ -83,14 +80,11 @@ class _funnState extends State<funn> {
                           color: Color.fromARGB(255, 156, 151, 151),
                         ),
                       ),
-                      items:
-                         boardcontroll.list1.map((doc) => DropdownMenuItem<String>(
-                                value:doc["Name"],
-
-
-                     
+                      items: boardcontroll.listOfBoards
+                          .map((doc) => DropdownMenuItem<String>(
+                                value: doc["name"],
                                 child: Text(
-                                  doc["Name"],
+                                  doc["name"],
                                   style: const TextStyle(
                                       fontSize: 20,
                                       color:
@@ -146,9 +140,9 @@ class _funnState extends State<funn> {
                               ),
                               items: ds
                                   .map((doc) => DropdownMenuItem<String>(
-                                        value: doc["Name"],
+                                        value: doc["name"],
                                         child: Text(
-                                          doc["Name"],
+                                          doc["name"],
                                           style: const TextStyle(
                                               fontSize: 20,
                                               color: Color.fromARGB(
@@ -530,12 +524,8 @@ class _boardState extends State<board> {
                   InkWell(
                     onTap: () async {
                       DateTime starttime = DateTime.now();
-                       
-                     await  ADD(starttime);
-                        await boardcontroll().getPublicUserBoards();
-
+                      await ADD(starttime);
                       Get.back();
-                      
                     },
                     child: Center(
                       child: Container(
@@ -569,7 +559,7 @@ class _boardState extends State<board> {
 
   //TODO task add backend
 
-  ADD(DateTime Time)async  {
+  ADD(DateTime Time) async {
     await boardcontroll().addBoard(
       board: Board(
           name: nameofboard.text, Visibility: selectcolor, priority: Time),

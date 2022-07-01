@@ -16,7 +16,6 @@ class fun extends StatefulWidget {
 }
 
 class _funState extends State<fun> with TickerProviderStateMixin {
-
   FirebaseFirestore firebase = FirebaseFirestore.instance;
 
   bool isVisible = false;
@@ -51,8 +50,8 @@ class _funState extends State<fun> with TickerProviderStateMixin {
                   color: Colors.blue,
                 ),
                 child: MaterialButton(
-                  onPressed: () {
-                    boardcontroll().getBoardmenu();
+                  onPressed: () async {
+                    await boardcontroll().getBoardMenu();
                     showDialog(
                       context: context,
                       barrierColor: Colors.black.withOpacity(0.5),
@@ -78,15 +77,13 @@ class _funState extends State<fun> with TickerProviderStateMixin {
                 ),
                 child: MaterialButton(
                   onPressed: () {
-
-                     showDialog(
+                    showDialog(
                       context: context,
                       barrierColor: Colors.black.withOpacity(0.5),
                       builder: (context) {
                         return board();
                       },
                     );
-                      
                   },
                   child: Text('Board',
                       style: TextStyle(color: Colors.white, fontSize: 17)),
@@ -118,24 +115,26 @@ class _funState extends State<fun> with TickerProviderStateMixin {
           ],
         ),
         body: Container(
-       margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.036, left: MediaQuery.of(context).size.width * 0.02,right: MediaQuery.of(context).size.width * 0.02 ),
-            
+          margin: EdgeInsets.only(
+              top: MediaQuery.of(context).size.height * 0.036,
+              left: MediaQuery.of(context).size.width * 0.02,
+              right: MediaQuery.of(context).size.width * 0.02),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [
                   Container(
-                  
-                    margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.01,),
+                    margin: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.01,
+                    ),
                     width: MediaQuery.of(context).size.width * 0.176,
                     child: ClipPolygon(
                       sides: 6,
                       borderRadius: 16.0, // Default 0.0 degrees
                       rotate: 180.0, // Default 0.0 degrees
-        
-                      child: Container(
-                        color: Colors.red),
+
+                      child: Container(color: Colors.red),
                     ),
                   ),
                   Expanded(
@@ -167,15 +166,18 @@ class _funState extends State<fun> with TickerProviderStateMixin {
                               ),
                             ),
                             InkWell(
-                              
                               onTap: () {},
                               child: Container(
-                                margin: EdgeInsets.only(right: MediaQuery.of(context).size.width*0.03 ),
-                                   child: Image.asset("assets/images/free-search-icon-3076-thumb.png",
-                                   width: MediaQuery.of(context).size.width*0.09,),
-                                   height:  MediaQuery.of(context).size.width*0.07,
-        
-                            
+                                margin: EdgeInsets.only(
+                                    right: MediaQuery.of(context).size.width *
+                                        0.03),
+                                child: Image.asset(
+                                  "assets/images/free-search-icon-3076-thumb.png",
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.09,
+                                ),
+                                height:
+                                    MediaQuery.of(context).size.width * 0.07,
                               ),
                             )
                           ],
@@ -209,7 +211,8 @@ class _funState extends State<fun> with TickerProviderStateMixin {
                 child: DefaultTabController(
                   length: 2,
                   child: TabBarView(
-                      controller: tabController, children: [myboard(), mytask()]),
+                      controller: tabController,
+                      children: [myboard(), mytask()]),
                 ),
               ),
             ],
@@ -217,12 +220,12 @@ class _funState extends State<fun> with TickerProviderStateMixin {
         ));
   }
 
-  theboard(Map<String,dynamic> ds, int index) {
+  theboard(DocumentSnapshot ds, int index) {
     return MaterialButton(
       padding: EdgeInsets.all(0),
       onPressed: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => MyList()));
+            context, MaterialPageRoute(builder: (context) => MyList( ds.id)));
       },
       child: Row(
         children: [
@@ -246,26 +249,22 @@ class _funState extends State<fun> with TickerProviderStateMixin {
             ),
           ),
           Text(
-            ds['Name'],
+            ds['name'],
             style: TextStyle(
                 fontSize: 22, color: Color.fromARGB(255, 173, 169, 169)),
           ),
-          Expanded(
-              child: MaterialButton(
-                  color: Colors.red,
-                  onPressed: () {
-                  })),
+          Expanded(child: MaterialButton(color: Colors.red, onPressed: () {})),
         ],
       ),
     );
   }
 
-   myboard() {
+  myboard() {
     return ListView(
-      padding: EdgeInsets.symmetric( vertical: MediaQuery.of(context).size.height * 0.03),
+      padding: EdgeInsets.symmetric(
+          vertical: MediaQuery.of(context).size.height * 0.03),
       children: [
         Container(
-
           child: Row(
             children: [
               Container(
@@ -314,15 +313,15 @@ class _funState extends State<fun> with TickerProviderStateMixin {
           child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
             stream: boardcontroll().PReadBoard(),
             builder: (context, snapshot) {
+              //TODO sort snpashot data for displaying
               if (snapshot.hasData) {
                 return ListView.builder(
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
                     padding: EdgeInsets.symmetric(vertical: 0),
-                    itemCount: boardcontroll.list2.length,
+                    itemCount: snapshot.data!.docs.length,
                     itemBuilder: (context, index) {
-                       Map<String,dynamic> ds = boardcontroll.list2[index];
-
+                      DocumentSnapshot ds = snapshot.data!.docs[index];
                       if (ds["visibilty"] == 1) {
                         return theboard(ds, index);
                       } else
@@ -337,7 +336,6 @@ class _funState extends State<fun> with TickerProviderStateMixin {
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.018,
         ),
-
         Row(
           children: [
             Container(
@@ -364,7 +362,6 @@ class _funState extends State<fun> with TickerProviderStateMixin {
             ),
             Expanded(
               child: Container(
-
                 margin: EdgeInsets.only(
                     left: MediaQuery.of(context).size.width * 0.01),
                 decoration: BoxDecoration(
@@ -381,19 +378,28 @@ class _funState extends State<fun> with TickerProviderStateMixin {
         ),
         Visibility(
           visible: showTboard,
-          child: ListView.builder(
+          child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+            stream: boardcontroll().TReadBoard(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                /*snapshot.data!.docs.shuffle();*/
+                return ListView.builder(
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
                     padding: EdgeInsets.symmetric(vertical: 0),
-                    itemCount: boardcontroll.list2.length,
-                     itemBuilder: (context, index) {
-                       Map<String,dynamic> ds = boardcontroll.list2[index];
-
+                    itemCount: snapshot.data!.docs.length,
+                    itemBuilder: (context, index) {
+                      DocumentSnapshot ds = snapshot.data!.docs[index];
                       if (ds["visibilty"] == 0) {
                         return theboard(ds, index);
                       } else
                         return Container();
-                    }),
+                    });
+              } else {
+                return Container();
+              }
+            },
+          ),
         )
       ],
     );

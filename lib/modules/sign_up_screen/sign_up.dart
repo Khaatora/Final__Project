@@ -23,7 +23,7 @@ class _Sign_UpState extends State<Sign_Up> {
 
   bool loading = false;
 
-  String imageUrl ='';
+  String imageUrl = '';
 
   var usernameController = TextEditingController();
   var emailController = TextEditingController();
@@ -31,8 +31,6 @@ class _Sign_UpState extends State<Sign_Up> {
   var cpasswordController = TextEditingController();
 
   var formkey = GlobalKey<FormState>();
-
-
 
   @override
   void initState() {
@@ -51,9 +49,9 @@ class _Sign_UpState extends State<Sign_Up> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-             //   SizedBox(
-              //    height: 20,
-               // ),
+                //   SizedBox(
+                //    height: 20,
+                // ),
                 Center(
                   child: Image(
                     image: AssetImage('assets/images/logo.png'),
@@ -69,8 +67,8 @@ class _Sign_UpState extends State<Sign_Up> {
                   ),
                 ),
                 Container(
-                    width: MediaQuery.of(context).size.width/1.2,
-                    height:  MediaQuery.of(context).size.height/20,
+                    width: MediaQuery.of(context).size.width / 1.2,
+                    height: MediaQuery.of(context).size.height / 20,
                     child: defaulttff(
                         context: context,
                         text: '',
@@ -92,8 +90,8 @@ class _Sign_UpState extends State<Sign_Up> {
                   ),
                 ),
                 Container(
-                    width: MediaQuery.of(context).size.width/1.2,
-                    height:  MediaQuery.of(context).size.height/20,
+                    width: MediaQuery.of(context).size.width / 1.2,
+
                     child: defaulttff(
                         context: context,
                         text: '',
@@ -113,8 +111,8 @@ class _Sign_UpState extends State<Sign_Up> {
                   ),
                 ),
                 Container(
-                  width: MediaQuery.of(context).size.width/1.2,
-                  height:  MediaQuery.of(context).size.height/20,
+                  width: MediaQuery.of(context).size.width / 1.2,
+                  height: MediaQuery.of(context).size.height / 20,
                   child: defaulttff(
                     context: context,
                     controller: passwordController,
@@ -152,8 +150,8 @@ class _Sign_UpState extends State<Sign_Up> {
                   ),
                 ),
                 Container(
-                  width: MediaQuery.of(context).size.width/1.2,
-                  height:  MediaQuery.of(context).size.height/20,
+                  width: MediaQuery.of(context).size.width / 1.2,
+                  height: MediaQuery.of(context).size.height / 20,
                   child: defaulttff(
                     context: context,
                     controller: cpasswordController,
@@ -202,10 +200,10 @@ class _Sign_UpState extends State<Sign_Up> {
                           print(ismatch);
                         }
                       });
-                      if(formkey.currentState!=null && formkey.currentState!.validate()){
+                      if (formkey.currentState != null &&
+                          formkey.currentState!.validate()) {
                         _signUp();
                         Login login = new Login();
-
                       }
 
                       if (formkey.currentState!.validate()) {}
@@ -242,28 +240,39 @@ class _Sign_UpState extends State<Sign_Up> {
       ),
     );
   }
-  Future _signUp() async{
-    setState(() {loading = true;});
-    try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(email: emailController.text, password: passwordController.text);
-      User? user =FirebaseAuth.instance.currentUser;
-      await FirebaseFirestore.instance.collection('user').doc(user?.uid).set({
-        'username' : usernameController.text,
-        'email' : emailController.text,
-        'imageUrl' : imageUrl,
-      });
-      await showDialog(context: context, builder: (context) => AlertDialog(
-        title: Text('Sign up succeeded'),
-        content: Text('Your account was created, you can now log in'),
-        actions: [TextButton(onPressed: (){
-          Navigator.of(context).pop();
-          _logIn();
-        }, child: Text('Ok'))],
-      ));
 
-    }on FirebaseAuthException catch(e){
+  Future _signUp() async {
+    setState(() {
+      loading = true;
+    });
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: emailController.text, password: passwordController.text);
+      User? user = FirebaseAuth.instance.currentUser;
+      await FirebaseFirestore.instance.collection('user').doc(user?.uid).set({
+        'username': usernameController.text,
+        'email': emailController.text,
+        'imageUrl': imageUrl,
+      });
+      await showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+                title: Text('Sign up succeeded'),
+                content: Text('Your account was created, you can now log in'),
+                actions: [
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        _logIn();
+                      },
+                      child: Text('Ok'))
+                ],
+              ));
+    } on FirebaseAuthException catch (e) {
       _handleSignUpError(e);
-      setState((){loading = false;});
+      setState(() {
+        loading = false;
+      });
     }
   }
 
@@ -308,30 +317,34 @@ class _Sign_UpState extends State<Sign_Up> {
 
   void _handleSignUpError(FirebaseAuthException e) {
     String messageToDisplay;
-    switch (e.code){
+    switch (e.code) {
       case 'email-already-in-use':
-        messageToDisplay ='This email is already in use';
+        messageToDisplay = 'This email is already in use';
         break;
       case 'invalid-email':
-        messageToDisplay ='The Email you entered is invalid';
+        messageToDisplay = 'The Email you entered is invalid';
         break;
       case 'operation-not-allowed':
-        messageToDisplay ='This operation is not allowed';
+        messageToDisplay = 'This operation is not allowed';
         break;
       case 'weak-password':
-        messageToDisplay ='The password you entered is too weak';
+        messageToDisplay = 'The password you entered is too weak';
         break;
       default:
-        messageToDisplay ='An unknown error occured';
+        messageToDisplay = 'An unknown error occured';
     }
-    showDialog(context: context, builder: (context) =>AlertDialog(
-      title: Text('Sign up failed'),
-      content: Text(messageToDisplay),
-      actions: [TextButton(onPressed: (){
-        Navigator.of(context).pop();
-      }, child: Text('Ok'))],
-    ));
+    showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              title: Text('Sign up failed'),
+              content: Text(messageToDisplay),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text('Ok'))
+              ],
+            ));
   }
 }
-
-
