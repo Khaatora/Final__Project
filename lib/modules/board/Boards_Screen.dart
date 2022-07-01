@@ -17,6 +17,7 @@ class fun extends StatefulWidget {
 
 class _funState extends State<fun> with TickerProviderStateMixin {
   FirebaseFirestore firebase = FirebaseFirestore.instance;
+
   bool isVisible = false;
   bool showTboard = true;
   bool showPboard = true;
@@ -49,8 +50,8 @@ class _funState extends State<fun> with TickerProviderStateMixin {
                   color: Colors.blue,
                 ),
                 child: MaterialButton(
-                  onPressed: () {
-                    boardcontroll().getBoardmenu();
+                  onPressed: () async {
+                    await boardcontroll().getBoardMenu();
                     showDialog(
                       context: context,
                       barrierColor: Colors.black.withOpacity(0.5),
@@ -219,12 +220,12 @@ class _funState extends State<fun> with TickerProviderStateMixin {
         ));
   }
 
-  theboard(Map<String, dynamic> ds, int index) {
+  theboard(DocumentSnapshot ds, int index) {
     return MaterialButton(
       padding: EdgeInsets.all(0),
       onPressed: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => MyList()));
+            context, MaterialPageRoute(builder: (context) => MyList( ds.id)));
       },
       child: Row(
         children: [
@@ -248,7 +249,7 @@ class _funState extends State<fun> with TickerProviderStateMixin {
             ),
           ),
           Text(
-            ds['Name'],
+            ds['name'],
             style: TextStyle(
                 fontSize: 22, color: Color.fromARGB(255, 173, 169, 169)),
           ),
@@ -312,14 +313,15 @@ class _funState extends State<fun> with TickerProviderStateMixin {
           child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
             stream: boardcontroll().PReadBoard(),
             builder: (context, snapshot) {
+              //TODO sort snpashot data for displaying
               if (snapshot.hasData) {
                 return ListView.builder(
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
                     padding: EdgeInsets.symmetric(vertical: 0),
-                    itemCount: boardcontroll.list2.length,
+                    itemCount: snapshot.data!.docs.length,
                     itemBuilder: (context, index) {
-                      Map<String, dynamic> ds = boardcontroll.list2[index];
+                      DocumentSnapshot ds = snapshot.data!.docs[index];
                       if (ds["visibilty"] == 1) {
                         return theboard(ds, index);
                       } else
@@ -376,19 +378,28 @@ class _funState extends State<fun> with TickerProviderStateMixin {
         ),
         Visibility(
           visible: showTboard,
-          child: ListView.builder(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              padding: EdgeInsets.symmetric(vertical: 0),
-              itemCount: boardcontroll.list2.length,
-              itemBuilder: (context, index) {
-                Map<String, dynamic> ds = boardcontroll.list2[index];
-
-                if (ds["visibilty"] == 0) {
-                  return theboard(ds, index);
-                } else
-                  return Container();
-              }),
+          child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+            stream: boardcontroll().TReadBoard(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                /*snapshot.data!.docs.shuffle();*/
+                return ListView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    padding: EdgeInsets.symmetric(vertical: 0),
+                    itemCount: snapshot.data!.docs.length,
+                    itemBuilder: (context, index) {
+                      DocumentSnapshot ds = snapshot.data!.docs[index];
+                      if (ds["visibilty"] == 0) {
+                        return theboard(ds, index);
+                      } else
+                        return Container();
+                    });
+              } else {
+                return Container();
+              }
+            },
+          ),
         )
       ],
     );
