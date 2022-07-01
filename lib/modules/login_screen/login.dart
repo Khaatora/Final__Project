@@ -102,7 +102,7 @@ class _LoginState extends State<Login> {
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width / 1.2,
-                  height: MediaQuery.of(context).size.height / 20,
+                  height: MediaQuery.of(context).size.height /10,
                   child: defaulttff(
                     context: context,
                     controller: emailController,
@@ -112,6 +112,7 @@ class _LoginState extends State<Login> {
                     text: '',
                     validatortext: 'email address must not be empty',
                   ),
+
                 ),
                 const SizedBox(
                   height: 20,
@@ -126,7 +127,7 @@ class _LoginState extends State<Login> {
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width / 1.2,
-                  height: MediaQuery.of(context).size.height / 20,
+                  height: MediaQuery.of(context).size.height / 10,
                   child: defaulttff(
                     context: context,
                     controller: passwordController,

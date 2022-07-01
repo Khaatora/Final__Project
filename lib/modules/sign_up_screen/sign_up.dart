@@ -91,7 +91,7 @@ class _Sign_UpState extends State<Sign_Up> {
                 ),
                 Container(
                     width: MediaQuery.of(context).size.width / 1.2,
-                    height: MediaQuery.of(context).size.height / 20,
+
                     child: defaulttff(
                         context: context,
                         text: '',
