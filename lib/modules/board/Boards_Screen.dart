@@ -130,20 +130,20 @@ class _funState extends State<fun> with TickerProviderStateMixin {
                       top: MediaQuery.of(context).size.height * 0.01,
                     ),
                     width: MediaQuery.of(context).size.width * 0.176,
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ProfileSetting()));
-                      },
-                      child: ClipPolygon(
-                        sides: 6,
-                        borderRadius: 16.0, // Default 0.0 degrees
-                        rotate: 180.0, // Default 0.0 degrees
+                    child: ClipPolygon(
+                      sides: 6,
+                      borderRadius: 16.0, // Default 0.0 degrees
+                      rotate: 180.0, // Default 0.0 degrees
 
-                        child: Container(
-                          color: Colors.blue,
+                      child: Container(
+                        color: Colors.blue,
+                        child: MaterialButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ProfileSetting()));
+                          },
                         ),
                       ),
                     ),
@@ -248,7 +248,6 @@ class _funState extends State<fun> with TickerProviderStateMixin {
                 sides: 6,
                 borderRadius: 8.0, // Default 0.0 degrees
                 rotate: 180.0, // Default 0.0 degrees
-
                 child: Container(
                   color: Color.fromARGB(255, 21, 139, 235),
                   child: Center(

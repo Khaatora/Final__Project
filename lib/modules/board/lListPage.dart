@@ -10,9 +10,8 @@ import 'Back_End/Boardcontroller.dart';
 import 'Task_Screen.dart';
 
 class MyList extends StatefulWidget {
-
-  DocumentSnapshot ?ds;
-  MyList(DocumentSnapshot ds){
+  DocumentSnapshot? ds;
+  MyList(DocumentSnapshot ds) {
     this.ds = ds;
   }
   @override
@@ -20,8 +19,7 @@ class MyList extends StatefulWidget {
 }
 
 class _MyListState extends State<MyList> {
-    final TextEditingController nameoflist = TextEditingController();
-
+  final TextEditingController nameoflist = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +46,8 @@ class _MyListState extends State<MyList> {
                         margin: EdgeInsets.symmetric(
                             horizontal:
                                 MediaQuery.of(context).size.height * 0.041),
-                        child: Text(widget.ds!['name'],
+                        child: Text(
+                          "habda ",
                           style: TextStyle(
                               color: Color.fromARGB(255, 18, 131, 223),
                               fontSize: 20,
@@ -127,32 +126,8 @@ class _MyListState extends State<MyList> {
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
-
-                  if(widget.ds!['visibility']==0)
-                    StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-                    stream: List_Controller(ds :widget.ds).TReadLists(),
-                    builder: (context, snapshot) {
-                      //TODO sort snpashot data for displaying
-                      if (snapshot.hasData) {
-                        return ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            padding: EdgeInsets.symmetric(vertical: 0),
-                            itemCount: snapshot.data!.docs.length,
-                            itemBuilder: (context, index) {
-                              DocumentSnapshot listDoc =
-                                  snapshot.data!.docs[index];
-                              return mylistStream(listDoc);
-                            });
-                      } else {
-                        return Container();
-                      }
-                    },
-                  ),
-                    if(widget.ds!['visibility']==1)
-                    StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-                    stream: List_Controller(ds :widget.ds).PReadLists(),
+                  StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                    stream: List_Controller(ds: widget.ds).TReadLists(),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         return ListView.builder(
@@ -171,38 +146,58 @@ class _MyListState extends State<MyList> {
                       }
                     },
                   ),
-                 Column(
-                  
-                   children: [
-                     Container(
-                      decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 225, 242, 255),
-                        borderRadius: BorderRadius.circular(14)),
-                      height: MediaQuery.of(context).size.height*0.06,
-                      width: MediaQuery.of(context).size.width*0.66,
-                       child: InkWell(
-                                   onTap: () {
-                                    showDialog(
-                      context: context,
-                      barrierColor: Colors.black.withOpacity(0.5),
-                      builder: (context) {
-                        return _Addlist();
+                  if (widget.ds!['visibility'] == 0)
+                    StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                      stream: List_Controller(ds: widget.ds).PReadLists(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
+                              padding: EdgeInsets.symmetric(vertical: 0),
+                              itemCount: snapshot.data!.docs.length,
+                              itemBuilder: (context, index) {
+                                DocumentSnapshot listDoc =
+                                    snapshot.data!.docs[index];
+                                return mylistStream(listDoc);
+                              });
+                        } else {
+                          return Container();
+                        }
                       },
-                    );
-                                   },
-                                   child: Center(
-                                     child: Text(
-                                       '+ Add List ',
-                                       style: TextStyle(
-                                                             color: Colors.blue,
-                                                             fontSize: 16,
-                                                             fontWeight: FontWeight.bold),
-                                     ),
-                                   ),
-                                 ),
-                     ),
-                   ],
-                 )
+                    ),
+                  Column(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                            color: Color.fromARGB(255, 225, 242, 255),
+                            borderRadius: BorderRadius.circular(14)),
+                        height: MediaQuery.of(context).size.height * 0.06,
+                        width: MediaQuery.of(context).size.width * 0.66,
+                        child: InkWell(
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              barrierColor: Colors.black.withOpacity(0.5),
+                              builder: (context) {
+                                return _Addlist();
+                              },
+                            );
+                          },
+                          child: Center(
+                            child: Text(
+                              '+ Add List ',
+                              style: TextStyle(
+                                  color: Colors.blue,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
                 ],
               ),
             )
@@ -604,14 +599,15 @@ class _MyListState extends State<MyList> {
       ),
     );
   }
-  _Addlist(){
-    return  Material(
+
+  _Addlist() {
+    return Material(
       color: Colors.transparent,
       child: Column(
         children: [
           Container(
-            margin: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height * 0.2),
+            margin:
+                EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.2),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(20)),
               color: Colors.white,
@@ -644,13 +640,11 @@ class _MyListState extends State<MyList> {
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.06,
                   ),
-                
-                
                   InkWell(
                     onTap: () async {
                       // add list
-                   await List_Controller(ds: widget.ds).addList(nameoflist.text);
-
+                      await List_Controller(ds: widget.ds)
+                          .addList(nameoflist.text);
                       Get.back();
                     },
                     child: Center(

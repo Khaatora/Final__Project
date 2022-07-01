@@ -41,36 +41,41 @@ class boardcontroll extends GetxController {
   //add board, visibility = 1 then add to private board, visibility = 0 then add to teams boards
   addBoard({Board? board}) async {
     //pDocName and tDocName are variables used to store a document that contains the passed BOARD title
-        if (board!.Visibility == 1) {
-          QueryDocumentSnapshot<Map<String, dynamic>> ?pDocName = null;
-          await Pboards?.where("name", isEqualTo: board.name).get().then((value) => pDocName= value.docs.firstWhereOrNull((element) => element["name"] == board.name));
-          if (pDocName?["name"] == board.name){
-            throw ArgumentError("You cannot add two boards with the same name", board.name);
-          }
-          //generate documentID for custom document ID
-          DocumentReference<Map<String, dynamic>> docRef = Pboards!.doc();
-          //add document with ID docref and store it inside the created document
-          this.Pboards?.doc(docRef.id).set(board.tomap(docRef: docRef));
-        }
-        else if (board.Visibility == 0) {
-          QueryDocumentSnapshot<Map<String, dynamic>> ?tDocName;
-          await Tboards?.where("name", isEqualTo: board.name).get().then((value) => tDocName= value.docs.firstWhereOrNull((element) => element["name"] == board.name));
-          if (tDocName?["name"] == board.name){
-            throw ArgumentError("You cannot add two boards with the same name", board.name);
-          }
-          //generate documentID for custom document ID
-          DocumentReference<Map<String, dynamic>> docRef = Tboards!.doc();
-          //list to store the board ID
-          List l1 = <dynamic>[];
-          l1.add(docRef.id);
-          //add document with custom ID in the form "userID_docID" and store both IDs inside the doc
-          this.Tboards?.doc(docRef.id).set(board.tomap(
-              docRef: docRef, membership: "admin", userID: user?.uid));
-          //add created board to boards field in user's collection
-          FirebaseFirestore.instance.collection("user").doc(user?.uid).update({
-            "Boards": FieldValue.arrayUnion(l1),
-          });
-        }
+    if (board!.Visibility == 1) {
+      QueryDocumentSnapshot<Map<String, dynamic>>? pDocName = null;
+      await Pboards?.where("name", isEqualTo: board.name).get().then((value) =>
+          pDocName = value.docs
+              .firstWhereOrNull((element) => element["name"] == board.name));
+      if (pDocName?["name"] == board.name) {
+        throw ArgumentError(
+            "You cannot add two boards with the same name", board.name);
+      }
+      //generate documentID for custom document ID
+      DocumentReference<Map<String, dynamic>> docRef = Pboards!.doc();
+      //add document with ID docref and store it inside the created document
+      this.Pboards?.doc(docRef.id).set(board.tomap(docRef: docRef));
+    } else if (board.Visibility == 0) {
+      QueryDocumentSnapshot<Map<String, dynamic>>? tDocName;
+      await Tboards?.where("name", isEqualTo: board.name).get().then((value) =>
+          tDocName = value.docs
+              .firstWhereOrNull((element) => element["name"] == board.name));
+      if (tDocName?["name"] == board.name) {
+        throw ArgumentError(
+            "You cannot add two boards with the same name", board.name);
+      }
+      //generate documentID for custom document ID
+      DocumentReference<Map<String, dynamic>> docRef = Tboards!.doc();
+      //list to store the board ID
+      List l1 = <dynamic>[];
+      l1.add(docRef.id);
+      //add document with custom ID in the form "userID_docID" and store both IDs inside the doc
+      this.Tboards?.doc(docRef.id).set(
+          board.tomap(docRef: docRef, membership: "admin", userID: user?.uid));
+      //add created board to boards field in user's collection
+      FirebaseFirestore.instance.collection("user").doc(user?.uid).update({
+        "Boards": FieldValue.arrayUnion(l1),
+      });
+    }
   }
 
   /*getPublicUserBoards() async{
