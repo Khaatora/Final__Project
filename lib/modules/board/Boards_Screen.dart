@@ -225,7 +225,7 @@ class _funState extends State<fun> with TickerProviderStateMixin {
       padding: EdgeInsets.all(0),
       onPressed: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => MyList(ds: ds)));
+            context, MaterialPageRoute(builder: (context) => MyList( ds.id)));
       },
       child: Row(
         children: [

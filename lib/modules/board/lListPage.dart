@@ -5,14 +5,19 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:polygon_clipper/polygon_clipper.dart';
 
-class MyList extends StatefulWidget {
-  const MyList({Key? key, required DocumentSnapshot? ds}) : super(key: key);
+import 'Back_End/Boardcontroller.dart';
 
+class MyList extends StatefulWidget {
+  
+  final String boardId;
+   MyList(this.boardId);
   @override
   State<MyList> createState() => _MyListState();
 }
 
 class _MyListState extends State<MyList> {
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -118,7 +123,30 @@ class _MyListState extends State<MyList> {
                   top: MediaQuery.of(context).size.height * 0.056),
               child: ListView(
                 scrollDirection: Axis.horizontal,
-                children: [mylistStream(), mylistStream()],
+                children: [
+                    StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+            stream: boardcontroll().Lists(widget.boardId),
+            builder: (context, snapshot) {
+              //TODO sort snpashot data for displaying
+              if (snapshot.hasData) {
+                return ListView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    padding: EdgeInsets.symmetric(vertical: 0),
+                    itemCount: snapshot.data!.docs.length,
+                    itemBuilder: (context, index) {
+                      DocumentSnapshot listDoc = snapshot.data!.docs[index];
+                   
+                        return mylistStream(listDoc );
+                      
+                    });
+              } else {
+                return Container();
+              }
+            },
+          ),
+
+                 ],
               ),
             )
           ],
@@ -128,7 +156,7 @@ class _MyListState extends State<MyList> {
   }
 
   // streaming lists of the board
-  mylistStream() {
+  mylistStream(DocumentSnapshot listDoc) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.75,
       margin: EdgeInsets.only(right: MediaQuery.of(context).size.width * 0.12),

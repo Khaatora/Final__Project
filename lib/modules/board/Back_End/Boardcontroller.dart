@@ -12,6 +12,7 @@ class boardcontroll extends GetxController {
   CollectionReference<Map<String, dynamic>>? Pboards;
   //reference to "Board" collection
   CollectionReference<Map<String, dynamic>>? Tboards;
+
   /*//reference to "Public_Board_Members" collection
   CollectionReference<Map<String, dynamic>>? Public_Boards_Members;*/
 
@@ -22,6 +23,7 @@ class boardcontroll extends GetxController {
         .doc(user?.uid)
         .collection("Private_Boards");
     this.Tboards = FirebaseFirestore.instance.collection("Board");
+    
     /*this.Public_Boards_Members =
         FirebaseFirestore.instance.collection("Public_Board_Members");*/
   }
@@ -99,6 +101,7 @@ class boardcontroll extends GetxController {
         .orderBy("creationDate")
         .snapshots();
   }
+  
   // stream to keep track of PUBLIC BOARDS and continuously update displayed BOARDS
   Stream<QuerySnapshot<Map<String, dynamic>>> TReadBoard() {
     return FirebaseFirestore.instance
@@ -107,6 +110,15 @@ class boardcontroll extends GetxController {
       {"membership": "admin", "userID": "${user?.uid}"},
       {"membership": "member", "userID": "${user?.uid}"}
     ]).orderBy("creationDate").snapshots();
+  }
+  
+  Stream<QuerySnapshot<Map<String, dynamic>>> Lists(String boardId) {
+    return Tboards!
+        .doc("$boardId")
+        .collection("Lists").snapshots();
+    
+    
+     
   }
 
 
