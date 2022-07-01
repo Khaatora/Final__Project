@@ -48,8 +48,7 @@ class _MyListState extends State<MyList> {
                         margin: EdgeInsets.symmetric(
                             horizontal:
                                 MediaQuery.of(context).size.height * 0.041),
-                        child: Text(
-                          "habda ",
+                        child: Text(widget.ds!['name'],
                           style: TextStyle(
                               color: Color.fromARGB(255, 18, 131, 223),
                               fontSize: 20,
@@ -155,7 +154,6 @@ class _MyListState extends State<MyList> {
                     StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
                     stream: List_Controller(ds :widget.ds).PReadLists(),
                     builder: (context, snapshot) {
-                      //TODO sort snpashot data for displaying
                       if (snapshot.hasData) {
                         return ListView.builder(
                             scrollDirection: Axis.horizontal,
@@ -232,6 +230,7 @@ class _MyListState extends State<MyList> {
                 
                   InkWell(
                     onTap: () async {
+                      // add list
                    await List_Controller(ds: widget.ds).addList(nameoflist.text);
 
                       Get.back();
@@ -304,8 +303,7 @@ class _MyListState extends State<MyList> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                "List 1",
+              Text(listDoc["title"],
                 style: TextStyle(
                   color: Color.fromARGB(255, 18, 131, 223),
                   fontSize: 20,
