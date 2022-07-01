@@ -26,8 +26,8 @@ class Password_Recovary extends StatelessWidget {
 
                     Center(
                       child: Image(image:AssetImage('assets/images/logo.png'),
-                        height: 250,
-                        width: 250,
+                        height: 200,
+                        width: 200,
                       ),
                     ),
 
@@ -54,7 +54,6 @@ class Password_Recovary extends StatelessWidget {
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width/1.2,
-                  height:  MediaQuery.of(context).size.height/20,
                   child: defaulttff(context: context,
                     controller:emailController,
                     onsubmit: (){},
