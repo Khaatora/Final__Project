@@ -221,41 +221,43 @@ class _funState extends State<fun> with TickerProviderStateMixin {
   }
 
   theboard(DocumentSnapshot ds, int index) {
-    return MaterialButton(
-      padding: EdgeInsets.all(0),
-      onPressed: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) =>
-            MyList(ds)));
-      },
-      child: Row(
-        children: [
-          Container(
-            height: MediaQuery.of(context).size.height * 0.09,
-            width: MediaQuery.of(context).size.width * 0.14,
-            child: ClipPolygon(
-              sides: 6,
-              borderRadius: 8.0, // Default 0.0 degrees
-              rotate: 180.0, // Default 0.0 degrees
-
-              child: Container(
-                color: Color.fromARGB(255, 21, 139, 235),
-                child: Center(
-                  child: Text(
-                    "${index + 1}",
-                    style: TextStyle(color: Colors.white, fontSize: 25),
+    return Container(
+      child: MaterialButton(
+        padding: EdgeInsets.all(0),
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) =>
+              MyList(ds)));
+        },
+        child: Row(
+          children: [
+            Container(
+              height: MediaQuery.of(context).size.height * 0.09,
+              width: MediaQuery.of(context).size.width * 0.14,
+              child: ClipPolygon(
+                sides: 6,
+                borderRadius: 8.0, // Default 0.0 degrees
+                rotate: 180.0, // Default 0.0 degrees
+    
+                child: Container(
+                  color: Color.fromARGB(255, 21, 139, 235),
+                  child: Center(
+                    child: Text(
+                      "${index + 1}",
+                      style: TextStyle(color: Colors.white, fontSize: 25),
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          Text(
-            ds['name'],
-            style: TextStyle(
-                fontSize: 22, color: Color.fromARGB(255, 173, 169, 169)),
-          ),
-          Expanded(child: MaterialButton(color: Colors.red, onPressed: () {})),
-        ],
+            Text(
+              ds['name'],
+              style: TextStyle(
+                  fontSize: 22, color: Color.fromARGB(255, 173, 169, 169)),
+            ),
+            
+          ],
+        ),
       ),
     );
   }
@@ -323,7 +325,7 @@ class _funState extends State<fun> with TickerProviderStateMixin {
                     itemCount: snapshot.data!.docs.length,
                     itemBuilder: (context, index) {
                       DocumentSnapshot ds = snapshot.data!.docs[index];
-                      if (ds["visibilty"] == 1) {
+                      if (ds["visibility"] == 1) {
                         return theboard(ds, index);
                       } else
                         return Container();
@@ -391,7 +393,7 @@ class _funState extends State<fun> with TickerProviderStateMixin {
                     itemCount: snapshot.data!.docs.length,
                     itemBuilder: (context, index) {
                       DocumentSnapshot ds = snapshot.data!.docs[index];
-                      if (ds["visibilty"] == 0) {
+                      if (ds["visibility"] == 0) {
                         return theboard(ds, index);
                       } else
                         return Container();
