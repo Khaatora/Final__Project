@@ -15,11 +15,13 @@ class Board {
       int? counter = 1}) {
     Map<String, dynamic> data = new Map<String, dynamic>();
     if (userID != null) {
-      data["membersInBoard"] = [{
-    "userID" : userID,
-    "membership" : membership,
-    }];
-      data["membersCount"]= counter;
+      data["membersInBoard"] = [
+        {
+          "userID": userID,
+          "membership": membership,
+        }
+      ];
+      data["membersCount"] = counter;
     }
     data['name'] = this.name;
     data['visibility'] = this.Visibility;

@@ -137,9 +137,14 @@ class _funState extends State<fun> with TickerProviderStateMixin {
 
                       child: Container(
                         color: Colors.blue,
-                        child: MaterialButton(onPressed: (){
-                          Navigator.push(context,MaterialPageRoute(builder: (context) => ProfileSetting()));
-                        },),
+                        child: MaterialButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ProfileSetting()));
+                          },
+                        ),
                       ),
                     ),
                   ),
@@ -232,8 +237,7 @@ class _funState extends State<fun> with TickerProviderStateMixin {
         padding: EdgeInsets.all(0),
         onPressed: () {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) =>
-              MyList(ds)));
+              context, MaterialPageRoute(builder: (context) => MyList(ds)));
         },
         child: Row(
           children: [
@@ -244,7 +248,6 @@ class _funState extends State<fun> with TickerProviderStateMixin {
                 sides: 6,
                 borderRadius: 8.0, // Default 0.0 degrees
                 rotate: 180.0, // Default 0.0 degrees
-    
                 child: Container(
                   color: Color.fromARGB(255, 21, 139, 235),
                   child: Center(
@@ -252,7 +255,6 @@ class _funState extends State<fun> with TickerProviderStateMixin {
                       "${index + 1}",
                       style: TextStyle(color: Colors.white, fontSize: 25),
                     ),
-
                   ),
                 ),
               ),
@@ -262,7 +264,6 @@ class _funState extends State<fun> with TickerProviderStateMixin {
               style: TextStyle(
                   fontSize: 22, color: Color.fromARGB(255, 173, 169, 169)),
             ),
-            
           ],
         ),
       ),

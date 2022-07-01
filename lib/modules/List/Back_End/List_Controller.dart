@@ -87,11 +87,19 @@ class List_Controller extends GetxController {
   }
 
   //get current user's boards (public and private) from firebase and store them in the static list listOfLists
-  Future getListMenu(String value) async {
+  static Future getListMenu(String value, DocumentSnapshot ds , User? user) async {
     QuerySnapshot<Map<String, dynamic>> tmpPrivateLists =
-        await privateLists!.orderBy("title").get();
+        await FirebaseFirestore.instance
+            .collection("user")
+            .doc(user?.uid)
+            .collection("Private_Boards")
+            .doc(ds?.id)
+            .collection("Private_Lists").where("title", isEqualTo: value).orderBy("title").get();
     QuerySnapshot<Map<String, dynamic>> tmpPublicLists =
-        await teamLists!.orderBy("title").get();
+        await FirebaseFirestore.instance
+            .collection("Board")
+            .doc(ds?.id)
+            .collection("Lists").where("title", isEqualTo: value).orderBy("title").get();
     listOfLists.assignAll(tmpPrivateLists.docs);
     listOfLists.addAll(tmpPublicLists.docs);
     return Future(() => listOfLists);
