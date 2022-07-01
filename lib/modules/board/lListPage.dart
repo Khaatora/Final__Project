@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -5,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:polygon_clipper/polygon_clipper.dart';
 
 class MyList extends StatefulWidget {
-  const MyList({Key? key}) : super(key: key);
+  const MyList({Key? key, required DocumentSnapshot? ds}) : super(key: key);
 
   @override
   State<MyList> createState() => _MyListState();

@@ -80,7 +80,7 @@ class _funnState extends State<funn> {
                           color: Color.fromARGB(255, 156, 151, 151),
                         ),
                       ),
-                      items: boardcontroll.list1
+                      items: boardcontroll.listOfBoards
                           .map((doc) => DropdownMenuItem<String>(
                                 value: doc["name"],
                                 child: Text(

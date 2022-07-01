@@ -25,7 +25,7 @@ class boardcontroll extends GetxController {
     /*this.Public_Boards_Members =
         FirebaseFirestore.instance.collection("Public_Board_Members");*/
   }
-  static List list1 = <QueryDocumentSnapshot<Map<String, dynamic>>>[].obs;
+  static List listOfBoards = <QueryDocumentSnapshot<Map<String, dynamic>>>[].obs;
   /* static List<Map<String, dynamic>> list2 = <Map<String, dynamic>>[];
   static QuerySnapshot<Map<String, dynamic>>? currentUserBoards;*/
   @override
@@ -54,11 +54,6 @@ class boardcontroll extends GetxController {
       FirebaseFirestore.instance.collection("user").doc(user?.uid).update({
         "Boards": FieldValue.arrayUnion(l1),
       });
-      /* this.Public_Boards_Members?.doc("${user?.uid}_${docRef.id}").set({
-        "Board_ID": docRef.id,
-        "User_ID": user?.uid,
-        "Member_Privilege": "Admin"
-      });*/
     }
   }
 
@@ -95,7 +90,7 @@ class boardcontroll extends GetxController {
     });
     list2 = tmplist2;
   }*/
-
+  // stream to keep track of PRIVATE BOARDS and continuously update displayed BOARDS
   Stream<QuerySnapshot<Map<String, dynamic>>> PReadBoard() {
     return FirebaseFirestore.instance
         .collection("user")
@@ -104,32 +99,34 @@ class boardcontroll extends GetxController {
         .orderBy("creationDate")
         .snapshots();
   }
-
+  // stream to keep track of PUBLIC BOARDS and continuously update displayed BOARDS
   Stream<QuerySnapshot<Map<String, dynamic>>> TReadBoard() {
     return FirebaseFirestore.instance
         .collection("Board")
         .where("membersInBoard", arrayContainsAny: [
       {"membership": "admin", "userID": "${user?.uid}"},
       {"membership": "member", "userID": "${user?.uid}"}
-    ]).snapshots();
+    ]).orderBy("creationDate").snapshots();
   }
 
-  getBoardmenu() async {
-    QuerySnapshot<Map<String, dynamic>> response1 = await FirebaseFirestore
+
+  //get current user's boards (public and private) from firebase
+  getBoardMenu() async {
+    QuerySnapshot<Map<String, dynamic>> tmpprivateBoards = await FirebaseFirestore
         .instance
         .collection("user")
         .doc(user?.uid)
         .collection("Private_Boards")
         .orderBy("creationDate")
         .get();
-    QuerySnapshot<Map<String, dynamic>> response2 = await FirebaseFirestore
+    QuerySnapshot<Map<String, dynamic>> tmppublicBoards = await FirebaseFirestore
         .instance
         .collection("Board")
         .where("membersInBoard", arrayContainsAny: [
       {"membership": "admin", "userID": "${user?.uid}"},
       {"membership": "member", "userID": "${user?.uid}"}
-    ]).get();
-    list1.assignAll(response1.docs);
-    list1.addAll(response2.docs);
+    ]).orderBy("creationDate").get();
+    listOfBoards.assignAll(tmpprivateBoards.docs);
+    listOfBoards.addAll(tmppublicBoards.docs);
   }
 }
