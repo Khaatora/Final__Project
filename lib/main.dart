@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
               listener: (context, state) => {},
               builder: (context, state) {
                 return GetMaterialApp(
-                  home: MyList(),
+                  home: Welcome(),
                   theme: ThemeData(
                     textTheme: TextTheme(
                       bodyText1: TextStyle(

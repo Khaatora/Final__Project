@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:final_pro/modules/List/Back_End/List_Controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -8,16 +9,15 @@ import 'package:polygon_clipper/polygon_clipper.dart';
 import 'Back_End/Boardcontroller.dart';
 
 class MyList extends StatefulWidget {
-  
-  final String boardId;
-   MyList(this.boardId);
+  DocumentSnapshot ?ds;
+  MyList(DocumentSnapshot ds){
+    this.ds = ds;
+  }
   @override
   State<MyList> createState() => _MyListState();
 }
 
 class _MyListState extends State<MyList> {
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -124,29 +124,28 @@ class _MyListState extends State<MyList> {
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
-                    StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-            stream: boardcontroll().Lists(widget.boardId),
-            builder: (context, snapshot) {
-              //TODO sort snpashot data for displaying
-              if (snapshot.hasData) {
-                return ListView.builder(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    padding: EdgeInsets.symmetric(vertical: 0),
-                    itemCount: snapshot.data!.docs.length,
-                    itemBuilder: (context, index) {
-                      DocumentSnapshot listDoc = snapshot.data!.docs[index];
-                   
-                        return mylistStream(listDoc );
-                      
-                    });
-              } else {
-                return Container();
-              }
-            },
-          ),
-
-                 ],
+                  StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                    stream: List_Controller(ds :widget.ds).TReadLists(),
+                    builder: (context, snapshot) {
+                      //TODO sort snpashot data for displaying
+                      if (snapshot.hasData) {
+                        return ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            padding: EdgeInsets.symmetric(vertical: 0),
+                            itemCount: snapshot.data!.docs.length,
+                            itemBuilder: (context, index) {
+                              DocumentSnapshot listDoc =
+                                  snapshot.data!.docs[index];
+                              return mylistStream(listDoc);
+                            });
+                      } else {
+                        return Container();
+                      }
+                    },
+                  ),
+                ],
               ),
             )
           ],

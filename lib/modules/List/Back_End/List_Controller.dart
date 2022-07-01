@@ -18,16 +18,16 @@ class List_Controller extends GetxController {
   //list to hold all lists of current signed in user
   static List listOfLists = <QueryDocumentSnapshot<Map<String, dynamic>>>[].obs;
 
-  List_Controller(DocumentSnapshot ds) {
+  List_Controller({DocumentSnapshot? ds}) {
     teamLists = FirebaseFirestore.instance
         .collection("Board")
-        .doc(ds.id)
+        .doc(ds?.id)
         .collection("Lists");
     privateLists = FirebaseFirestore.instance
         .collection("user")
         .doc(user?.uid)
         .collection("Private_Boards")
-        .doc(ds.id)
+        .doc(ds?.id)
         .collection("Private_Lists");
     this.ds = ds;
   }
@@ -87,7 +87,7 @@ class List_Controller extends GetxController {
   }
 
   //get current user's boards (public and private) from firebase and store them in the static list listOfLists
-  Future getListMenu() async {
+  Future getListMenu(String value) async {
     QuerySnapshot<Map<String, dynamic>> tmpPrivateLists =
         await privateLists!.orderBy("title").get();
     QuerySnapshot<Map<String, dynamic>> tmpPublicLists =
@@ -96,5 +96,4 @@ class List_Controller extends GetxController {
     listOfLists.addAll(tmpPublicLists.docs);
     return Future(() => listOfLists);
   }
-
 }

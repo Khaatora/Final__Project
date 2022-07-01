@@ -116,9 +116,6 @@ class boardcontroll extends GetxController {
     return Tboards!
         .doc("$boardId")
         .collection("Lists").snapshots();
-    
-    
-     
   }
 
 
