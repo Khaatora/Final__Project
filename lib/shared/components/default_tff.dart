@@ -32,14 +32,16 @@ validator: (value){
 textDirection: TextDirection.ltr,
 obscureText: obstext,
     decoration: InputDecoration(
+      contentPadding:EdgeInsets.symmetric(horizontal: 10,vertical: 0) ,
     hintText: text,
     suffixIcon:suffixicon,
     border:
-    OutlineInputBorder(borderRadius: BorderRadius.circular(15.0),
+
+    OutlineInputBorder(borderRadius: BorderRadius.circular(30.0),
+
     ),
       filled: true,
       hintStyle: TextStyle(color: Colors.grey[800]),
-      contentPadding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width*0.02)
   ),
 
 );
