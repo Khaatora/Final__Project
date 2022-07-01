@@ -6,7 +6,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:polygon_clipper/polygon_clipper.dart';
 import 'Back_End/Boardcontroller.dart';
-import 'Mydata.dart';
+import 'Back_End/Mydata.dart';
 
 class funn extends StatefulWidget {
   const funn({Key? key}) : super(key: key);
@@ -80,11 +80,11 @@ class _funnState extends State<funn> {
                           color: Color.fromARGB(255, 156, 151, 151),
                         ),
                       ),
-                      items: boardcontroll.list1
+                      items: boardcontroll.listOfBoards
                           .map((doc) => DropdownMenuItem<String>(
-                                value: doc["Name"],
+                                value: doc["name"],
                                 child: Text(
-                                  doc["Name"],
+                                  doc["name"],
                                   style: const TextStyle(
                                       fontSize: 20,
                                       color:
@@ -140,9 +140,9 @@ class _funnState extends State<funn> {
                               ),
                               items: ds
                                   .map((doc) => DropdownMenuItem<String>(
-                                        value: doc["Name"],
+                                        value: doc["name"],
                                         child: Text(
-                                          doc["Name"],
+                                          doc["name"],
                                           style: const TextStyle(
                                               fontSize: 20,
                                               color: Color.fromARGB(
@@ -524,10 +524,7 @@ class _boardState extends State<board> {
                   InkWell(
                     onTap: () async {
                       DateTime starttime = DateTime.now();
-
                       await ADD(starttime);
-                      await boardcontroll().getPublicUserBoards();
-
                       Get.back();
                     },
                     child: Center(

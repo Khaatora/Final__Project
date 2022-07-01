@@ -29,8 +29,7 @@ class _LoginState extends State<Login> {
     try {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(
-              email: emailController.text, password: passwordController.text)
-          .then((value) => boardcontroll().getPublicUserBoards());
+              email: emailController.text, password: passwordController.text);
       Navigator.push(context, MaterialPageRoute(builder: (context) => fun()));
     } on FirebaseAuthException catch (e) {
       String message = "";
