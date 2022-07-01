@@ -228,7 +228,8 @@ class _MyListState extends State<MyList> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(listDoc['title'],
+              Text(
+                listDoc['title'],
                 style: TextStyle(
                   color: Color.fromARGB(255, 18, 131, 223),
                   fontSize: 20,

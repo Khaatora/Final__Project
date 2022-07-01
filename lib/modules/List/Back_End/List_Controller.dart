@@ -37,8 +37,8 @@ class List_Controller extends GetxController {
     if (ds?.get("visibility") == 1) {
       docRef = privateLists!.doc();
       privateLists?.doc(docRef.id).set({
-        "title": docRef,
         "ID": name,
+        "title": docRef,
       });
     } else {
       docRef = teamLists!.doc();
