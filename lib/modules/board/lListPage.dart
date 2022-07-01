@@ -180,101 +180,26 @@ class _MyListState extends State<MyList> {
                         borderRadius: BorderRadius.circular(14)),
                       height: MediaQuery.of(context).size.height*0.06,
                       width: MediaQuery.of(context).size.width*0.66,
-                       child: Center(
-                         child: InkWell(
-                                     onTap: () {
-                                      showDialog(
+                       child: InkWell(
+                                   onTap: () {
+                                    showDialog(
                       context: context,
                       barrierColor: Colors.black.withOpacity(0.5),
                       builder: (context) {
-                        return Material(
-      color: Colors.transparent,
-      child: Column(
-        children: [
-          Container(
-            margin: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height * 0.2),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(20)),
-              color: Colors.white,
-            ),
-            width: MediaQuery.of(context).size.width * 0.7,
-            height: MediaQuery.of(context).size.height * 0.3,
-            child: Container(
-              margin: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width * 0.04,
-                  vertical: MediaQuery.of(context).size.height * 0.02),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Center(
-                      child: Text(
-                    "Add List",
-                    style: TextStyle(
-                        color: Colors.blue,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                        fontStyle: FontStyle.italic),
-                  )),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.04,
-                  ),
-                  Inputfield(
-                    hint: "List name",
-                    controller: nameoflist,
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.06,
-                  ),
-                
-                
-                  InkWell(
-                    onTap: () async {
-                      // add list
-                   await List_Controller(ds: widget.ds).addList(nameoflist.text);
-
-                      Get.back();
-                    },
-                    child: Center(
-                      child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(13),
-                            color: Color.fromARGB(255, 3, 138, 248)),
-                        margin: EdgeInsets.only(
-                            top: MediaQuery.of(context).size.height * 0.028),
-                        width: MediaQuery.of(context).size.width * 0.5,
-                        height: MediaQuery.of(context).size.height * 0.053,
-                        child: Center(
-                          child: Text(
-                            ' Ok',
-                            style: TextStyle(
-                              fontSize: 21,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
+                        return _Addlist();
                       },
                     );
-                                     },
+                                   },
+                                   child: Center(
                                      child: Text(
                                        '+ Add List ',
                                        style: TextStyle(
-                            color: Colors.blue,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold),
+                                                             color: Colors.blue,
+                                                             fontSize: 16,
+                                                             fontWeight: FontWeight.bold),
                                      ),
                                    ),
-                       ),
+                                 ),
                      ),
                    ],
                  )
@@ -303,7 +228,7 @@ class _MyListState extends State<MyList> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(listDoc["title"],
+              Text(listDoc['title'],
                 style: TextStyle(
                   color: Color.fromARGB(255, 18, 131, 223),
                   fontSize: 20,
@@ -679,6 +604,81 @@ class _MyListState extends State<MyList> {
     );
   }
   _Addlist(){
-     
+    return  Material(
+      color: Colors.transparent,
+      child: Column(
+        children: [
+          Container(
+            margin: EdgeInsets.only(
+                top: MediaQuery.of(context).size.height * 0.2),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(20)),
+              color: Colors.white,
+            ),
+            width: MediaQuery.of(context).size.width * 0.7,
+            height: MediaQuery.of(context).size.height * 0.3,
+            child: Container(
+              margin: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width * 0.04,
+                  vertical: MediaQuery.of(context).size.height * 0.02),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Center(
+                      child: Text(
+                    "Add List",
+                    style: TextStyle(
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        fontStyle: FontStyle.italic),
+                  )),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.04,
+                  ),
+                  Inputfield(
+                    hint: "List name",
+                    controller: nameoflist,
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.06,
+                  ),
+                
+                
+                  InkWell(
+                    onTap: () async {
+                      // add list
+                   await List_Controller(ds: widget.ds).addList(nameoflist.text);
+
+                      Get.back();
+                    },
+                    child: Center(
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(13),
+                            color: Color.fromARGB(255, 3, 138, 248)),
+                        margin: EdgeInsets.only(
+                            top: MediaQuery.of(context).size.height * 0.028),
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        height: MediaQuery.of(context).size.height * 0.053,
+                        child: Center(
+                          child: Text(
+                            ' Ok',
+                            style: TextStyle(
+                              fontSize: 21,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
