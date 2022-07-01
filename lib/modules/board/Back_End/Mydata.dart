@@ -11,15 +11,20 @@ class Board {
   Map<String, dynamic> tomap(
       {required DocumentReference<Map<String, dynamic>> docRef,
       String? membership,
-      String? userID}) {
+      String? userID,
+      int? counter = 1}) {
     Map<String, dynamic> data = new Map<String, dynamic>();
     if (userID != null) {
-      data["Users_In_Board"] = [userID];
+      data["membersInBoard"] = [{
+    "userID" : userID,
+    "membership" : membership,
+    }];
+      data["membersCount"]= counter;
     }
-    data['Name'] = this.name;
+    data['name'] = this.name;
     data['visibilty'] = this.Visibility;
-    data['Priority'] = this.priority;
-    data['Board_ID'] = docRef.id;
+    data['creationDate'] = this.priority;
+    data['boardID'] = docRef.id;
     return data;
   }
 }

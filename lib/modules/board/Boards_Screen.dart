@@ -50,8 +50,8 @@ class _funState extends State<fun> with TickerProviderStateMixin {
                   color: Colors.blue,
                 ),
                 child: MaterialButton(
-                  onPressed: () {
-                    boardcontroll().getBoardmenu();
+                  onPressed: () async {
+                    await boardcontroll().getBoardmenu();
                     showDialog(
                       context: context,
                       barrierColor: Colors.black.withOpacity(0.5),
@@ -249,7 +249,7 @@ class _funState extends State<fun> with TickerProviderStateMixin {
             ),
           ),
           Text(
-            ds['Name'],
+            ds['name'],
             style: TextStyle(
                 fontSize: 22, color: Color.fromARGB(255, 173, 169, 169)),
           ),
@@ -381,7 +381,7 @@ class _funState extends State<fun> with TickerProviderStateMixin {
             stream: boardcontroll().TReadBoard(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                snapshot.data!.docs.shuffle();
+                /*snapshot.data!.docs.shuffle();*/
                 return ListView.builder(
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
