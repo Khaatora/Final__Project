@@ -8,12 +8,17 @@ class Task {
   DateTime? dueDate;
   String? taskDescription;
 
-  Task({this.name, this.priority,this.attachment,this.startDate,this.dueDate});
+  Task(
+      {this.name,
+      this.priority,
+      this.attachment,
+      this.startDate,
+      this.dueDate});
 
   Map<String, dynamic> tomap(
       {required DocumentReference<Map<String, dynamic>> docRef,
-        String? userID,
-        int? counter = 1}) {
+      String? userID,
+      int? counter = 1}) {
     Map<String, dynamic> data = new Map<String, dynamic>();
     if (userID != null) {
       data["membersInTask"] = [

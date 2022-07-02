@@ -19,18 +19,22 @@ class Task_Controller extends GetxController {
   //list to hold all lists of current signed in user
   static List listOfTasks = <QueryDocumentSnapshot<Map<String, dynamic>>>[].obs;
 
-  Task_Controller(DocumentSnapshot? listDoc, String docID ) {
+  Task_Controller(DocumentSnapshot? listDoc, String docID) {
     this.ds = listDoc;
     teamTasks = FirebaseFirestore.instance
         .collection("Board")
         .doc(ds?.id)
-        .collection("Lists").doc(docID).collection("Team_Tasks");
+        .collection("Lists")
+        .doc(docID)
+        .collection("Team_Tasks");
     privateTasks = FirebaseFirestore.instance
         .collection("user")
         .doc(user?.uid)
         .collection("Private_Boards")
         .doc(ds?.id)
-        .collection("Private_Lists").doc(docID).collection("Private_Tasks");
+        .collection("Private_Lists")
+        .doc(docID)
+        .collection("Private_Tasks");
   }
 
   checkUserMembership() async {
@@ -40,14 +44,14 @@ class Task_Controller extends GetxController {
 
   /// add Task to current accessed LIST, where visibility 1 = PRIVATE , 2 = TEAM
   Future addTask({Task? task1}) async {
-    try{
+    try {
       DocumentReference<Map<String, dynamic>>? docRef;
       if (ds?.get("visibility") == 1) {
         DocumentSnapshot<Map<String, dynamic>>? pDocName = null;
         //get the private board names that match the name from the board to be added
-        await privateTasks?.where("title", isEqualTo: task1?.name).get().then((value) =>
-        pDocName = value.docs
-            .firstWhereOrNull((element) => element["title"] == task1?.name));
+        await privateTasks?.where("title", isEqualTo: task1?.name).get().then(
+            (value) => pDocName = value.docs.firstWhereOrNull(
+                (element) => element["title"] == task1?.name));
         if (pDocName?["name"] == task1?.name) {
           throw ArgumentError(
               "You cannot add two tasks with the same name", task1?.name);
@@ -55,16 +59,14 @@ class Task_Controller extends GetxController {
 
         docRef = privateTasks!.doc();
         //add Task with custom ID into private Tasks
-        privateTasks?.doc(docRef.id).set(
-            task1!.tomap(docRef: docRef)
-        );
+        privateTasks?.doc(docRef.id).set(task1!.tomap(docRef: docRef));
       } else {
         checkUserMembership();
         DocumentSnapshot<Map<String, dynamic>>? tDocName;
         //get the teams board names that match the name from the board to be added
-        await teamTasks?.where("title", isEqualTo: task1?.name).get().then((value) =>
-        tDocName = value.docs
-            .firstWhereOrNull((element) => element["title"] == task1?.name));
+        await teamTasks?.where("title", isEqualTo: task1?.name).get().then(
+            (value) => tDocName = value.docs.firstWhereOrNull(
+                (element) => element["title"] == task1?.name));
         if (tDocName?["name"] == task1?.name) {
           throw ArgumentError(
               "You cannot add two tasks with the same name", task1?.name);
@@ -74,20 +76,19 @@ class Task_Controller extends GetxController {
         //list to store the board ID
         List l1 = <dynamic>[];
         l1.add(docRef.id);
-        teamTasks?.doc(docRef.id).set(
-            task1!.tomap(docRef: docRef, userID: user?.uid));
+        teamTasks
+            ?.doc(docRef.id)
+            .set(task1!.tomap(docRef: docRef, userID: user?.uid));
         //add created board to boards field in user's collection
         FirebaseFirestore.instance.collection("user").doc(user?.uid).update({
           "Tasks": FieldValue.arrayUnion(l1),
         });
       }
       return Future(() => docRef);
-    }
-    on ArgumentError catch(e){
+    } on ArgumentError catch (e) {
       print(e.message);
     }
   }
-
 
   /// stream to keep track of PRIVATE TASKS and continuously update displayed TASKS
   Stream<QuerySnapshot<Map<String, dynamic>>> PReadLists() {

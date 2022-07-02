@@ -47,7 +47,7 @@ class _MyListState extends State<MyList> {
                             horizontal:
                                 MediaQuery.of(context).size.height * 0.041),
                         child: Text(
-                         widget.ds!["name"],
+                          widget.ds!["name"],
                           style: TextStyle(
                               color: Color.fromARGB(255, 18, 131, 223),
                               fontSize: 20,
@@ -126,9 +126,10 @@ class _MyListState extends State<MyList> {
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
-                  if (widget.ds!['visibility'] == 0)
                   StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-                    stream: (widget.ds?["visibility"]==1 ? List_Controller(ds: widget.ds).PReadLists() : List_Controller(ds: widget.ds).TReadLists()),
+                    stream: (widget.ds?["visibility"] == 1
+                        ? List_Controller(ds: widget.ds).PReadLists()
+                        : List_Controller(ds: widget.ds).TReadLists()),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         return ListView.builder(

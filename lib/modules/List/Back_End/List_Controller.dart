@@ -330,23 +330,21 @@ class List_Controller extends GetxController {
 
   ///clear current accessed board from all data except users inside of it,
   ///and return a future that contains a success message
-  Future clearBoard() async{
-    try{
+  Future clearBoard() async {
+    try {
       checkUserMembership();
-      if(ds?.get("visibility")==1){
+      if (ds?.get("visibility") == 1) {
         privateLists!.get().then((value) => value.docs.forEach((element) {
-          element.reference.delete();
-        }));
-      }
-      else{
+              element.reference.delete();
+            }));
+      } else {
         teamLists!.get().then((value) => value.docs.forEach((element) {
-          element.reference.delete();
-        }));
+              element.reference.delete();
+            }));
       }
       addList("Done");
       return Future(() => "List Cleared Successfully");
-    }
-    on ArgumentError catch(e){
+    } on ArgumentError catch (e) {
       print(e.message);
     }
   }

@@ -40,7 +40,7 @@ class Board_Controller extends GetxController {
   void onReady() {
     super.onReady();
   }
-  
+
   ///add board to database,
   ///and return a future that contains a document reference of the created board.
   ///visibility = 1 then add to private board, visibility = 0 then add to teams boards
@@ -58,7 +58,6 @@ class Board_Controller extends GetxController {
             "You cannot add two boards with the same name", board.name);
       }
 
-
       docRef = Pboards!.doc();
       //add document with ID docref and store it inside the fetched collection
       this.Pboards?.doc(docRef.id).set(board.tomap(docRef: docRef));
@@ -72,7 +71,6 @@ class Board_Controller extends GetxController {
         throw ArgumentError(
             "You cannot add two boards with the same name", board.name);
       }
-
 
       docRef = Tboards!.doc();
       //list to store the board ID
@@ -91,17 +89,18 @@ class Board_Controller extends GetxController {
   }
 
   ///get current signed in user's membership in referenced board
-  Future getUserMembership(DocumentReference docref) async{
-    List l1= await Tboards!.doc(docref.id).get().then((value) => value["membersInBoard"]);
-    Map<String,dynamic> mp = {"membership": "admin", "userID" : user?.uid};
-    String ?membership;
-      if(mapEquals(l1[0],mp))
-      {
-        membership = "admin";
-      }
-      else{
-        membership = "member";
-      }
+  Future getUserMembership(DocumentReference docref) async {
+    List l1 = await Tboards!
+        .doc(docref.id)
+        .get()
+        .then((value) => value["membersInBoard"]);
+    Map<String, dynamic> mp = {"membership": "admin", "userID": user?.uid};
+    String? membership;
+    if (mapEquals(l1[0], mp)) {
+      membership = "admin";
+    } else {
+      membership = "member";
+    }
     return Future(() => membership);
   }
 
