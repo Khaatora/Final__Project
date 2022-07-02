@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:polygon_clipper/polygon_clipper.dart'; // Import package for ClipPolygon
 import 'package:animated_button_bar/animated_button_bar.dart';
 import 'package:flutter/material.dart';
+import '../profile_setting_screen/ProfileSetting.dart';
 import 'Back_End/Boardcontroller.dart';
 import 'Task_Screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -51,7 +52,7 @@ class _funState extends State<fun> with TickerProviderStateMixin {
                 ),
                 child: MaterialButton(
                   onPressed: () async {
-                    await boardcontroll().getBoardMenu();
+                    await Board_Controller().getBoardMenu();
                     showDialog(
                       context: context,
                       barrierColor: Colors.black.withOpacity(0.5),
@@ -134,7 +135,17 @@ class _funState extends State<fun> with TickerProviderStateMixin {
                       borderRadius: 16.0, // Default 0.0 degrees
                       rotate: 180.0, // Default 0.0 degrees
 
-                      child: Container(color: Colors.red),
+                      child: Container(
+                        color: Colors.blue,
+                        child: MaterialButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ProfileSetting()));
+                          },
+                        ),
+                      ),
                     ),
                   ),
                   Expanded(
@@ -221,40 +232,40 @@ class _funState extends State<fun> with TickerProviderStateMixin {
   }
 
   theboard(DocumentSnapshot ds, int index) {
-    return MaterialButton(
-      padding: EdgeInsets.all(0),
-      onPressed: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => MyList( ds.id)));
-      },
-      child: Row(
-        children: [
-          Container(
-            height: MediaQuery.of(context).size.height * 0.09,
-            width: MediaQuery.of(context).size.width * 0.14,
-            child: ClipPolygon(
-              sides: 6,
-              borderRadius: 8.0, // Default 0.0 degrees
-              rotate: 180.0, // Default 0.0 degrees
-
-              child: Container(
-                color: Color.fromARGB(255, 21, 139, 235),
-                child: Center(
-                  child: Text(
-                    "${index + 1}",
-                    style: TextStyle(color: Colors.white, fontSize: 25),
+    return Container(
+      child: MaterialButton(
+        padding: EdgeInsets.all(0),
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => MyList(ds)));
+        },
+        child: Row(
+          children: [
+            Container(
+              height: MediaQuery.of(context).size.height * 0.09,
+              width: MediaQuery.of(context).size.width * 0.14,
+              child: ClipPolygon(
+                sides: 6,
+                borderRadius: 8.0, // Default 0.0 degrees
+                rotate: 180.0, // Default 0.0 degrees
+                child: Container(
+                  color: Color.fromARGB(255, 21, 139, 235),
+                  child: Center(
+                    child: Text(
+                      "${index + 1}",
+                      style: TextStyle(color: Colors.white, fontSize: 25),
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          Text(
-            ds['name'],
-            style: TextStyle(
-                fontSize: 22, color: Color.fromARGB(255, 173, 169, 169)),
-          ),
-          Expanded(child: MaterialButton(color: Colors.red, onPressed: () {})),
-        ],
+            Text(
+              ds['name'],
+              style: TextStyle(
+                  fontSize: 22, color: Color.fromARGB(255, 173, 169, 169)),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -311,9 +322,8 @@ class _funState extends State<fun> with TickerProviderStateMixin {
         Visibility(
           visible: showPboard,
           child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-            stream: boardcontroll().PReadBoard(),
+            stream: Board_Controller().PReadBoard(),
             builder: (context, snapshot) {
-              //TODO sort snpashot data for displaying
               if (snapshot.hasData) {
                 return ListView.builder(
                     shrinkWrap: true,
@@ -322,7 +332,7 @@ class _funState extends State<fun> with TickerProviderStateMixin {
                     itemCount: snapshot.data!.docs.length,
                     itemBuilder: (context, index) {
                       DocumentSnapshot ds = snapshot.data!.docs[index];
-                      if (ds["visibilty"] == 1) {
+                      if (ds["visibility"] == 1) {
                         return theboard(ds, index);
                       } else
                         return Container();
@@ -379,7 +389,7 @@ class _funState extends State<fun> with TickerProviderStateMixin {
         Visibility(
           visible: showTboard,
           child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-            stream: boardcontroll().TReadBoard(),
+            stream: Board_Controller().TReadBoard(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 /*snapshot.data!.docs.shuffle();*/
@@ -390,7 +400,7 @@ class _funState extends State<fun> with TickerProviderStateMixin {
                     itemCount: snapshot.data!.docs.length,
                     itemBuilder: (context, index) {
                       DocumentSnapshot ds = snapshot.data!.docs[index];
-                      if (ds["visibilty"] == 0) {
+                      if (ds["visibility"] == 0) {
                         return theboard(ds, index);
                       } else
                         return Container();

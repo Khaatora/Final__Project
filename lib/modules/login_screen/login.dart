@@ -100,8 +100,8 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 Container(
-                  width: MediaQuery.of(context).size.width / 1.2,
-                  height: MediaQuery.of(context).size.height /10,
+                  width: MediaQuery.of(context).size.width/1.2,
+                  height:  MediaQuery.of(context).size.height/10,
                   child: defaulttff(
                     context: context,
                     controller: emailController,
@@ -125,8 +125,8 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 Container(
-                  width: MediaQuery.of(context).size.width / 1.2,
-                  height: MediaQuery.of(context).size.height / 10,
+                  width: MediaQuery.of(context).size.width/1.2,
+                  height:  MediaQuery.of(context).size.height/10,
                   child: defaulttff(
                     context: context,
                     controller: passwordController,
