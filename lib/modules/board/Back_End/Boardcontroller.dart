@@ -50,6 +50,7 @@ class boardcontroll extends GetxController {
         throw ArgumentError(
             "You cannot add two boards with the same name", board.name);
       }
+      
       //generate documentID for custom document ID
       DocumentReference<Map<String, dynamic>> docRef = Pboards!.doc();
       //add document with ID docref and store it inside the created document
@@ -77,7 +78,6 @@ class boardcontroll extends GetxController {
       });
     }
   }
-
   /*getPublicUserBoards() async{
     var tempList1 = <QueryDocumentSnapshot<Map<String, dynamic>>>[];
     Stream<QuerySnapshot<Map<String, dynamic>>> tmpSnp;
@@ -133,9 +133,6 @@ class boardcontroll extends GetxController {
         .snapshots();
   }
 
-  Stream<QuerySnapshot<Map<String, dynamic>>> Lists(String boardId) {
-    return Tboards!.doc("$boardId").collection("Lists").snapshots();
-  }
 
   //get current user's boards (public and private) from firebase
   getBoardMenu() async {

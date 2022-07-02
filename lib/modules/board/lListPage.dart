@@ -1,3 +1,6 @@
+import 'dart:math';
+import 'dart:ui';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:final_pro/modules/List/Back_End/List_Controller.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:polygon_clipper/polygon_clipper.dart';
 
 import 'Back_End/Boardcontroller.dart';
+import 'Boards_Screen.dart';
 import 'Task_Screen.dart';
 
 class MyList extends StatefulWidget {
@@ -25,10 +29,11 @@ class _MyListState extends State<MyList> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
-        margin: EdgeInsets.symmetric(
-            horizontal: MediaQuery.of(context).size.width * 0.024,
-            vertical: MediaQuery.of(context).size.height * 0.04),
+        margin: EdgeInsets.only(  top: MediaQuery.of(context).size.height * 0.05,right:  MediaQuery.of(context).size.width * 0.04,
+            left: MediaQuery.of(context).size.width * 0.024,
+          ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
@@ -47,7 +52,7 @@ class _MyListState extends State<MyList> {
                             horizontal:
                                 MediaQuery.of(context).size.height * 0.041),
                         child: Text(
-                         widget.ds!["name"],
+                          widget.ds!["name"],
                           style: TextStyle(
                               color: Color.fromARGB(255, 18, 131, 223),
                               fontSize: 20,
@@ -119,109 +124,88 @@ class _MyListState extends State<MyList> {
                 )
               ],
             ),
+Center(
+               child: Container(
+                margin: EdgeInsets.all(10),
+                 decoration: BoxDecoration(
+                     color: Color.fromARGB(255, 225, 242, 255),
+                     borderRadius: BorderRadius.circular(14)),
+                 height: MediaQuery.of(context).size.height * 0.06,
+                 width: MediaQuery.of(context).size.width * 0.66,
+                 child: InkWell(
+                   onTap: () {
+                     showDialog(
+                       context: context,
+                       barrierColor: Colors.black.withOpacity(0.5),
+                       builder: (context) {
+                         return _Addlist();
+                       },
+                     );
+                   },
+                   child: Center(
+                     child: Text(
+                       '+ Add List ',
+                       style: TextStyle(
+                           color: Colors.blue,
+                           fontSize: 16,
+                           fontWeight: FontWeight.bold),
+                     ),
+                   ),
+                 ),
+               ),
+             ),
+            // get lists from database
             Container(
-              height: MediaQuery.of(context).size.height * 0.74,
+              height: MediaQuery.of(context).size.height * 0.72,
               margin: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.056),
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  if (widget.ds!['visibility'] == 0)
-                  StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-                    stream: List_Controller(ds: widget.ds).TReadLists(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        return ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            padding: EdgeInsets.symmetric(vertical: 0),
-                            itemCount: snapshot.data!.docs.length,
-                            itemBuilder: (context, index) {
-                              DocumentSnapshot listDoc =
-                                  snapshot.data!.docs[index];
-                              return mylistStream(listDoc);
-                            });
-                      } else {
-                        return Container();
-                      }
-                    },
-                  ),
-                  if (widget.ds!['visibility'] == 1)
-                    StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-                      stream: List_Controller(ds: widget.ds).PReadLists(),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          return ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              shrinkWrap: true,
-                              physics: NeverScrollableScrollPhysics(),
-                              padding: EdgeInsets.symmetric(vertical: 0),
-                              itemCount: snapshot.data!.docs.length,
-                              itemBuilder: (context, index) {
-                                DocumentSnapshot listD =
-                                    snapshot.data!.docs[index];
-                                return mylistStream(listD);
-                              });
-                        } else {
-                          return Container();
-                        }
-                      },
-                    ),
-                  Column(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 225, 242, 255),
-                            borderRadius: BorderRadius.circular(14)),
-                        height: MediaQuery.of(context).size.height * 0.06,
-                        width: MediaQuery.of(context).size.width * 0.66,
-                        child: InkWell(
-                          onTap: () {
-                            showDialog(
-                              context: context,
-                              barrierColor: Colors.black.withOpacity(0.5),
-                              builder: (context) {
-                                return _Addlist();
-                              },
-                            );
-                          },
-                          child: Center(
-                            child: Text(
-                              '+ Add List ',
-                              style: TextStyle(
-                                  color: Colors.blue,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  )
-                ],
+                  top: MediaQuery.of(context).size.height * 0.00),
+              child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                stream: widget.ds?["visibility"] == 1
+                  ? List_Controller(ds: widget.ds).PReadLists()
+                  : List_Controller(ds: widget.ds).TReadLists(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Expanded(
+                      child: ListView.builder(
+                           scrollDirection: Axis.horizontal,
+                         
+                          padding: EdgeInsets.symmetric(vertical: 0),
+                          itemCount: snapshot.data!.docs.length,
+                          itemBuilder: (context, index) {
+                            DocumentSnapshot listDoc =
+                                snapshot.data!.docs[index];
+                            return mylistStream(listDoc);
+                          }),
+                    );
+                  } else {
+                    return Container();
+                  }
+                },
               ),
             )
+             ,
           ],
         ),
       ),
     );
   }
 
-  // streaming lists of the board
+  // the front of one list
   mylistStream(DocumentSnapshot listDoc) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.75,
       margin: EdgeInsets.only(right: MediaQuery.of(context).size.width * 0.12),
-      padding: EdgeInsets.symmetric(
-          vertical: MediaQuery.of(context).size.height * 0.02,
-          horizontal: MediaQuery.of(context).size.width * 0.04),
+     
       decoration: BoxDecoration(
           color: Color.fromARGB(255, 225, 242, 255),
           borderRadius: BorderRadius.circular(15)),
-      child: Column(children: [
+      child: Column(
+        children: [
         Container(
-          child: Row(
+       padding: EdgeInsets.only(
+         left:MediaQuery.of(context).size.width * 0.05,
+         right:MediaQuery.of(context).size.width * 0.02 ),       
+             child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
@@ -231,191 +215,205 @@ class _MyListState extends State<MyList> {
                   fontSize: 20,
                 ),
               ),
-              GestureDetector(
-                onTap: () {
-                  _showPopupMenulist();
-                },
-                child: Image.asset(
-                  "assets/images/list-interface-symbol -horizental.png",
-                  width: MediaQuery.of(context).size.width * 0.06,
-                ),
-              )
+               BUTTON_LIST(),
             ],
           ),
         ),
         Expanded(
-          child: ListView(
-            padding: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height * 0.015),
-            children: [
-              streamtasks(),
-            ],
+          child: Container(
+             padding: EdgeInsets.symmetric(
+              
+            horizontal: MediaQuery.of(context).size.width * 0.04),
+            child: ListView(
+            
+              padding: EdgeInsets.all(0),
+              children: [
+                streamtasks(),
+              ],
+            ),
           ),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            InkWell(
-              onTap: () {},
-              child: Text(
-                '+ Add task ',
-                style: TextStyle(
-                    color: Colors.blue,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold),
-              ),
-            )
-          ],
+        Container(
+          padding:EdgeInsets.all( MediaQuery.of(context).size.width*0.02),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              InkWell(
+                onTap: () {},
+                child: Text(
+                  '+ Add task ',
+                  style: TextStyle(
+                      color: Colors.blue,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold),
+                ),
+              )
+            ],
+          ),
         )
       ]),
     );
   }
 
+//the front of on Task
   streamtasks() {
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.24,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15), color: Colors.white),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
+    return InkWell(
+      
+      onTap: (){},
+      child: Material(
+       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        elevation: 20,
+        color: Colors.white,
+        child: Container(
+          
+          height: MediaQuery.of(context).size.height * 0.24,
+          
+         
+          child: Column(
             children: [
-              Container(
-                margin: EdgeInsets.only(
-                    left: MediaQuery.of(context).size.width * 0.027,
-                    right: MediaQuery.of(context).size.width * 0.027,
-                    top: MediaQuery.of(context).size.height * 0.023),
-                width: MediaQuery.of(context).size.width * 0.46,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Find Your Dream",
-                      style: TextStyle(
-                          color: Color.fromARGB(255, 18, 131, 223),
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    Container(
-                        height: MediaQuery.of(context).size.height * 0.05,
-                        margin: EdgeInsets.only(
-                            top: MediaQuery.of(context).size.width * 0.03),
-                        child: ListView(
-                          padding: EdgeInsets.all(0),
-                          children: [
-                            Text(
-                              "Find Your Dream fkfkmfm krmkmekfmvklmldmv dkflmvld",
-                              style: TextStyle(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(
+                        left: MediaQuery.of(context).size.width * 0.027,
+                        right: MediaQuery.of(context).size.width * 0.027,
+                        top: MediaQuery.of(context).size.height * 0.023),
+                    width: MediaQuery.of(context).size.width * 0.46,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Find Your Dream",
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 18, 131, 223),
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Container(
+                            height: MediaQuery.of(context).size.height * 0.05,
+                            margin: EdgeInsets.only(
+                                top: MediaQuery.of(context).size.width * 0.03),
+                            child: ListView(
+                              padding: EdgeInsets.all(0),
+                              children: [
+                                Text(
+                                  "Find Your Dream ",
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 16,
+                                  ),
+                                )
+                              ],
+                            )),
+                        Container(
+                          margin: EdgeInsets.only(
+                              top: MediaQuery.of(context).size.width * 0.015),
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.flag,
                                 color: Colors.grey,
-                                fontSize: 16,
+                                size: 20,
                               ),
-                            )
-                          ],
-                        )),
-                    Container(
-                      margin: EdgeInsets.only(
-                          top: MediaQuery.of(context).size.width * 0.015),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.flag,
-                            color: Colors.grey,
-                            size: 20,
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.01,
+                              ),
+                              Text("date")
+                            ],
                           ),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.01,
-                          ),
-                          Text("date")
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.width * 0.009,
+                  ),
+                    child: Column(
+                      children: [
+                        BUTTON_Task(),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.08,
+                        ),
+                        Text("data")
+                      ],
+                    ),
+                  )
+                ],
               ),
-              Container(
-                margin: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.width * 0.009,
-                    vertical: MediaQuery.of(context).size.height * 0.01),
-                child: Column(
-                  children: [
-                    InkWell(
-                      onTap: () => _showmenutask(),
-                      child: Image.asset(
-                          "assets/images/list-interface-symbol copy.png",
-                          width: MediaQuery.of(context).size.width * 0.055,
-                          height: MediaQuery.of(context).size.width * 0.05),
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.08,
-                    ),
-                    Text("data")
-                  ],
+              Expanded(
+                child: Container(
+                  margin: EdgeInsets.only(
+                      right: MediaQuery.of(context).size.width * 0.03),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          margin: EdgeInsets.only(
+                            top: MediaQuery.of(context).size.height * 0.006,
+                          ),
+                          child: Stack(
+                              children: List.generate(3, (index) {
+                            return Positioned(
+                                left: index * 12,
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width * 0.098,
+                                  child: ClipPolygon(
+                                    sides: 6,
+                                    borderRadius: 15.0, // Default 0.0 degrees
+                                    rotate: 180.0,
+                                    child: Container(color: Colors.red),
+                                  ),
+                                ));
+                          })),
+                        ),
+                      ),
+                      Icon(
+                        Icons.chat,
+                        size: 15,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text("5"),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Icon(
+                        Icons.check_box,
+                        size: 15,
+                      ),
+                      Text("1/5"),
+                    ],
+                  ),
                 ),
               )
             ],
           ),
-          Expanded(
-            child: Container(
-              margin: EdgeInsets.only(
-                  right: MediaQuery.of(context).size.width * 0.03),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      margin: EdgeInsets.only(
-                        top: MediaQuery.of(context).size.height * 0.006,
-                      ),
-                      child: Stack(
-                          children: List.generate(3, (index) {
-                        return Positioned(
-                            left: index * 12,
-                            child: Container(
-                              width: MediaQuery.of(context).size.width * 0.098,
-                              child: ClipPolygon(
-                                sides: 6,
-                                borderRadius: 15.0, // Default 0.0 degrees
-                                rotate: 180.0,
-                                child: Container(color: Colors.red),
-                              ),
-                            ));
-                      })),
-                    ),
-                  ),
-                  Icon(
-                    Icons.chat,
-                    size: 15,
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text("5"),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Icon(
-                    Icons.check_box,
-                    size: 15,
-                  ),
-                  Text("1/5"),
-                ],
-              ),
-            ),
-          )
-        ],
+        ),
       ),
     );
   }
+   
+   
+    // show menu for list
+   BUTTON_LIST()  {
+    return PopupMenuButton(
+    
+     elevation: 18.0,
+    icon: Container(
+    child: Image.asset( "assets/images/list-interface-symbol -horizental.png"),   width: MediaQuery.of(context).size.width*0.07, 
 
-  void _showPopupMenulist() async {
-    await showMenu(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
-      context: context,
-      position: RelativeRect.fromLTRB(200, 115, 95, 100),
-      constraints:
-          BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.27),
-      items: [
+),
+     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
+     constraints:
+          BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.28,
+          maxHeight: MediaQuery.of(context).size.height * 0.24
+          ),
+          
+    itemBuilder:(context) => [
         PopupMenuItem<String>(
             padding: EdgeInsets.symmetric(
                 horizontal: MediaQuery.of(context).size.width * 0.022,
@@ -464,50 +462,63 @@ class _MyListState extends State<MyList> {
             child: Text('Delete list'),
             value: 'Add Task'),
       ],
-      elevation: 18.0,
     );
   }
+ 
+ // show menu for task
+ BUTTON_Task(){
 
-  void _showmenutask() async {
-    await showMenu(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
-      context: context,
-      position: RelativeRect.fromLTRB(200, 160, 110, 200),
-      constraints:
-          BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.27),
-      items: [
-        PopupMenuItem<String>(
-            padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width * 0.04,
-                vertical: MediaQuery.of(context).size.width * 0.006),
-            height: 0,
-            onTap: () {},
-            textStyle: TextStyle(color: Colors.grey),
-            child: Text('Copy Task'),
-            value: 'Copy Task'),
-        PopupMenuItem<String>(
-            height: 0,
-            padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width * 0.04,
-                vertical: MediaQuery.of(context).size.width * 0.006),
-            onTap: () {},
-            textStyle: TextStyle(color: Colors.grey),
-            child: Text('Move to Done'),
-            value: 'Move to Done'),
-        PopupMenuItem<String>(
-            height: 0,
-            padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width * 0.04,
-                vertical: MediaQuery.of(context).size.width * 0.006),
-            onTap: () {},
-            textStyle: TextStyle(color: Colors.grey),
-            child: Text('Delete task'),
-            value: 'Delete task'),
-      ],
-      elevation: 18.0,
-    );
-  }
+ return  Container(
+  height: MediaQuery.of(context).size.height*0.04,
 
+   child: PopupMenuButton(
+     elevation: 18.0,
+    icon: Icon(Icons.more_vert,color: Color.fromARGB(255, 29, 136, 224),),
+     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
+        constraints:
+              BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.3,
+              maxHeight: MediaQuery.of(context).size.height * 0.24
+              ),
+            
+                  itemBuilder:(context) => [
+         
+          PopupMenuItem<String>(
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width * 0.04,
+                  vertical: MediaQuery.of(context).size.width * 0.006),
+              height: 0,
+              onTap: () {},
+              textStyle: TextStyle(color: Colors.grey),
+              child: Text('Copy Task'),
+              value: 'Copy Task'),
+          PopupMenuItem<String>(
+              height: 0,
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width * 0.04,
+                  vertical: MediaQuery.of(context).size.width * 0.006),
+              onTap: () {},
+              textStyle: TextStyle(color: Colors.grey),
+              child: Text('Move to Done'),
+              value: 'Move to Done'),
+          PopupMenuItem<String>(
+              height: 0,
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width * 0.04,
+                  vertical: MediaQuery.of(context).size.width * 0.006),
+              onTap: () {},
+              textStyle: TextStyle(color: Colors.grey),
+              child: Text('Delete task'),
+              value: 'Delete task'),
+        
+                    
+                    
+                  ]
+                  
+              ),
+ );
+}
+  
+//   Checkbox screen in a board
   _diagBoard() {
     return Material(
       color: Colors.white.withOpacity(0.0),
@@ -516,23 +527,24 @@ class _MyListState extends State<MyList> {
         children: [
           Container(
             width: MediaQuery.of(context).size.width * 0.35,
-            height: MediaQuery.of(context).size.height * 0.9,
+            height: MediaQuery.of(context).size.height * 0.96,
             decoration: BoxDecoration(color: Colors.white),
             padding: EdgeInsets.symmetric(
                 horizontal: MediaQuery.of(context).size.width * 0.04,
-                vertical: MediaQuery.of(context).size.height * 0.02),
+                vertical: MediaQuery.of(context).size.height * 0.024),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(
-                "Board name",
+              widget.ds!['name'],
                 style: TextStyle(
                     color: Colors.blue,
                     fontSize: 18,
                     fontWeight: FontWeight.bold),
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.017,
+                height: MediaQuery.of(context).size.height * 0.036,
               ),
+              if(widget.ds!['visibility']==0)
               InkWell(
                 child: Text(
                   "Invite to Board",
@@ -545,6 +557,8 @@ class _MyListState extends State<MyList> {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.013,
               ),
+          if(widget.ds!['visibility']==0)
+
               InkWell(
                 onTap: () {},
                 child: Text(
@@ -585,7 +599,16 @@ class _MyListState extends State<MyList> {
                 height: MediaQuery.of(context).size.height * 0.013,
               ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                showDialog(
+                       context: context,
+                       barrierColor: Colors.black.withOpacity(0.5),
+                       builder: (context) {
+                         return deletetboard();
+                       },
+                     );
+                 
+                },
                 child: Text(
                   "Delete  Board",
                   style: TextStyle(
@@ -601,6 +624,7 @@ class _MyListState extends State<MyList> {
     );
   }
 
+//  dialog to add list
   _Addlist() {
     return Material(
       color: Colors.transparent,
@@ -677,4 +701,102 @@ class _MyListState extends State<MyList> {
       ),
     );
   }
+  
+
+// delete dilog
+deletetboard() {
+    return Material(
+      color: Colors.transparent,
+      child: Column(
+        children: [
+          Container(
+            margin:
+                EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.3),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(20)),
+              color: Colors.white,
+            ),
+            width: MediaQuery.of(context).size.width * 0.6,
+            height: MediaQuery.of(context).size.height * 0.2,
+            child: Container(
+              margin: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width * 0.04,
+                  vertical: MediaQuery.of(context).size.height * 0.02),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Center(
+                      child: Text(
+                    "Are you sure you want to delete your board ?",
+                    style: TextStyle(
+                        color: Colors.red,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        fontStyle: FontStyle.italic),
+                  )),
+                 
+                   Container(
+                    margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.015),
+                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                       children: [
+                         Container(
+                           decoration: BoxDecoration(
+                               borderRadius: BorderRadius.circular(13),
+                               color: Color.fromARGB(255, 3, 138, 248)),
+                           margin: EdgeInsets.only(
+                               top: MediaQuery.of(context).size.height * 0.028),
+                           width: MediaQuery.of(context).size.width * 0.2,
+                           height: MediaQuery.of(context).size.height * 0.053,
+                           child: InkWell(
+                            onTap: ()=>Get.back(),
+                             child: Center(
+                               child: Text(
+                                 ' No',
+                                 style: TextStyle(
+                                   fontSize: 21,
+                                   color: Colors.white,
+                                 ),
+                               ),
+                             ),
+                           ),
+                         ),
+                          Container(
+                           decoration: BoxDecoration(
+                               borderRadius: BorderRadius.circular(13),
+                               color: Color.fromARGB(255, 3, 138, 248)),
+                           margin: EdgeInsets.only(
+                               top: MediaQuery.of(context).size.height * 0.028),
+                           width: MediaQuery.of(context).size.width * 0.2,
+                           height: MediaQuery.of(context).size.height * 0.053,
+                           child: InkWell(
+                            onTap: () {
+                              List_Controller(ds:widget.ds).DeleteBoard();
+                              Navigator.push(
+                        context, MaterialPageRoute(builder: (context) => fun()));
+                            },
+                             child: Center(
+                               child: Text(
+                                 ' Yes',
+                                 style: TextStyle(
+                                   fontSize: 21,
+                                   color: Colors.white,
+                                 ),
+                               ),
+                             ),
+                           ),
+                         )
+                       ],
+                     ),
+                   ),
+                  
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+  
 }
