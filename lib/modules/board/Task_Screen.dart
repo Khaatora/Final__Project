@@ -27,7 +27,7 @@ class _funnState extends State<funn> {
   ];
   String? selectedValue;
 
-  boardcontroll bb = boardcontroll();
+  Board_Controller bb = Board_Controller();
 
   Widget build(BuildContext context) {
     return Material(
@@ -80,7 +80,7 @@ class _funnState extends State<funn> {
                           color: Color.fromARGB(255, 156, 151, 151),
                         ),
                       ),
-                      items: boardcontroll.listOfBoards
+                      items: Board_Controller.listOfBoards
                           .map((doc) => DropdownMenuItem<String>(
                                 value: doc["name"],
                                 child: Text(
@@ -118,7 +118,7 @@ class _funnState extends State<funn> {
                       )),
                   DropdownButtonHideUnderline(
                     child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-                        stream: boardcontroll().PReadBoard(),
+                        stream: Board_Controller().PReadBoard(),
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
                             var ds = snapshot.data!.docs;
@@ -560,7 +560,7 @@ class _boardState extends State<board> {
   //TODO task add backend
 
   ADD(DateTime Time) async {
-    await boardcontroll().addBoard(
+    await Board_Controller().addBoard(
       board: Board(
           name: nameofboard.text, Visibility: selectcolor, priority: Time),
     );

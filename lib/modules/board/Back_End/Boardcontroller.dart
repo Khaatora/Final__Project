@@ -3,23 +3,26 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:final_pro/modules/List/Back_End/List_Controller.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'Mydata.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class boardcontroll extends GetxController {
+class Board_Controller extends GetxController {
   //current user
   User? user;
   //reference to "Private_Boards" collection
   CollectionReference<Map<String, dynamic>>? Pboards;
   //reference to "Board" collection
   CollectionReference<Map<String, dynamic>>? Tboards;
-
+  //list to store user's board
+  static List listOfBoards =
+      <QueryDocumentSnapshot<Map<String, dynamic>>>[].obs;
   /*//reference to "Public_Board_Members" collection
   CollectionReference<Map<String, dynamic>>? Public_Boards_Members;*/
 
-  boardcontroll() {
+  Board_Controller() {
     this.user = FirebaseAuth.instance.currentUser;
     this.Pboards = FirebaseFirestore.instance
         .collection("user")
@@ -30,17 +33,16 @@ class boardcontroll extends GetxController {
     /*this.Public_Boards_Members =
         FirebaseFirestore.instance.collection("Public_Board_Members");*/
   }
-  static List listOfBoards =
-      <QueryDocumentSnapshot<Map<String, dynamic>>>[].obs;
+
   /* static List<Map<String, dynamic>> list2 = <Map<String, dynamic>>[];
   static QuerySnapshot<Map<String, dynamic>>? currentUserBoards;*/
   @override
   void onReady() {
     super.onReady();
   }
-
+  
   ///add board to database,
-  ///and return a future with a document reference of the created board.
+  ///and return a future that contains a document reference of the created board.
   ///visibility = 1 then add to private board, visibility = 0 then add to teams boards
   Future addBoard({Board? board}) async {
     DocumentReference<Map<String, dynamic>>? docRef;
@@ -86,6 +88,21 @@ class boardcontroll extends GetxController {
     }
     List_Controller(ds: await docRef?.get()).addList("Done");
     return Future(() => docRef);
+  }
+
+  ///get current signed in user's membership in referenced board
+  Future getUserMembership(DocumentReference docref) async{
+    List l1= await Tboards!.doc(docref.id).get().then((value) => value["membersInBoard"]);
+    Map<String,dynamic> mp = {"membership": "admin", "userID" : user?.uid};
+    String ?membership;
+      if(mapEquals(l1[0],mp))
+      {
+        membership = "admin";
+      }
+      else{
+        membership = "member";
+      }
+    return Future(() => membership);
   }
 
   /// stream to keep track of PRIVATE BOARDS and continuously update displayed BOARDS

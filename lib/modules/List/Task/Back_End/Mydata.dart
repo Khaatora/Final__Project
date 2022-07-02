@@ -28,7 +28,7 @@ class Task {
     data['Priority'] = this.priority;
     data['Start_Date'] = this.startDate;
     data['Due_Date'] = this.dueDate;
-    data['boardID'] = docRef.id;
+    data['TaskID'] = docRef.id;
     data['Attachment'] = this.attachment;
     return data;
   }
