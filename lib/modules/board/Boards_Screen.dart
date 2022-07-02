@@ -52,7 +52,7 @@ class _funState extends State<fun> with TickerProviderStateMixin {
                 ),
                 child: MaterialButton(
                   onPressed: () async {
-                    await boardcontroll().getBoardMenu();
+                    await Board_Controller().getBoardMenu();
                     showDialog(
                       context: context,
                       barrierColor: Colors.black.withOpacity(0.5),
@@ -320,7 +320,7 @@ class _funState extends State<fun> with TickerProviderStateMixin {
         Visibility(
           visible: showPboard,
           child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-            stream: boardcontroll().PReadBoard(),
+            stream: Board_Controller().PReadBoard(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return ListView.builder(
@@ -389,7 +389,7 @@ class _funState extends State<fun> with TickerProviderStateMixin {
         Visibility(
           visible: showTboard,
           child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-            stream: boardcontroll().TReadBoard(),
+            stream: Board_Controller().TReadBoard(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 /*snapshot.data!.docs.shuffle();*/

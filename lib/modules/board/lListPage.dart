@@ -457,7 +457,9 @@ Center(
             padding: EdgeInsets.symmetric(
                 horizontal: MediaQuery.of(context).size.width * 0.022,
                 vertical: MediaQuery.of(context).size.width * 0.006),
-            onTap: () {},
+            onTap: () {
+
+            },
             textStyle: TextStyle(color: Colors.grey),
             child: Text('Delete list'),
             value: 'Add Task'),
@@ -586,7 +588,18 @@ Center(
                 height: MediaQuery.of(context).size.height * 0.013,
               ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                   List_Controller(ds: widget.ds).clearBoard();
+                  showDialog(
+                       context: context,
+                       barrierColor: Colors.black.withOpacity(0.5),
+                       builder: (context) {
+                         return deletelist();
+                       },
+                     );
+                 
+             
+                },
                 child: Text(
                   "Clear Board",
                   style: TextStyle(
@@ -600,6 +613,8 @@ Center(
               ),
               InkWell(
                 onTap: () {
+                      List_Controller(ds: widget.ds).deleteBoard();
+                  Get.back();
                 showDialog(
                        context: context,
                        barrierColor: Colors.black.withOpacity(0.5),
@@ -771,7 +786,7 @@ deletetboard() {
                            height: MediaQuery.of(context).size.height * 0.053,
                            child: InkWell(
                             onTap: () {
-                              List_Controller(ds:widget.ds).DeleteBoard();
+                              List_Controller(ds:widget.ds).deleteBoard();
                               Navigator.push(
                         context, MaterialPageRoute(builder: (context) => fun()));
                             },
@@ -798,5 +813,83 @@ deletetboard() {
       ),
     );
   }
-  
+  deletelist(){
+ return   Material(
+      color: Colors.transparent,
+      child: Column(
+        children: [
+          Container(
+            margin:
+                EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.3),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(20)),
+              color: Colors.white,
+            ),
+            width: MediaQuery.of(context).size.width * 0.6,
+            height: MediaQuery.of(context).size.height * 0.2,
+            child: Container(
+              margin: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width * 0.04,
+                  vertical: MediaQuery.of(context).size.height * 0.02),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Center(
+                      child: Row(
+                        children: [
+                          Icon(Icons.delete,color: Colors.blue,),
+                          Text(
+                    "List Cleared Successfully",
+                    style: TextStyle(
+                            color: Color.fromARGB(255, 30, 124, 202),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                            fontStyle: FontStyle.italic),
+                  ),
+                        ],
+                      )),
+                 
+                   Center(
+                     child: Container(
+                      margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.015),
+                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                         children: [
+                           Container(
+                             decoration: BoxDecoration(
+                                 borderRadius: BorderRadius.circular(13),
+                                 color: Color.fromARGB(255, 3, 138, 248)),
+                             margin: EdgeInsets.only(
+                                 top: MediaQuery.of(context).size.height * 0.028),
+                             width: MediaQuery.of(context).size.width * 0.2,
+                             height: MediaQuery.of(context).size.height * 0.053,
+                             child: InkWell(
+                              onTap: (){
+                             Get.back();
+                                     },
+                               child: Center(
+                                 child: Text(
+                                   ' Ok',
+                                   style: TextStyle(
+                                     fontSize: 21,
+                                     color: Colors.white,
+                                   ),
+                                 ),
+                               ),
+                             ),
+                           ),
+                           
+                         ],
+                       ),
+                     ),
+                   ),
+                  
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }

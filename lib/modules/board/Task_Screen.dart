@@ -24,7 +24,7 @@ class _funnState extends State<funn> {
   
   String? selectedValue;
 
-  boardcontroll bb = boardcontroll();
+  Board_Controller bb = Board_Controller();
 
   Widget build(BuildContext context) {
     return Material(
@@ -76,7 +76,7 @@ class _funnState extends State<funn> {
                           color: Color.fromARGB(255, 156, 151, 151),
                         ),
                       ),
-                      items: boardcontroll.listOfBoards
+                      items: Board_Controller.listOfBoards
                           .map((doc) => DropdownMenuItem<String>(
                                 value: doc["name"],
                                 child: Text(
@@ -113,7 +113,9 @@ class _funnState extends State<funn> {
                         color: Colors.grey[500],
                       )),
                   DropdownButtonHideUnderline(
+
                     child: DropdownButton2(
+
                               customItemsHeight: 18,
                               icon: Icon(
                                 Icons.keyboard_arrow_down_rounded,
@@ -129,7 +131,7 @@ class _funnState extends State<funn> {
                                   color: Color.fromARGB(255, 156, 151, 151),
                                 ),
                               ),
-                              items:  boardcontroll.listOfBoards
+                              items:  Board_Controller.listOfBoards
                                   .map((doc) => DropdownMenuItem<String>(
                                         value: doc["name"],
                                         child: Text(
@@ -551,7 +553,7 @@ class _boardState extends State<board> {
   //TODO task add backend
 
   ADD(DateTime Time) async {
-    await boardcontroll().addBoard(
+    await Board_Controller().addBoard(
       board: Board(
           name: nameofboard.text, Visibility: selectcolor, priority: Time),
     );

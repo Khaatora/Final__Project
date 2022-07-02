@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Board {
   int? Visibility;
-  int? Variable;
   String? name;
   DateTime? priority;
 
