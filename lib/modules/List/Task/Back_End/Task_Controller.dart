@@ -19,8 +19,8 @@ class Task_Controller extends GetxController {
   //list to hold all lists of current signed in user
   static List listOfTasks = <QueryDocumentSnapshot<Map<String, dynamic>>>[].obs;
 
-  Task_Controller(DocumentSnapshot? listDoc, String docID) {
-    this.ds = listDoc;
+  Task_Controller(DocumentSnapshot? boardDoc, String docID) {
+    this.ds = boardDoc;
     teamTasks = FirebaseFirestore.instance
         .collection("Board")
         .doc(ds?.id)
@@ -90,12 +90,31 @@ class Task_Controller extends GetxController {
     }
   }
 
-  /// stream to keep track of PRIVATE TASKS and continuously update displayed TASKS
+  Future addMemberToTask(String userEmail, String taskName) async {
+  try {
+    checkUserMembership();
+    DocumentReference<Map<String,dynamic>> ?d1;
+    await FirebaseFirestore.instance.collection("user").where("email").get().then((value) => value.docs.forEach((element) {
+      d1 = element.reference;
+    }));
+  await teamTasks?.where("title", isEqualTo: taskName).get().then((value) => value.docs.forEach((element) {
+    element.reference.update({"membersInTask" : FieldValue.arrayUnion([d1?.id]), "membersCount" : FieldValue.increment(1)});
+  }));
+  return Future(() => "User added successfully");
+  } on ArgumentError catch (e) {
+    print(e.message);
+  }
+
+  }
+
+
+
+  /// stream to keep track of PRIVATE TASKS and continuously update displayed TASKS in provided List (docID)
   Stream<QuerySnapshot<Map<String, dynamic>>> PReadLists() {
     return privateTasks!.orderBy("title").snapshots();
   }
 
-  /// stream to keep track of PUBLIC TASKS and continuously update displayed TASKS
+  /// stream to keep track of PUBLIC TASKS and continuously update displayed TASKS in provided List (docID)
   Stream<QuerySnapshot<Map<String, dynamic>>> TReadLists() {
     return teamTasks!.orderBy("title").snapshots();
   }

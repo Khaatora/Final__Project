@@ -28,6 +28,7 @@ class Task {
       ];
       data["membersCount"] = counter;
     }
+    data['Checklist_State']=[];
     data['title'] = this.name;
     data['Task_Description'] = this.taskDescription;
     data['Priority'] = this.priority;
