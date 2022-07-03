@@ -1,4 +1,3 @@
-import 'package:final_pro/modules/board/Back_End/Boardcontroller.dart';
 import 'package:final_pro/modules/password_recovery_screen/password_recovery.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -24,7 +23,7 @@ class _LoginState extends State<Login> {
     super.initState();
   }
 
-//function to verify user sign in info and change screen into "Boards" screen
+///function to verify user sign in info and change screen into "Boards" screen
   _logIn() async {
     try {
       await FirebaseAuth.instance

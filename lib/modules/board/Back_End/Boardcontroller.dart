@@ -58,6 +58,7 @@ class Board_Controller extends GetxController {
             "You cannot add two boards with the same name", board.name);
       }
 
+
       docRef = Pboards!.doc();
       //add document with ID docref and store it inside the fetched collection
       this.Pboards?.doc(docRef.id).set(board.tomap(docRef: docRef));
@@ -88,10 +89,11 @@ class Board_Controller extends GetxController {
     return Future(() => docRef);
   }
 
+
   ///get current signed in user's membership in referenced board
-  Future getUserMembership(DocumentReference docref) async {
+  Future getUserMembership(DocumentReference ?docref) async {
     List l1 = await Tboards!
-        .doc(docref.id)
+        .doc(docref?.id)
         .get()
         .then((value) => value["membersInBoard"]);
     Map<String, dynamic> mp = {"membership": "admin", "userID": user?.uid};
@@ -128,7 +130,7 @@ class Board_Controller extends GetxController {
 
   ///get current user's boards (public and private) from firebase,
   ///and store them in the static list "listOfBoards"
-  getBoardMenu() async {
+  Future getBoardMenu() async {
     QuerySnapshot<Map<String, dynamic>> tmpprivateBoards =
         await FirebaseFirestore.instance
             .collection("user")
@@ -147,5 +149,6 @@ class Board_Controller extends GetxController {
             .get();
     listOfBoards.assignAll(tmpprivateBoards.docs);
     listOfBoards.addAll(tmppublicBoards.docs);
+    return Future(() => listOfBoards);
   }
 }

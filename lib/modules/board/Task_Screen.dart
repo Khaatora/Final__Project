@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:polygon_clipper/polygon_clipper.dart';
+import '../List/Back_End/List_Controller.dart';
 import 'Back_End/Boardcontroller.dart';
 import 'Back_End/Mydata.dart';
 
@@ -19,12 +21,7 @@ class _funnState extends State<funn> {
   String endtime = "Due date...";
   String starttime = "start date...";
   PlatformFile? pickedfile;
-  final List items = [
-    'Item1',
-    'Item2',
-    'Item3',
-    'Item4',
-  ];
+  
   String? selectedValue;
 
   Board_Controller bb = Board_Controller();
@@ -70,7 +67,6 @@ class _funnState extends State<funn> {
                         Icons.keyboard_arrow_down_rounded,
                         color: Colors.grey[400],
                       ),
-                      buttonDecoration: BoxDecoration(),
                       iconSize: 30,
                       isDense: true,
                       hint: Text(
@@ -117,12 +113,9 @@ class _funnState extends State<funn> {
                         color: Colors.grey[500],
                       )),
                   DropdownButtonHideUnderline(
-                    child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-                        stream: Board_Controller().PReadBoard(),
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            var ds = snapshot.data!.docs;
-                            return DropdownButton2(
+
+                    child: DropdownButton2(
+
                               customItemsHeight: 18,
                               icon: Icon(
                                 Icons.keyboard_arrow_down_rounded,
@@ -138,7 +131,7 @@ class _funnState extends State<funn> {
                                   color: Color.fromARGB(255, 156, 151, 151),
                                 ),
                               ),
-                              items: ds
+                              items:  Board_Controller.listOfBoards
                                   .map((doc) => DropdownMenuItem<String>(
                                         value: doc["name"],
                                         child: Text(
@@ -161,10 +154,8 @@ class _funnState extends State<funn> {
                               buttonWidth: MediaQuery.of(context).size.width,
                               itemHeight:
                                   MediaQuery.of(context).size.width * 0.1,
-                            );
-                          }
-                          return Container();
-                        }),
+                            ),
+                       
                   ),
                   Container(
                     decoration: BoxDecoration(
@@ -524,8 +515,10 @@ class _boardState extends State<board> {
                   InkWell(
                     onTap: () async {
                       DateTime starttime = DateTime.now();
-                      await ADD(starttime);
+                      
+                      await ADD(starttime,);
                       Get.back();
+                   
                     },
                     child: Center(
                       child: Container(

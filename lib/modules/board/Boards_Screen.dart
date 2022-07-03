@@ -275,32 +275,28 @@ class _funState extends State<fun> with TickerProviderStateMixin {
       padding: EdgeInsets.symmetric(
           vertical: MediaQuery.of(context).size.height * 0.03),
       children: [
-        Container(
+        InkWell(
+            onTap: () => setState(() {
+                showPboard = !showPboard;
+              }),
           child: Row(
             children: [
-              Container(
-                height: MediaQuery.of(context).size.height * 0.03,
-                width: MediaQuery.of(context).size.width * 0.055,
-                margin: EdgeInsets.only(
-                    right: MediaQuery.of(context).size.width * 0.01),
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        fit: BoxFit.fill,
-                        image: AssetImage(
-                          "assets/images/bold-Vexels.jpg",
-                        ))),
-              ),
-              InkWell(
-                onTap: () => setState(() {
-                  showPboard = !showPboard;
-                }),
-                child: Text(
-                  "Private Board",
-                  style: TextStyle(
-                      color: Colors.grey[500],
-                      fontStyle: FontStyle.italic,
-                      fontSize: 17),
-                ),
+               Container(
+              height: MediaQuery.of(context).size.height * 0.03,
+              width: MediaQuery.of(context).size.width * 0.045,
+              margin: EdgeInsets.only(
+                  right: MediaQuery.of(context).size.width * 0.01),
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      fit: BoxFit.fill,
+                      image: AssetImage("assets/images/bold-Vexels.jpg"))),
+            ),
+              Text(
+                "Private Board",
+                style: TextStyle(
+                    color: Colors.grey[500],
+                    fontStyle: FontStyle.italic,
+                    fontSize: 17),
               ),
               Expanded(
                 child: Container(
@@ -319,6 +315,8 @@ class _funState extends State<fun> with TickerProviderStateMixin {
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.018,
         ),
+
+        //show private Boards
         Visibility(
           visible: showPboard,
           child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
@@ -346,9 +344,13 @@ class _funState extends State<fun> with TickerProviderStateMixin {
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.018,
         ),
-        Row(
-          children: [
-            Container(
+          InkWell(
+            onTap: () => setState(() {
+                showTboard = !showTboard;
+              }),
+          child: Row(
+            children: [
+               Container(
               height: MediaQuery.of(context).size.height * 0.03,
               width: MediaQuery.of(context).size.width * 0.045,
               margin: EdgeInsets.only(
@@ -358,34 +360,32 @@ class _funState extends State<fun> with TickerProviderStateMixin {
                       fit: BoxFit.fill,
                       image: AssetImage("assets/images/bold-Vexels.jpg"))),
             ),
-            InkWell(
-              onTap: () => setState(() {
-                showTboard = !showTboard;
-              }),
-              child: Text(
+              Text(
                 "Teams Board",
                 style: TextStyle(
                     color: Colors.grey[500],
                     fontStyle: FontStyle.italic,
                     fontSize: 17),
               ),
-            ),
-            Expanded(
-              child: Container(
-                margin: EdgeInsets.only(
-                    left: MediaQuery.of(context).size.width * 0.01),
-                decoration: BoxDecoration(
-                    border: Border.all(
-                  color: Color.fromARGB(255, 207, 197, 197),
-                  width: 1,
-                )),
+              Expanded(
+                child: Container(
+                  margin: EdgeInsets.only(
+                      left: MediaQuery.of(context).size.width * 0.01),
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                    color: Color.fromARGB(255, 207, 197, 197),
+                    width: 1,
+                  )),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.018,
         ),
+
+        //show Team boards
         Visibility(
           visible: showTboard,
           child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
