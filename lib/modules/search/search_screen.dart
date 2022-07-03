@@ -6,13 +6,12 @@ import 'package:flutter/material.dart';
 class Search extends SearchDelegate<String>{
   @override
   List<Widget>? buildActions(BuildContext context) {
-    IconButton(onPressed: (){},icon: Icon(Icons.clear),);
+    IconButton(onPressed: (){},icon: Icon(Icons.search),);
     throw UnimplementedError();
   }
 
   @override
   Widget? buildLeading(BuildContext context) {
-    // TODO: implement buildLeading
     throw UnimplementedError();
   }
 
