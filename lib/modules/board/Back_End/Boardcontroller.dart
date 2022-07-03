@@ -58,6 +58,7 @@ class Board_Controller extends GetxController {
             "You cannot add two boards with the same name", board.name);
       }
 
+
       docRef = Pboards!.doc();
       //add document with ID docref and store it inside the fetched collection
       this.Pboards?.doc(docRef.id).set(board.tomap(docRef: docRef));
@@ -87,6 +88,7 @@ class Board_Controller extends GetxController {
     List_Controller(ds: await docRef?.get()).addList("Done");
     return Future(() => docRef);
   }
+
 
   ///get current signed in user's membership in referenced board
   Future getUserMembership(DocumentReference ?docref) async {
