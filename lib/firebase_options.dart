@@ -51,9 +51,10 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDpjxvffjYrTm46LwjiuyUGxedZTxM7yHA',
-    appId: '1:766420773711:android:b1cfa1e3dcc34f65f4b33a',
+    appId: '1:766420773711:android:ff16735bccb0d08df4b33a',
     messagingSenderId: '766420773711',
     projectId: 'final-project-bddb2',
+    databaseURL: 'https://final-project-bddb2-default-rtdb.firebaseio.com',
     storageBucket: 'final-project-bddb2.appspot.com',
   );
 
@@ -62,6 +63,7 @@ class DefaultFirebaseOptions {
     appId: '1:766420773711:ios:f62ee0067c5db00cf4b33a',
     messagingSenderId: '766420773711',
     projectId: 'final-project-bddb2',
+    databaseURL: 'https://final-project-bddb2-default-rtdb.firebaseio.com',
     storageBucket: 'final-project-bddb2.appspot.com',
     iosClientId: '766420773711-nc1kodpl0rclgkmpe3c5uo178iu6fr9s.apps.googleusercontent.com',
     iosBundleId: 'com.example.finalPro',

@@ -20,26 +20,18 @@ import 'package:final_pro/modules/board/lListPage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+void main() async{
   runApp(new MyApp());
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
 }
-
 class MyApp extends StatelessWidget {
-  final _initializaiton = Firebase.initializeApp();
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: _initializaiton,
+        future: Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform),
         builder: (context, snapshot) {
           if (snapshot.connectionState != ConnectionState.done) {
             return Center(child: CircularProgressIndicator());
           }
-
           return BlocProvider(
             create: (context) => SucessListCubit(),
             child: BlocConsumer<SucessListCubit, SuccessListStates>(
