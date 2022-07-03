@@ -50,7 +50,6 @@ dependencies:
   dropdown_button2: ^1.5.2
   file_picker: ^4.6.1
   get: ^4.6.5
-
   image_cropper: ^2.0.3
   image_picker: ^0.8.5+3
   path_provider: ^2.0.11

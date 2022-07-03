@@ -12,7 +12,8 @@ class Task_Controller extends GetxController {
   DocumentSnapshot? ds;
   //reference to "/Board/BoardOneID/Lists/ListOneID/TaskOneID" collection (public tasks inside public board)
   CollectionReference<Map<String, dynamic>>? teamTasks;
-  //reference to /user/UserOneID/Private_Boards/BoardOneID/Private_Lists/ListOneID/Private_Task collection (private tasks inside private board)
+  //reference to /user/UserOneID/Private_Boards/BoardOneID/Private_Lists/ListOneID/Private_Task
+  // collection (private tasks inside private board)
   CollectionReference<Map<String, dynamic>>? privateTasks;
   //current signed in user
   User? user = FirebaseAuth.instance.currentUser;
@@ -38,7 +39,7 @@ class Task_Controller extends GetxController {
   }
 
   checkUserMembership() async {
-    if (await Board_Controller().getUserMembership(ds!.reference) != "admin")
+    if (await Board_Controller().getUserMembership(ds?.reference) != "admin")
       throw ArgumentError("You do not have permission");
   }
 
@@ -91,23 +92,30 @@ class Task_Controller extends GetxController {
   }
 
   Future addMemberToTask(String userEmail, String taskName) async {
-  try {
-    checkUserMembership();
-    DocumentReference<Map<String,dynamic>> ?d1;
-    await FirebaseFirestore.instance.collection("user").where("email").get().then((value) => value.docs.forEach((element) {
-      d1 = element.reference;
-    }));
-  await teamTasks?.where("title", isEqualTo: taskName).get().then((value) => value.docs.forEach((element) {
-    element.reference.update({"membersInTask" : FieldValue.arrayUnion([d1?.id]), "membersCount" : FieldValue.increment(1)});
-  }));
-  return Future(() => "User added successfully");
-  } on ArgumentError catch (e) {
-    print(e.message);
+    try {
+      checkUserMembership();
+      DocumentReference<Map<String, dynamic>>? d1;
+      await FirebaseFirestore.instance
+          .collection("user")
+          .where("email")
+          .get()
+          .then((value) => value.docs.forEach((element) {
+                d1 = element.reference;
+              }));
+      await teamTasks
+          ?.where("title", isEqualTo: taskName)
+          .get()
+          .then((value) => value.docs.forEach((element) {
+                element.reference.update({
+                  "membersInTask": FieldValue.arrayUnion([d1?.id]),
+                  "membersCount": FieldValue.increment(1)
+                });
+              }));
+      return Future(() => "User added successfully");
+    } on ArgumentError catch (e) {
+      print(e.message);
+    }
   }
-
-  }
-
-
 
   /// stream to keep track of PRIVATE TASKS and continuously update displayed TASKS in provided List (docID)
   Stream<QuerySnapshot<Map<String, dynamic>>> PReadLists() {

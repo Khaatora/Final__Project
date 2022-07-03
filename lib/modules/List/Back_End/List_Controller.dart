@@ -37,7 +37,7 @@ class List_Controller extends GetxController {
   }
 
   checkUserMembership() async {
-    if (await Board_Controller().getUserMembership(ds!.reference) != "admin")
+    if (await Board_Controller().getUserMembership(ds?.reference) != "admin")
       throw ArgumentError("You do not have permission");
   }
 
@@ -361,24 +361,25 @@ class List_Controller extends GetxController {
 
   ///get current user's lists (public and private) from firebase,
   ///and store them in the static list "listOfLists"
-  static Future getListMenu(
-      String value, DocumentSnapshot ds, User? user) async {
+  static Future getListMenu(String value, User? user ) async {
+    DocumentReference<Map<String,dynamic>> ?docRef;
+    await FirebaseFirestore.instance.collection("Board").where("name", isEqualTo: value).get().then((value) => value.docs.forEach((element) {
+      docRef = element.reference;
+    }));
     QuerySnapshot<Map<String, dynamic>> tmpPrivateLists =
         await FirebaseFirestore.instance
             .collection("user")
             .doc(user?.uid)
             .collection("Private_Boards")
-            .doc(ds.id)
+            .doc(docRef?.id)
             .collection("Private_Lists")
-            .where("title", isEqualTo: value)
             .orderBy("title")
             .get();
     QuerySnapshot<Map<String, dynamic>> tmpPublicLists = await FirebaseFirestore
         .instance
         .collection("Board")
-        .doc(ds.id)
+        .doc(docRef?.id)
         .collection("Lists")
-        .where("title", isEqualTo: value)
         .orderBy("title")
         .get();
     listOfLists.assignAll(tmpPrivateLists.docs);
